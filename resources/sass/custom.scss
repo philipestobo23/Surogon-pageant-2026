@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    padding: 0;
+    // height: 100vh;
+    background: url("../../public/images/surogon_bg.webp") no-repeat center center fixed;
+    background-size: cover;
+}
+
+// FOR LOGIN PAGE
+.bg-glass {
+    background-color: hsla(0.37, 1.6%, 100%, 0.6) !important;
+    backdrop-filter: saturate(200%) blur(25px);
+    border-radius: 30px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.rainbow-wrapper {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.rainbow-wrapper::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 10px;
+    /* Adjust the padding to control the width of the rainbow border */
+    background: conic-gradient(red,
+            orange,
+            yellow,
+            green,
+            blue,
+            indigo,
+            violet,
+            red);
+    animation: rainbow-animate 5s linear infinite;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+#baganing-solibao-logo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    /* Shadow effect */
+}
+
+@keyframes rainbow-animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+// END FOR LOGIN PAGE
+
+// FOR HOME PAGE
+@keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.rainbow-bg {
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    /* Ensure the pseudo-element is contained */
+    border-radius: 0.5rem;
+    /* Match the card's border-radius if needed */
+}
+
+.rainbow-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: linear-gradient(40deg, rgba(255, 0, 0, 0.8), rgba(255, 165, 0, 0.8), rgba(255, 255, 0, 0.8), rgba(0, 128, 0, 0.8), rgba(0, 0, 255, 0.8), rgba(75, 0, 130, 0.8), rgba(238, 130, 238, 0.8));
+    background-size: 300% 300%;
+    animation: rainbow 20s ease infinite;
+}
+// END FOR HOME PAGE
+
+// FOR FORM SWIMSUIT, GOWN, QUESTIONS
+#swimsuit.card-header,
+#gown.card-header,
+#question.card-header,
+#home.card-header {
+    border-bottom: 4px solid #0A4D68;
+}
+// END FOR FORM SWIMSUIT, GOWN, QUESTIONS
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #4361EE;
+    color: white;
+}
