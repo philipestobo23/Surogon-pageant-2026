@@ -19,17 +19,17 @@ class PreliminarySeeder extends Seeder
         $data = [
             [
                 'contestant_number' => 1,
-                'contestant_name' => 'Lovely Galito Villazon',
-                'Address' => 'Municipality of Malimono',
+                'contestant_name' => 'Ricky E. Enoya',
+                'Address' => 'Municipality Of General Luna',
 
-                'photogenic' => '15',
-                'talent' => '19',
-                'modernized_barong' => '15',
-                'production_wear' => '17',
-                'production_number' => '19',
-                'advocacy' => '6',
-                'friendship' => '5',
-                'eloquent' => '2',
+                'photogenic' => '0',
+                'talent' => '0',
+                'modernized_barong' => '0',
+                'production_wear' => '0',
+                'production_number' => '0',
+                'advocacy' => '0',
+                'friendship' => '0',
+                'eloquent' => '0',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -37,18 +37,17 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 2,
-                'contestant_name' => 'Serchyne Dela Cruz Resullar',
-                'Address' => 'Municipality of Placer',
+                'contestant_name' => 'Alexis Calang Torralba',
+                'Address' => 'Municipality Of Sison',
 
-                'photogenic' => '10',
-                'talent' => '20',
-                'modernized_barong' => '1',
-                'production_wear' => '20',
-                'production_number' => '9',
-
-                'advocacy' => '7',
-                'friendship' => '5',
-                'eloquent' => '2',
+                'photogenic' => '0',
+                'talent' => '0',
+                'modernized_barong' => '0',
+                'production_wear' => '0',
+                'production_number' => '0',
+                'advocacy' => '0',
+                'friendship' => '0',
+                'eloquent' => '0',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -57,19 +56,17 @@ class PreliminarySeeder extends Seeder
             [
 
                 'contestant_number' => 3,
-                'contestant_name' => 'Shirralyn Serenio Esperanza',
-                'Address' => 'Municipality of Sison',
+                'contestant_name' => 'Keana Saavedra',
+                'Address' => 'Municipality Of Placer',
 
-                'photogenic' => '2',
-                'talent' => '2',
-                'modernized_barong' => '10',
-                'production_wear' => '5',
-                'production_number' => '6',
-
-                'advocacy' => '19',
-                'friendship' => '9',
-                'eloquent' => '2',
-
+                'photogenic' => '0',
+                'talent' => '0',
+                'modernized_barong' => '0',
+                'production_wear' => '0',
+                'production_number' => '0',
+                'advocacy' => '0',
+                'friendship' => '0',
+                'eloquent' => '0',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -240,6 +237,158 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '8',
 
                 'advocacy' => '2',
+                'friendship' => '9',
+                'eloquent' => '2',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'contestant_number' => 13,
+                'contestant_name' => 'Valerie Jean G. Ventura',
+                'Address' => 'Brgy. Washington',
+
+                'photogenic' => '19',
+                'talent' => '12',
+                'modernized_barong' => '17',
+                'production_wear' => '16',
+                'production_number' => '9',
+
+                'advocacy' => '17',
+                'friendship' => '9',
+                'eloquent' => '2',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'contestant_number' => 14,
+                'contestant_name' => 'Valerie Jean G. Ventura',
+                'Address' => 'Brgy. Washington',
+
+                'photogenic' => '19',
+                'talent' => '12',
+                'modernized_barong' => '17',
+                'production_wear' => '16',
+                'production_number' => '9',
+
+                'advocacy' => '17',
+                'friendship' => '9',
+                'eloquent' => '2',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'contestant_number' => 15,
+                'contestant_name' => 'Valerie Jean G. Ventura',
+                'Address' => 'Brgy. Washington',
+
+                'photogenic' => '19',
+                'talent' => '12',
+                'modernized_barong' => '17',
+                'production_wear' => '16',
+                'production_number' => '9',
+
+                'advocacy' => '17',
+                'friendship' => '9',
+                'eloquent' => '2',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'contestant_number' => 16,
+                'contestant_name' => 'Valerie Jean G. Ventura',
+                'Address' => 'Brgy. Washington',
+
+                'photogenic' => '19',
+                'talent' => '12',
+                'modernized_barong' => '17',
+                'production_wear' => '16',
+                'production_number' => '9',
+
+                'advocacy' => '17',
+                'friendship' => '9',
+                'eloquent' => '2',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'contestant_number' => 17,
+                'contestant_name' => 'Valerie Jean G. Ventura',
+                'Address' => 'Brgy. Washington',
+
+                'photogenic' => '19',
+                'talent' => '12',
+                'modernized_barong' => '17',
+                'production_wear' => '16',
+                'production_number' => '9',
+
+                'advocacy' => '17',
+                'friendship' => '9',
+                'eloquent' => '2',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'contestant_number' => 18,
+                'contestant_name' => 'Valerie Jean G. Ventura',
+                'Address' => 'Brgy. Washington',
+
+                'photogenic' => '19',
+                'talent' => '12',
+                'modernized_barong' => '17',
+                'production_wear' => '16',
+                'production_number' => '9',
+
+                'advocacy' => '17',
+                'friendship' => '9',
+                'eloquent' => '2',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'contestant_number' => 19,
+                'contestant_name' => 'Valerie Jean G. Ventura',
+                'Address' => 'Brgy. Washington',
+
+                'photogenic' => '19',
+                'talent' => '12',
+                'modernized_barong' => '17',
+                'production_wear' => '16',
+                'production_number' => '9',
+
+                'advocacy' => '17',
+                'friendship' => '9',
+                'eloquent' => '2',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'contestant_number' => 20,
+                'contestant_name' => 'Valerie Jean G. Ventura',
+                'Address' => 'Brgy. Washington',
+
+                'photogenic' => '19',
+                'talent' => '12',
+                'modernized_barong' => '17',
+                'production_wear' => '16',
+                'production_number' => '9',
+
+                'advocacy' => '17',
                 'friendship' => '9',
                 'eloquent' => '2',
 
