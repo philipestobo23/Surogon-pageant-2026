@@ -15,22 +15,6 @@
                             Current Judge: {{ Auth::user()->RealName }}
                         </h3>
                     </div>
-<<<<<<< Updated upstream
-                    <div class="card-body">
-                        <div class="d-flex flex-column  gap-2 mb-3 border p-4 rounded shadow">
-                            <label for="" class="h4 align-items-center fw-bold">
-                                <i class="bi bi-star-fill m-1" style="color:#E90074;"></i> Coronation Night
-                            </label>
-
-                            
-                            <div class="d-flex flex-column flex-wrap flex-md-row gap-2">
-                                <a href="{{ route('question_form') }}"
-                                    class="btn btn-lg shadow fw-bold text-white rounded-pill"
-                                    style="background:#CB80AB;">
-                                    <i class="bi bi-flag-fill me-2 fs-4"></i> Statement
-                                </a>
-=======
->>>>>>> Stashed changes
 
                     <!-- Body -->
                     <div class="card-body p-4">
@@ -51,32 +35,9 @@
                                     <i class="bi bi-flag-fill me-2 fs-5"></i> Filipiniana
                                 </a>
                                 <a href="{{ route('production_wear_form') }}"
-<<<<<<< Updated upstream
-                                    class="btn btn-lg shadow fw-bold text-white rounded-pill"
-                                    style="background:#667BC6;">
-                                    <i class="bi bi-star-fill me-2 fs-4"></i> Filipiniana Wear
-=======
                                     class="btn btn-lg neon-btn-4 rounded-pill flex-fill">
                                     <i class="bi bi-star-fill me-2 fs-5"></i> Production Wear
->>>>>>> Stashed changes
                                 </a>
-
-                                <a href="{{ route('swimsuit_form') }}"
-                                    class="btn btn-lg shadow fw-bold text-white rounded-pill"
-                                    style="background:#624E88;">
-                                    <i class="bi bi-hearts me-2 fs-4"></i>Swimwear
-                                </a>
-
-                                
-
-                                <a href="{{ route('gown_form') }}"
-                                    class="btn btn-lg shadow fw-bold text-white rounded-pill"
-                                    style="background:#8967B3;">
-                                    <i class="bi bi-suit-heart-fill me-2 fs-4"></i> Gown
-                                </a>
-                                
-
-                                
                             </div>
                         </div>
 
