@@ -66,30 +66,28 @@ class AdminController extends Controller
         }
 
         //update total_ranking
-        $allContestant = Coronation::all();
+        $allContestant = Preliminary::all();
         foreach($allContestant as $contestant){
-            $total_ranking = $contestant->rank_tourism + $contestant->rank_friendship + $contestant->rank_eloquent + $contestant->rank_photogenic + $contestant->rank_production_number + $contestant->rank_runway + $contestant->rank_white_collection  + $contestant->rank_talent + $contestant->rank_essay;
-            Coronation::where('id', $contestant->id)->update([
-                'total_ranking_prejudge' => $total_ranking,
+            $total_ranking = $contestant->talent + $contestant->production_number + $contestant->eloquent + $contestant->friendship + $contestant->runway_challenge + $contestant->production_wear + $contestant->advocacy_video  + $contestant->white_collection + $contestant->peoples_choice;
+            Preliminary::where('id', $contestant->id)->update([
+                'total_ranking' => $total_ranking,
             ]);
         }
 
         //generate ranking based on total_ranking
-        $rankContestants = Coronation::select(['*', \DB::raw('RANK() OVER (ORDER BY total_ranking_prejudge) AS row_id')])->get();
+        $rankContestants = Preliminary::select(['*', \DB::raw('RANK() OVER (ORDER BY total_ranking) AS row_id')])->get();
         foreach ($rankContestants as $item) {
             // Update the rank column
-            Coronation::where('id', $item->id)->update(['ranking_prejudge' => $item->row_id]);
+            Preliminary::where('id', $item->id)->update(['rank' => $item->row_id]);
         }
 
-        $sortedRanking = Coronation::orderBy('ranking_prejudge', 'asc')->get();
+        $sortedRanking = Preliminary::orderBy('rank', 'asc')->get();
         return response()->json([
             'message' => 'Prejudges Ranking',
             'ranking' => $rankContestants
         ]);
 
     }
-
-
 
 
 
@@ -200,7 +198,7 @@ class AdminController extends Controller
         //update total_ranking
         $allContestant = Coronation::all();
         foreach($allContestant as $contestant){
-            $total_ranking = $contestant->rank_swimsuit + $contestant->rank_gown + $contestant->rank_question + $contestant->total_ranking_prejudge + $contestant->rank_production_wear;
+            $total_ranking = $contestant->rank_swimsuit + $contestant->rank_gown + $contestant->rank_question + $contestant->rank_production_wear;
             Coronation::where('id', $contestant->id)->update([
                 'total_ranking' => $total_ranking,
             ]);

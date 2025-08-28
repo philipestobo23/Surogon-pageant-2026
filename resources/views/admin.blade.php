@@ -30,15 +30,15 @@
                                         <th scope="col">Contestant #</th>
                                         <th scope="col">Contestant Name</th>
 
-                                        <th class="col">Tourism Video</th>
-                                        <th scope="col">Ms. Friendship</th>
-                                        <th scope="col">Ms. Eloquent</th>
-                                        <th class="col">Photogenic</th>
-                                        <th class="col">Production Number</th>
-                                        <th scope="col">Runway</th>
+                                        <th class="col">Talent</th>
+                                        <th scope="col">Production Number</th>
+                                        <th scope="col">Eloquent</th>
+                                        <th class="col">Friendship</th>
+                                        <th class="col">Runaway Challenge</th>
+                                        <th scope="col">Production Wear</th>
+                                        <th scope="col">Advocacy Video</th>
                                         <th scope="col">White Collection</th>
-                                        <th scope="col">Talent</th>
-                                        <th scope="col">Essay</th>
+                                        <th scope="col">People's Choice</th>
                                     </tr>
                                 </thead>
                                 <tbody id="preliminary-rank-table">
@@ -70,19 +70,19 @@
 
                             <div class="mx-1">
                                 <button class="btn btn-success" id="gown-ranking"><i
-                                        class="bi bi-clipboard2-data-fill me-1"></i>Formal Wear Rankings</button>
+                                        class="bi bi-clipboard2-data-fill me-1"></i>Gown Rankings</button>
                             </div>
 
                             <div class="mx-1">
-                                <button class="btn btn-success" id="question-ranking"><i
+                                <button class="btn btn-success" id="statement-ranking"><i
+                                        class="bi bi-clipboard2-data-fill me-1"></i>Statement Rankings</button>
+
+                            </div>
+
+
+                            <div class="mx-1">
+                                <button class="btn btn-success" id="filipiniana-ranking"><i
                                         class="bi bi-clipboard2-data-fill me-1"></i>Filipiniana Rankings</button>
-
-                            </div>
-
-
-                            <div class="mx-1">
-                                <button class="btn btn-success" id="production-wear-ranking"><i
-                                        class="bi bi-clipboard2-data-fill me-1"></i>Prodcution Wear Rankings</button>
                                 <button class="btn btn-outline-success rounded swimsuit-ranking-close" id=""><i
                                         class="bi bi-caret-up-fill"></i></button>
                             </div>
@@ -140,10 +140,10 @@
                                             <th scope="col">Contestant Name</th>
                                             <th scope="col">Total Rank</th>
                                             <th scope="col">Swimwear Rank</th>
-                                            <th scope="col">Formal Wear Rank</th>
+                                            <th scope="col">Gown Rank</th>
                                             <th scope="col">Filipiniana Rank</th>
-                                            <th scope="col">Production Wear Rank</th>
-                                            <th scope="col" class="bg-primary text-white">Pre-judge Ranking</th>
+                                            <th scope="col">Statement Rank</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody id="overall-rank-table">
@@ -297,41 +297,7 @@
     </script>
     <script type="module">
 
-        //production rankings
-        // $("#production-winner").click(function() {
-        //     $.ajax({
-        //             type: 'GET',
-        //             url: '{{ route('production-winners') }}',
-        //             success: function(response) {
-        //                 $.each(response.rankedProduction, function(key, value) {
-        //                     var newRow = $(`
-        //                         <tr>
-        //                             <td>${value.rank}</td>
-        //                             <td>${value.contestant_number}</td>
-        //                             <td>${value.contestant_name}</td>
-        //                             <td>${value.total_ranking}</td>
-        //                             <td>${value.photogenic}</td>
-        //                             <td>${value.advocacy}</td>
-        //                             <td>${value.talent}</td>
-        //                             <td>${value.friendship}</td>
-        //                             <td>${value.production_number}</td>
-        //                             <td>${value.modernized_barong}</td>
-        //                             <td>${value.prodcution_wear}</td>
-        //                             <td>${value.eloquent}</td>
-        //                         </tr>`);
-
-        //                     // Append the new row to the tbody with id 'rank-table'
-        //                     $('#preliminary-rank-table').append(newRow);
-        //                 });
-
-        //                 $('#production-ranking-container').removeAttr('hidden');
-        //             },
-        //             error: function(error) {
-        //                 // Handle error response
-        //                 console.error(error);
-        //             }
-        //         });
-        // });
+        
 
 
         ///preliminary rankings
@@ -339,7 +305,7 @@
             $('#print-preliminary-ranking').attr("hidden", true);
         });
 
-        $("#production-wear-ranking-close").click(function() {
+        $("#filipiniana-ranking-close").click(function() {
             $('#print-preliminary-ranking').attr("hidden", true);
         });
 
@@ -367,21 +333,21 @@
                             console.log(value.row_id);
                             var newRow = $(`
                                 <tr class="text-center">
-                                    <td>${value.ranking_prejudge}</td>
-                                    <td>${value.total_ranking_prejudge}</td>
+                                    <td>${value.rank}</td>
+                                    <td>${value.total_ranking}</td>
 
                                     <td>${value.contestant_number}</td>
                                     <td>${value.contestant_name}</td>
 
-                                    <td>${value.rank_tourism}</td>
-                                    <td>${value.rank_friendship}</td>
-                                    <td>${value.rank_eloquent}</td>
-                                    <td>${value.rank_photogenic}</td>
-                                    <td>${value.rank_production_number}</td>
-                                    <td>${value.rank_runway}</td>
-                                    <td>${value.rank_white_collection}</td>
-                                    <td>${value.rank_talent}</td>
-                                    <td>${value.rank_essay}</td>
+                                    <td>${value.talent}</td>
+                                    <td>${value.production_number}</td>
+                                    <td>${value.eloquent}</td>
+                                    <td>${value.friendship}</td>
+                                    <td>${value.runway_challenge}</td>
+                                    <td>${value.production_wear}</td>
+                                    <td>${value.advocacy_video}</td>
+                                    <td>${value.white_collection}</td>
+                                    <td>${value.peoples_choice}</td>
                                 </tr>`);
 
                             // Append the new row to the tbody with id 'rank-table'
@@ -465,7 +431,7 @@
                             // Append the new row to the tbody with id 'rank-table'
                             $('#swimsuit-rank-table').append(newRow);
                         });
-                        $('#table-title').text("Formal Wear Ranking")
+                        $('#table-title').text("Gown Ranking")
                         $('#swimsuit-ranking-container').removeAttr('hidden');
                     },
                     error: function(error) {
@@ -476,7 +442,7 @@
         });
 
 
-        $("#question-ranking").click(function() {
+        $("#statement-ranking").click(function() {
             $.ajax({
                     type: 'GET',
                     url: '{{ route('overall_question') }}',
@@ -500,7 +466,7 @@
                             // Append the new row to the tbody with id 'rank-table'
                             $('#swimsuit-rank-table').append(newRow);
                         });
-                        $('#table-title').text("Filipiniana Ranking")
+                        $('#table-title').text("Statement Ranking")
                         $('#swimsuit-ranking-container').removeAttr('hidden');
                     },
                     error: function(error) {
@@ -511,7 +477,7 @@
         });
 
 
-        $("#production-wear-ranking").click(function() {
+        $("#filipiniana-ranking").click(function() {
             $.ajax({
                     type: 'GET',
                     url: '{{ route('overall_production_wear') }}',
@@ -537,7 +503,7 @@
                             // Append the new row to the tbody with id 'rank-table'
                             $('#swimsuit-rank-table').append(newRow);
                         });
-                        $('#table-title').text("Production Wear Ranking")
+                        $('#table-title').text("Filipiniana Ranking")
                         $('#swimsuit-ranking-container  ').removeAttr('hidden');
                     },
                     error: function(error) {
@@ -563,9 +529,9 @@
                                     <td>${value.total_ranking}</td>
                                     <td>${value.rank_swimsuit}</td>
                                     <td>${value.rank_gown}</td>
-                                    <td>${value.rank_question}</td>
                                     <td>${value.rank_production_wear}</td>
-                                    <td class="bg-primary text-white">${value.total_ranking_prejudge}</td>
+                                    <td>${value.rank_question}</td>
+                                    
                                 </tr>`);
                             // Append the new row to the tbody with id 'rank-table'
                             $('#overall-rank-table').append(newRow);

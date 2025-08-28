@@ -98,21 +98,6 @@ return new class extends Migration
              //ranking for judging event
              $table->integer('total_ranking')->default(0);
 
-            //todo add the additional ranking here for the prejudge
-            $table->integer('rank_tourism')->default(0);
-            $table->integer('rank_friendship')->default(0);
-            $table->integer('rank_eloquent')->default(0);
-            $table->integer('rank_photogenic')->default(0);
-            $table->integer('rank_production_number')->default(0);
-            $table->integer('rank_runway')->default(0);
-            $table->integer('rank_white_collection')->default(0);
-            $table->integer('rank_talent')->default(0);
-            $table->integer('rank_essay')->default(0);
-            
-            
-            $table->integer('total_ranking_prejudge')->default(0);
-            $table->integer('ranking_prejudge')->default(0);
-
             $table->integer('overall_ranking')->default(0);
             $table->timestamps();
         });
