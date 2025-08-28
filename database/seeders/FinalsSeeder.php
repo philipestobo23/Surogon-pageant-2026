@@ -18,8 +18,8 @@ class FinalsSeeder extends Seeder
 
             [
                 'contestant_number' => 3,
-                'contestant_name' => 'Shirralyn Serenio Esperanza',
-                'Address' => 'Municipality of Sison',
+                'contestant_name' => 'Keana Saavedra',
+                'Address' => 'Municipality Of Placer',
 
                 'created_at' => now(),
                 'updated_at' => now(),

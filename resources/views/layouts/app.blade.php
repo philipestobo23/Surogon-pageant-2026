@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Kababajinhang Surogon 20244</title>
+    <title>Binibining Surigay 2025</title>
 
     <!-- Fonts -->
     <link rel="icon" type="image/x-icon" href="{{ asset('images/SDN_LOGO.png') }}" />
@@ -44,7 +44,7 @@
             <img src="{{ URL::asset('../images/logo.png') }}" alt=" "
             class="img-fluid mb-0 pb-0" style="width:60px" onclick="toggleFullScreen()">
                 <a class="navbar-brand text-warning fw-bold">
-                    Grand Coronation Night of the Kababajinhang Surogon 2024
+                    Grand Coronation Night of the Surigay 2025
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
