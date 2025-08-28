@@ -7,7 +7,7 @@ body {
             margin: 0;
             padding: 0;
             height: 100vh;
-            background: url('{{ asset('images/surogon_bg.png') }}') no-repeat center center fixed;
+            background: url('{{ asset('images/surigay25_bg.webp') }}') no-repeat center center fixed;
             background-size: cover;
         }
 </style>

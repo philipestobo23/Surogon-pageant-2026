@@ -39,12 +39,12 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background:#000B58;">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background:#001C30;">
             <div class="container">
-            <img src="{{ URL::asset('../images/logo.png') }}" alt=" "
-            class="img-fluid mb-0 pb-0" style="width:60px" onclick="toggleFullScreen()">
-                <a class="navbar-brand text-warning fw-bold">
-                    Grand Coronation Night of the Surigay 2025
+            <img src="{{ URL::asset('../images/surigay_logo.png') }}" alt=" "
+            class="img-fluid mb-0 pb-0 me-3" style="width:90px" onclick="toggleFullScreen()">
+                <a class="navbar-brand fw-bold" style="color:#00eaff;">
+                    Grand Coronation Night of the Binibining Surigay 2025
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -70,7 +70,7 @@
                         @endguest --}}
                         @auth
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center text-warning fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center text-info fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="bi bi-person-circle fs-4 p-1 me-2"></i> {{ Auth::user()->name }}
                                 </a>
 
@@ -95,6 +95,7 @@
         <main id="main-content" class="py-4">
             @yield('content')
         </main>
+
     </div>
 
 

@@ -3,98 +3,105 @@
 @section('title', 'Baganing Solibao')
 
 @section('content')
-<!-- Section: Design Block -->
-<section class="overflow-hidden position-relative d-flex align-items-center" style="min-height: 80vh">
-    <div class="container px-4 text-center text-lg-start sm-my-1">
+    <section class="d-flex justify-content-center align-items-center vh-80">
+        <div class="text-center">
 
-        <div class="row gx-lg-5 align-items-center mb-5">
-
-            <div class="col-lg-6 mb-5 mb-lg-0 position-relative rounded d-flex justify-content-center flex-column  align-items-center "
-                style="z-index: 10">
-
-                <img src="{{ asset('images/logo.png') }}" alt=" "
-                    class="mt-2 img-fluid mb-0 pb-0 rounded-circle zoomable-image" style="width:300px">
-
-                <h1 class="mt-4 my-2 fw-bold text-center" style="color:#F3C623">
-
-                    Kababajinhang Surogon <br> 2024
-
-                </h1>
+            <!-- Logo on top -->
+            <div class="mb-1">
+                <img src="{{ asset('images/surigay_logo.png') }}" alt="Logo" class="img-fluid" style="max-width: 420px;">
             </div>
 
-            <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+            <!-- Futuristic Login Form -->
+            <div class="card bg-transparent border-0 shadow-0 mx-auto" style="max-width: 400px;">
+                <div class="card-body p-1">
 
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
 
-                <div class="card bg-glass">
+                        <!-- Email input -->
+                        <div class="mb-4 text-start">
+                            <label for="email" class="form-label text-neon fw-bold">
+                                <i class="bi bi-person-fill me-2"></i>Email
+                            </label>
+                            <input id="email" type="email"
+                                class="form-control cyber-input @error('email') is-invalid @enderror" name="email"
+                                value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                    <div class="card-body py-5">
+                            @error('email')
+                                <span class="invalid-feedback d-block">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-                            <!-- Email input -->
-                            <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-end text-dark fw-bold fs-5"><i
-                                        class="bi bi-person-fill p-1"></i>{{ __('Email:') }}</label>
+                        <!-- Password input -->
+                        <div class="mb-4 text-start">
+                            <label for="password" class="form-label text-neon fw-bold">
+                                <i class="bi bi-lock-fill me-2"></i>Password
+                            </label>
+                            <input id="password" type="password"
+                                class="form-control cyber-input @error('password') is-invalid @enderror" name="password"
+                                required autocomplete="current-password">
 
-                                <div class="col-md-6">
-                                    <input id="email" type="email"
-                                        class="form-control border border-dark @error('email') is-invalid @enderror"
-                                        name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            @error('password')
+                                <span class="invalid-feedback d-block">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <!-- Password input -->
-                            <div class="row mb-3">
-                                <label for="password"
-                                    class="col-md-4 col-form-label text-md-end text-dark fw-bold fs-5"><i
-                                        class="bi bi-lock-fill p-1"></i>{{ __('Password:') }}</label>
+                        <!-- Remember me -->
+                        <!-- <div class="form-check text-center mb-4">
+                            <input class="form-check-input border-dark" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <label class="form-check-label text-light" for="remember">
+                                Remember Me
+                            </label>
+                        </div> -->
 
-                                <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control border border-dark @error('password') is-invalid @enderror"
-                                        name="password" required autocomplete="current-password">
+                        <!-- Submit -->
+                        <div class="text-center">
+                            <button type="submit" class="btn cyber-btn px-5 py-2">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                            </button>
+                        </div>
+                    </form>
 
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <!-- Remember me button -->
-                            <div class="row mb-3">
-                                <div class="col d-flex justify-content-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input border border-dark" type="checkbox"
-                                            name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                        <label class="form-check-label text-dark" for="remember">
-                                            {{ __('Remember Me') }}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Submit button -->
-
-                            <div class="row mx-5 rounded justify-content-center">
-                                <button type="submit" class="btn btn-primary btn-lg col-8 rounded-pill"><i
-                                        class="bi bi-box-arrow-in-right p-1"></i>
-                                    {{ __('Login') }}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
                 </div>
-
             </div>
+
         </div>
-    </div>
-</section>
+    </section>
+
+    <style>
+        .neon-logo {
+            box-shadow: 0 0 15px #00eaff, 0 0 30px #00eaff;
+        }
+
+        .text-neon {
+            color: #ffffffff;
+        }
+
+
+
+        .cyber-input:focus {
+            border-color: #00c8ffff;
+            box-shadow: 0 0 10px #1ce4f6ff, 0 0 20px #1ce4f6ff;
+        }
+
+        .cyber-btn {
+            background: #11c0d0ff;
+            border: 2px solid #00eaff;
+            color: #000000ff;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s ease-in-out;
+            border-color: #01c8ffff;
+        }
+
+        .cyber-btn:hover {
+            background: #00eaff;
+            color: #000;
+            box-shadow: 0 0 15px #00eaff, 0 0 30px #00eaff;
+        }
+    </style>
 @endsection
