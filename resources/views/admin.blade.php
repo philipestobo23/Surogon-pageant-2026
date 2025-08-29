@@ -206,7 +206,7 @@
                             </div>
                             <div class="pre-print d-flex justify-content-center align-items-center mt-3">
                                 <button class="btn btn-success" type="button" value="Print"
-                                    onclick="printCorination()"><i class="bi bi-printer-fill"></i> Print</button>
+                                    onclick="printSnapTalk()"><i class="bi bi-printer-fill"></i> Print</button>
                             </div>
                         </div>
                     </div>
@@ -312,6 +312,23 @@
             a.document.write('</body></html>');
             a.document.close();
             a.print();
+        }
+
+        function printSnapTalk(){
+            var printCorinationRank = document.getElementById("snap-ranking-container").innerHTML;
+            var a = window.open('', '', 'height=1000, width=700');
+            a.document.write('<html>');
+            a.document.write(
+                `<head><style>@media print { body { text-align: center; margin-top:50px; } table { margin: 0 auto; border-collapse: collapse; }
+                    th, td { padding: 15px; text-align: center; border: 1px solid #000; } h1 { font-size: 44px; } .sign-container { font-size: 14px; margin-top:20px; display:flex; flex-direction:column; align-items:center; }
+                    .sign{border-top:2px solid black; padding-right:20px; padding-left:20px; width:fit-content; margin-top:35px; } .judge-name { font-size: 25px; margin-top:20px } .pre-print{display:none;} #table-title{font-size:40px; font-weight:bold;} }</style></head>`
+            );
+            a.document.write('<body><br>');
+            a.document.write(printCorinationRank);
+            a.document.write('</body></html>');
+            a.document.close();
+            a.print();
+
         }
 
         function printOverAll() {
