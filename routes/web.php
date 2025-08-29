@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Top10Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,16 +41,17 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/gown/post', [App\Http\Controllers\CoronationController::class, 'post_gown_form'])->name('post_gown_form');
     Route::get('/gown/rank', [App\Http\Controllers\CoronationController::class, 'rank_gown'])->name('rank_gown');
 
-    //question
-    Route::get('/question/form', [App\Http\Controllers\CoronationController::class, 'question_form'])->name('question_form');
-    Route::post('/question/post', [App\Http\Controllers\CoronationController::class, 'post_question_form'])->name('post_question_form');
-    Route::get('/question/rank', [App\Http\Controllers\CoronationController::class, 'rank_question'])->name('rank_question');
-
 
     //production_wear
     Route::get('/production_wear/form', [App\Http\Controllers\CoronationController::class, 'production_wear_form'])->name('production_wear_form');
     Route::post('/production_wear/post', [App\Http\Controllers\CoronationController::class, 'post_production_wear_form'])->name('post_production_wear_form');
     Route::get('/production_wear/rank', [App\Http\Controllers\CoronationController::class, 'rank_production_wear'])->name('rank_production_wear');
+
+    // top 5 selection snap talk
+    //question
+    Route::get('/question/form', [ Top10Controller::class, 'question_form'])->name('question_form');
+    Route::post('/question/post', [Top10Controller::class, 'post_question_form'])->name('post_question_form');
+    Route::get('/question/rank', [Top10Controller::class, 'rank_question'])->name('rank_question');
 
 
     ///grading for the top 5 final event

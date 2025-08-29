@@ -163,6 +163,56 @@
                         </div>
                     </div>
 
+                    <!-- top 5 selection -->
+                    <div class="border border-secondary rounded p-4 my-5 shadow-lg">
+                        <h4 class="fw-bold"><i class="bi bi-star-fill h5 m-1 text-success"></i>Top 5 Selection (Snap Talk)</h4>
+                        <div class="d-flex">
+                            <div class="mx-1">
+                                <button class="btn btn-success" id="snap-ranking"><i
+                                        class="bi bi-clipboard2-data-fill me-1"></i>Snap Talk Rankings</button>
+                                        <button class="btn btn-outline-success rounded snap-ranking-close" id=""><i
+                                        class="bi bi-caret-up-fill"></i></button>
+                            </div>
+
+                        </div>
+
+                        <div class="table-responsive m-2" hidden id="snap-ranking-container">
+
+                            <h4 class="fw-bold">Snap Talk Rankings</h4>
+
+                            <table class="table table-sm table-striped table-bordered align-middle">
+                                <thead>
+                                    <tr class="align-middle text-center">
+                                        <th scope="col">Rank</th>
+                                        <th scope="col">Contestant #</th>
+                                        <th scope="col">Contestant Name</th>
+                                        <th scope="col">Overall Rank</th>
+                                        <th scope="col">Judge1 Rank</th>
+                                        <th scope="col">Judge2 Rank</th>
+                                        <th scope="col">Judge3 Rank</th>
+                                        <th scope="col">Judge4 Rank</th>
+                                        <th scope="col">Judge5 Rank</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="snap-rank-table">
+                                </tbody>
+                            </table>
+                            <div
+                                class="sign-container d-flex flex-column justify-content-center text-center align-items-center d-none">
+                                <div></div>
+                                <div class="sign border-top border-dark border-2 px-3">Signature Over Printed Name
+                                </div>
+                            </div>
+                            <div class="pre-print d-flex justify-content-center align-items-center mt-3">
+                                <button class="btn btn-success" type="button" value="Print"
+                                    onclick="printCorination()"><i class="bi bi-printer-fill"></i> Print</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
                     <!-- Final Event of Surigay -->
                     <div class="border border-secondary rounded p-4 my-2 shadow-lg">
                         <h4 class="fw-bold"><i class="bi bi-star-fill h5 m-1 text-danger"></i>Final Event</h4>
@@ -210,7 +260,12 @@
 
                         </div>
                     </div>
+
+
                 </div>
+
+
+
                 <footer class="container-fluid py-2 mt-auto" style="width: 100%;">
                     <div class="row img-footer"
                         style="background: url('{{ asset('/images/footer-bg.png') }}') no-repeat center; height:50px;  ">
@@ -317,6 +372,12 @@
         $(".final-ranking-close").click(function() {
             $('#final-ranking-container').attr("hidden", true);
         });
+
+         $(".snap-ranking-close").click(function() {
+            $('#snap-ranking-container').attr("hidden", true);
+        });
+
+        
 
         // prejudge grade ranking
         $("#preliminary-ranking").click(function() {
@@ -442,13 +503,13 @@
         });
 
 
-        $("#statement-ranking").click(function() {
+        $("#snap-ranking").click(function() {
             $.ajax({
                     type: 'GET',
                     url: '{{ route('overall_question') }}',
                     success: function(response) {
                         console.log(response);
-                        $('#swimsuit-rank-table').empty();
+                        $('#snap-rank-table').empty();
                         $.each(response.ranking, function(key, value) {
                             var newRow = $(`
                                 <tr class="text-center">
@@ -464,10 +525,10 @@
 
                                 </tr>`);
                             // Append the new row to the tbody with id 'rank-table'
-                            $('#swimsuit-rank-table').append(newRow);
+                            $('#snap-rank-table').append(newRow);
                         });
-                        $('#table-title').text("Statement Ranking")
-                        $('#swimsuit-ranking-container').removeAttr('hidden');
+                        $('#snap-table').text("Statement Ranking")
+                        $('#snap-ranking-container').removeAttr('hidden');
                     },
                     error: function(error) {
                         // Handle error response

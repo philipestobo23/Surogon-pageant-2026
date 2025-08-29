@@ -7,6 +7,7 @@ use App\Models\Preliminary;
 use App\Models\Coronation;
 use App\Models\Finals;
 
+use App\Models\Top10;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -145,22 +146,22 @@ class AdminController extends Controller
 
     public function overall_question(){
         //update total_ranking
-        $allContestant = Coronation::all();
+        $allContestant = Top10::all();
         foreach($allContestant as $contestant){
             $total_ranking = $contestant->Judge1_question_ranking + $contestant->Judge2_question_ranking + $contestant->Judge3_question_ranking + $contestant->Judge4_question_ranking +$contestant->Judge5_question_ranking;
-            Coronation::where('id', $contestant->id)->update([
+            Top10::where('id', $contestant->id)->update([
                 'overall_ranking_question' => $total_ranking,
             ]);
         }
 
         //generate ranking based on total_ranking
-        $rankContestants = Coronation::select(['*', \DB::raw('RANK() OVER (ORDER BY overall_ranking_question) AS row_id ')])->get();
+        $rankContestants = Top10::select(['*', \DB::raw('RANK() OVER (ORDER BY overall_ranking_question) AS row_id ')])->get();
         foreach ($rankContestants as $item) {
             // Update the rank column
-            Coronation::where('id', $item->id)->update(['rank_question' => $item->row_id]);
+            Top10::where('id', $item->id)->update(['rank_question' => $item->row_id]);
         }
 
-        $sortedRanking = Coronation::orderBy('rank_question', 'asc')->get();
+        $sortedRanking = Top10::orderBy('rank_question', 'asc')->get();
         return response()->json([
             'message' => 'overall gown Ranking',
             'ranking' => $sortedRanking

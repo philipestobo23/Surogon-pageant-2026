@@ -19,22 +19,35 @@
                     <!-- Body -->
                     <div class="card-body p-4">
 
-                        <!-- Coronation Night -->
+                        <!-- Top 10 Selection -->
                         <div class="mb-4 p-4 rounded-4 glass-panel">
                             <label class="h4 fw-bold text-neon">
-                                <i class="bi bi-star-fill me-2"></i>Coronation Night
+                                <i class="bi bi-star-fill me-2"></i>Top 10 Selection
                             </label>
                             <div class="d-flex flex-wrap gap-3 mt-3">
-                                <a href="{{ route('swimsuit_form') }}" class="btn btn-lg neon-btn-1 rounded-pill flex-fill">
+                                <a href="{{ route('swimsuit_form') }}" class="btn btn-lg neon-btn-1 rounded-pill w-fit">
                                     <i class="bi bi-hearts me-2 fs-5"></i> Swimwear
                                 </a>
-                                <a href="{{ route('gown_form') }}" class="btn btn-lg neon-btn-2 rounded-pill flex-fill">
+                                <a href="{{ route('gown_form') }}" class="btn btn-lg neon-btn-1 rounded-pill w-fit">
                                     <i class="bi bi-suit-heart-fill me-2 fs-5"></i>Gown
                                 </a>
-                                <a href="{{ route('production_wear_form') }}" class="btn btn-lg neon-btn-3 rounded-pill flex-fill">
+                                <a href="{{ route('production_wear_form') }}" class="btn btn-lg neon-btn-1 rounded-pill w-fit">
                                     <i class="bi bi-flag-fill me-2 fs-5"></i> Filipiniana Wear
                                 </a>
                                 
+                            </div>
+                        </div>
+                        
+
+                        <!-- top 5 Selection -->
+                        <div class="mb-4 p-4 rounded-4 glass-panel">
+                            <label class="h4 fw-bold text-neon">
+                                <i class="bi bi-star-fill me-2"></i>Top 5 Selection
+                            </label>
+                            <div class="d-flex flex-wrap gap-3 mt-3">
+                                <a href="{{ route('question_form') }}" class="btn btn-lg neon-btn-1 rounded-pill w-fit">
+                                    <i class="bi bi-hearts me-2 fs-5"></i> Snap Talk
+                                </a> 
                             </div>
                         </div>
 
@@ -105,25 +118,15 @@
         /* Neon buttons */
         .neon-btn-1 {
             background: transparent;
-            border: 4px solid #624E88;
+            border: 1px solid #00eaffb4;
             color: #fff;
         }
 
         .neon-btn-1:hover {
-            background: #624E88;
-            box-shadow: 0 0 15px #624E88;
+            background: #00eaffb4;
+            box-shadow: 0 0 15px #00eaffb4;
         }
 
-        .neon-btn-2 {
-            background: transparent;
-            border: 2px solid #8967B3;
-            color: #fff;
-        }
-
-        .neon-btn-2:hover {
-            background: #8967B3;
-            box-shadow: 0 0 15px #8967B3;
-        }
 
         .neon-btn-3 {
             background: transparent;
