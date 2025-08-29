@@ -8,7 +8,7 @@
         }
     </style>
 
-    <div class="container-fluid col-10">
+    <div class="container-fluid col-11">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -29,9 +29,9 @@
 
                         <form id="finals-form">
                             @csrf
-                            <div class="d-flex flex-row flex-wrap justify-content-center gap-5 mb-5">
+                            <div class="d-flex flex-row flex-wrap justify-content-center gap-3 mb-5">
                                 @foreach($data as $key => $datum)
-                                    <div class="card shadow shadow-lg shadow-white" style="width: 15rem;">
+                                    <div class="card shadow shadow-lg shadow-white" style="width: 13rem;">
                                         <span
                                             class="position-absolute start-0 translate-middle border border-3 border-light rounded-circle text-dark text-center d-flex justify-content-center align-items-center fw-bold fs-3"
                                             style=" background: linear-gradient(135deg, #FFD700, #FFA500, #FFF8DC, #FFD700); width: 40px ;height: 40px ;top:9px">{{ $datum[0] }}</span>

@@ -43,9 +43,9 @@
             <div class="container">
             <img src="{{ URL::asset('../images/surigay_logo.png') }}" alt=" "
             class="img-fluid mb-0 pb-0 me-3" style="width:90px" onclick="toggleFullScreen()">
-                <a class="navbar-brand fw-bold text-white">
+                <span class="fw-bold text-white fs-6">
                     Grand Coronation Night of the Binibining Surigay 2025
-                </a>
+                </span>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
