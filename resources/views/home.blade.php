@@ -28,16 +28,17 @@
                                 <a href="{{ route('swimsuit_form') }}" class="btn btn-lg neon-btn-1 rounded-pill w-fit">
                                     <i class="bi bi-hearts me-2 fs-5"></i> Swimwear
                                 </a>
-                                <a href="{{ route('gown_form') }}" class="btn btn-lg neon-btn-1 rounded-pill w-fit">
+                                <a href="{{ route('gown_form') }}" class="btn btn-lg neon-btn-3 rounded-pill w-fit">
                                     <i class="bi bi-suit-heart-fill me-2 fs-5"></i>Gown
                                 </a>
-                                <a href="{{ route('production_wear_form') }}" class="btn btn-lg neon-btn-1 rounded-pill w-fit">
+                                <a href="{{ route('production_wear_form') }}"
+                                    class="btn btn-lg neon-btn-4 rounded-pill w-fit">
                                     <i class="bi bi-flag-fill me-2 fs-5"></i> Filipiniana Wear
                                 </a>
-                                
+
                             </div>
                         </div>
-                        
+
 
                         <!-- top 5 Selection -->
                         <div class="mb-4 p-4 rounded-4 glass-panel">
@@ -45,15 +46,15 @@
                                 <i class="bi bi-star-fill me-2"></i>Top 5 Selection
                             </label>
                             <div class="d-flex flex-wrap gap-3 mt-3">
-                                <a href="{{ route('question_form') }}" class="btn btn-lg neon-btn-1 rounded-pill w-fit">
-                                    <i class="bi bi-hearts me-2 fs-5"></i> Snap Talk
-                                </a> 
+                                <a href="{{ route('question_form') }}" class="btn btn-lg neon-btn-5 rounded-pill w-fit">
+                                    <i class="bi bi-chat-right-heart-fill me-2 fs-5"></i> Snap Talk
+                                </a>
                             </div>
                         </div>
 
                         <!-- Final Placement -->
-                        <div class="mb-4 p-4 rounded-4 glass-panel">
-                            <label class="h4 fw-bold text-danger">
+                        <div class="mb-2 p-4 rounded-4 glass-panel">
+                            <label class="h4 fw-bold text-white">
                                 <i class="bi bi-star-fill me-2"></i> Final Placement
                             </label>
                             <div class="mt-3">
@@ -63,26 +64,27 @@
                             </div>
                         </div>
 
-                        <!-- Scrolling marquee -->
-                        <div class="marquee-container py-2">
-                            <div class="marquee-text fw-bold">
-                                <i class="bi bi-star-fill"></i> Grand Coronation Night of the Binibining Surigay 2025
-                                <i class="bi bi-star-fill mx-4"></i> Rainbow Connection Surigao Del Norte
-                                <i class="bi bi-star-fill mx-4"></i> Provincial Government of Surigao Del Norte
-                                <i class="bi bi-star-fill mx-4"></i> Provincial Information and Communications Technology
-                                Office (PICTO)
-                            </div>
+                    </div>
+
+                    <!-- Scrolling marquee -->
+                    <div class="marquee-container py-2">
+                        <div class="marquee-text fw-bold">
+                            <i class="bi bi-star-fill mx-4"></i> Grand Coronation Night of the Binibining Surigay 2025
+                            <i class="bi bi-star-fill mx-4"></i> Rainbow Connection Surigao Del Norte
+                            <i class="bi bi-star-fill mx-4"></i> Provincial Government of Surigao Del Norte
+                            <i class="bi bi-star-fill mx-4"></i> Provincial Information and Communications Technology Office
+                            (PICTO) <i class="bi bi-star-fill mx-4"></i>
                         </div>
                     </div>
 
                     <!-- Footer -->
-                    <footer class="py-1 text-center">
+                    <footer class="py-1 text-center mb-2 mt-2">
                         <div class="d-flex justify-content-center align-items-center flex-wrap gap-3">
                             <img src="{{ URL::asset('../images/PICTO_LOGO.png') }}" alt="Left Logo"
                                 class="img-fluid neon-logo" style="max-height:50px;">
-                            <h5 class="m-0 small text-light">
+                            <h6 class="m-0 text-light">
                                 Developed By: <span class="text-neon">Provincial ICT Office</span> | JCKs-Artisan.Dev
-                            </h5>
+                            </h6>
                             <img src="{{ URL::asset('../images/SDN_LOGO.png') }}" alt="Right Logo"
                                 class="img-fluid neon-logo" style="max-height:50px;">
                         </div>
@@ -95,17 +97,17 @@
     <style>
         .card {
             background: rgba(75, 80, 81, 0.34);
-       
+
         }
 
         /* Neon header */
         .bg-gradient-cyber {
-            background: linear-gradient(90deg, #0A4D68, #00131c);
+            background: linear-gradient(90deg, #033e55ff, #00131c);
         }
 
         .neon-text {
-            color: #00eaff;
-            text-shadow: 0 0 5px #00eaff, 0 0 15px #00eaffb4;
+            color: #f7f7f7ff;
+            text-shadow: 0 0 5px #f7f7f7ff, 0 0 15px #f7f7f7ff;
         }
 
         /* Glass panels */
@@ -117,7 +119,7 @@
 
         /* Neon buttons */
         .neon-btn-1 {
-            background: transparent;
+            background: #00eaffb4;
             border: 1px solid #00eaffb4;
             color: #fff;
         }
@@ -129,7 +131,7 @@
 
 
         .neon-btn-3 {
-            background: transparent;
+            background: #CB80AB;
             border: 2px solid #CB80AB;
             color: #fff;
         }
@@ -140,7 +142,7 @@
         }
 
         .neon-btn-4 {
-            background: transparent;
+            background: #667BC6;
             border: 2px solid #667BC6;
             color: #fff;
         }
@@ -150,15 +152,26 @@
             box-shadow: 0 0 15px #667BC6;
         }
 
+        .neon-btn-5 {
+            background: #28c062ff;
+            border: 2px solid #28c062ff;
+            color: #fff;
+        }
+
+        .neon-btn-5:hover {
+            background: #28c062ff;
+            box-shadow: 0 0 15px #28c062ff;
+        }
+
         .neon-btn-danger {
-            border: 2px solid #E90074;
-            background: transparent;
+            border: 2px solid #ca0515ff;
+            background: #ca0515ff;
             color: #fff;
         }
 
         .neon-btn-danger:hover {
-            background: #E90074;
-            box-shadow: 0 0 20px #E90074;
+            background: #ca0515ff;
+            box-shadow: 0 0 20px #ca0515ff;
         }
 
         /* Logo glow */

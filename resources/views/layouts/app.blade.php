@@ -39,11 +39,11 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background:#001C30;">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background:rgba(75, 80, 81, 0.34);">
             <div class="container">
             <img src="{{ URL::asset('../images/surigay_logo.png') }}" alt=" "
             class="img-fluid mb-0 pb-0 me-3" style="width:90px" onclick="toggleFullScreen()">
-                <a class="navbar-brand fw-bold" style="color:#00eaff;">
+                <a class="navbar-brand fw-bold text-white">
                     Grand Coronation Night of the Binibining Surigay 2025
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -70,14 +70,14 @@
                         @endguest --}}
                         @auth
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center text-info fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="bi bi-person-circle fs-4 p-1 me-2"></i> {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item fw-bold text-danger d-flex align-items-center" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();"><i class="bi bi-power fs-4 me-1"></i>
+                                    document.getElementById('logout-form').submit();"><i class="bi bi-power me-1"></i>
                                         {{ __('Logout') }}
                                     </a>
 
