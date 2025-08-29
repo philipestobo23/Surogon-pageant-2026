@@ -63,6 +63,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-         abort(403, 'User registration is disabled.');
+         abort(403, 'Umay sin register mo diria');
     }
 }

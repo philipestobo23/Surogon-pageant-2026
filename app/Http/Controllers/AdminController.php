@@ -24,9 +24,7 @@ class AdminController extends Controller
     }
 
     public function production_winners(){
-        if(Auth::user()->name != "admin"){
-            return "Role not  Applicable";
-        }
+        
 
         $allContestant = Production::all();
 
@@ -62,9 +60,7 @@ class AdminController extends Controller
     //ranking prejudge
     public function preliminary_ranking(){
 
-        if(Auth::user()->name != "admin"){
-            return "Role not  Applicable";
-        }
+        
 
         //update total_ranking
         $allContestant = Preliminary::all();
@@ -96,6 +92,8 @@ class AdminController extends Controller
     // //////////////////////////////// coronation ranking
     //swimsuit ranking genearation
     public function overall_swimsuit(){
+        
+
         //update total_ranking
         $allContestant = Coronation::all();
         foreach($allContestant as $contestant){
@@ -121,6 +119,7 @@ class AdminController extends Controller
 
     public function overall_gown(){
         //update total_ranking
+       
         $allContestant = Coronation::all();
         foreach($allContestant as $contestant){
             $total_ranking = $contestant->Judge1_gown_ranking + $contestant->Judge2_gown_ranking + $contestant->Judge3_gown_ranking + $contestant->Judge4_gown_ranking +$contestant->Judge5_gown_ranking;
