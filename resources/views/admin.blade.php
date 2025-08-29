@@ -30,16 +30,19 @@
                                         <th scope="col">Contestant #</th>
                                         <th scope="col">Contestant Name</th>
 
-                                        <th class="col">Talent</th>
+                                        <th class="col">Photogeneic</th>
                                         <th scope="col">Production Number</th>
-                                        <th scope="col">Eloquent</th>
-                                        <th class="col">Friendship</th>
-                                        <th class="col">Runaway Challenge</th>
-                                        <th scope="col">Production Wear</th>
-                                        <th scope="col">Advocacy Video</th>
                                         <th scope="col">White Collection</th>
+                                        <th class="col">Runway Challenge</th>
+                                        <th class="col">Attendance</th>
+                                        <th scope="col">Interview</th>
+                                        <th scope="col">Talents Night</th>
+                                        <th scope="col">Advocacy Video</th>
                                         <th scope="col">People's Choice</th>
+                                        <th scope="col">Production Wear</th>
                                     </tr>
+
+                                   
                                 </thead>
                                 <tbody id="preliminary-rank-table">
                                 </tbody>
@@ -61,7 +64,7 @@
 
                     <!-- coronation -->
                     <div class="border border-secondary rounded p-4 my-5 shadow-lg">
-                        <h4 class="fw-bold"><i class="bi bi-star-fill h5 m-1 text-success"></i>Coronation Night</h4>
+                        <h4 class="fw-bold"><i class="bi bi-star-fill h5 m-1 text-success"></i>Top 10 Selection</h4>
                         <div class="d-flex">
                             <div class="mx-1">
                                 <button class="btn btn-success" id="swimsuit-ranking"><i
@@ -73,13 +76,7 @@
                                         class="bi bi-clipboard2-data-fill me-1"></i>Gown Rankings</button>
                             </div>
 
-                            <div class="mx-1">
-                                <button class="btn btn-success" id="statement-ranking"><i
-                                        class="bi bi-clipboard2-data-fill me-1"></i>Statement Rankings</button>
-
-                            </div>
-
-
+                    
                             <div class="mx-1">
                                 <button class="btn btn-success" id="filipiniana-ranking"><i
                                         class="bi bi-clipboard2-data-fill me-1"></i>Filipiniana Rankings</button>
@@ -122,8 +119,7 @@
                         </div>
 
                         <div clas="d-flex m-5 p-5">
-                            <h4 class="fw-bold mt-4"><i class="bi bi-star-fill h5 m-1 text-warning"></i>Coronation
-                                Finals</h4>
+                            <h4 class="fw-bold mt-4"><i class="bi bi-star-fill h5 m-1 text-warning"></i>Top 10 Rankings</h4>
                             <div>
                                 <button class="btn btn-warning fw-bold" id="overall-ranking"><i
                                         class="bi bi-clipboard2-data-fill me-1"></i>View Overall Rankings</button>
@@ -139,10 +135,11 @@
                                             <th scope="col">Contestant #</th>
                                             <th scope="col">Contestant Name</th>
                                             <th scope="col">Total Rank</th>
+                                            
                                             <th scope="col">Swimwear Rank</th>
                                             <th scope="col">Gown Rank</th>
                                             <th scope="col">Filipiniana Rank</th>
-                                            <th scope="col">Statement Rank</th>
+                                            <th scope="col" class="bg-primary text-white">Preliminary</th>
                                             
                                         </tr>
                                     </thead>
@@ -339,16 +336,19 @@
                                     <td>${value.contestant_number}</td>
                                     <td>${value.contestant_name}</td>
 
-                                    <td>${value.talent}</td>
+                                    <td>${value.photogeneic}</td>
                                     <td>${value.production_number}</td>
-                                    <td>${value.eloquent}</td>
-                                    <td>${value.friendship}</td>
-                                    <td>${value.runway_challenge}</td>
-                                    <td>${value.production_wear}</td>
-                                    <td>${value.advocacy_video}</td>
                                     <td>${value.white_collection}</td>
+                                    <td>${value.runway_challenge}</td>
+                                    <td>${value.attendance}</td>
+                                    <td>${value.interview}</td>
+                                    <td>${value.talent}</td>
+                                    <td>${value.advocacy_video}</td>
                                     <td>${value.peoples_choice}</td>
+                                    <td>${value.production_wear}</td>
                                 </tr>`);
+
+                                
 
                             // Append the new row to the tbody with id 'rank-table'
                             $('#preliminary-rank-table').append(newRow);
@@ -530,7 +530,7 @@
                                     <td>${value.rank_swimsuit}</td>
                                     <td>${value.rank_gown}</td>
                                     <td>${value.rank_production_wear}</td>
-                                    <td>${value.rank_question}</td>
+                                    <td>${value.preliminary_ranking}</td>
                                     
                                 </tr>`);
                             // Append the new row to the tbody with id 'rank-table'

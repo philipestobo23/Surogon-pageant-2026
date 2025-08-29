@@ -94,6 +94,10 @@ return new class extends Migration
  
              $table->integer('overall_ranking_production_wear')->default(0);
              $table->integer('rank_production_wear')->default(0);
+
+
+            //preliminary ranking total prejudge
+             $table->integer('preliminary_ranking')->default(0);
             
              //ranking for judging event
              $table->integer('total_ranking')->default(0);

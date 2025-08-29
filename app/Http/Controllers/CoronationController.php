@@ -15,7 +15,13 @@ use Illuminate\Support\Facades\DB;
 
 class CoronationController extends Controller
 {
-    //
+    protected $maxContestant;
+
+    public function __construct()
+    {
+        $this->maxContestant = '20';
+    }
+
     public function swimsuit_form(){
         $currentjudge = Auth::user()->name;
 
@@ -38,7 +44,7 @@ class CoronationController extends Controller
 
     public function post_swimsuit_form(Request $request){
         // Add validation rules for each value in the request
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= $this->maxContestant; $i++) {
             $rules["$i"] = 'numeric|max:10.0';
         }
         // Create the validator
@@ -51,7 +57,7 @@ class CoronationController extends Controller
 
         $score = Auth::user()->name . "_swimsuit";
 
-        for ($x = 1; $x <= 10; $x++) {
+        for ($x = 1; $x <= $this->maxContestant; $x++) {
             $contestant = Coronation::where('id', $x)->first();
             $contestant->update([$score => $request[$x]]);
             $contestant->save();
@@ -114,7 +120,7 @@ class CoronationController extends Controller
 
     public function post_gown_form(Request $request){
         // Add validation rules for each value in the request
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= $this->maxContestant; $i++) {
             $rules["$i"] = 'numeric|max:10.0';
         }
         // Create the validator
@@ -127,7 +133,7 @@ class CoronationController extends Controller
 
         $score = Auth::user()->name . "_gown";
 
-        for ($x = 1; $x <= 10; $x++) {
+        for ($x = 1; $x <= $this->maxContestant; $x++) {
             $contestant = Coronation::where('id', $x)->first();
             $contestant->update([$score => $request[$x]]);
             $contestant->save();
@@ -190,7 +196,7 @@ class CoronationController extends Controller
 
     public function post_question_form(Request $request){
         // Add validation rules for each value in the request
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= $this->maxContestant; $i++) {
             $rules["$i"] = 'numeric|max:10.0';
         }
         // Create the validator
@@ -203,7 +209,7 @@ class CoronationController extends Controller
 
         $score = Auth::user()->name . "_question";
 
-        for ($x = 1; $x <= 10; $x++) {
+        for ($x = 1; $x <= $this->maxContestant; $x++) {
             $contestant = Coronation::where('id', $x)->first();
             $contestant->update([$score => $request[$x]]);
             $contestant->save();
@@ -265,7 +271,7 @@ class CoronationController extends Controller
 
     public function post_production_wear_form(Request $request){
         // Add validation rules for each value in the request
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= $this->maxContestant; $i++) {
             $rules["$i"] = 'numeric|max:10.0';
         }
         // Create the validator
@@ -278,7 +284,7 @@ class CoronationController extends Controller
 
         $score = Auth::user()->name . "_production_wear";
 
-        for ($x = 1; $x <= 10; $x++) {
+        for ($x = 1; $x <= $this->maxContestant; $x++) {
             $contestant = Coronation::where('id', $x)->first();
             $contestant->update([$score => $request[$x]]);
             $contestant->save();

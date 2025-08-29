@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div id="gown" class="card-header d-flex justify-content-between align-items-center fw-bold">
-                    <h3 class="text-center fw-bold mt-2 d-flex align-items-center" style="color:#0A4D68;"><i class="bi bi-suit-heart-fill me-2 fs-4"></i> Gown
+                    <h3 class="text-center fw-bold mt-2 d-flex align-items-center" style="color:#0A4D68;"><i class="bi bi-suit-heart-fill me-2 fs-4"></i> Gown Category
                     </h3>
                     <a hx-target="body" hx-get="{{ route('home') }}"
                         class="btn btn-danger d-flex align-items-center fw-bold shadow">

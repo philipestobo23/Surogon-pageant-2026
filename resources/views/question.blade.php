@@ -11,7 +11,7 @@
         <div class="col-md-12">
             <div class="card shadow-lg">
                 <div id="question" class="card-header d-flex justify-content-between align-items-center fw-bold">
-                    <h3 class="text-center fw-bold mt-2" style="color:#0A4D68;"><i class="bi bi-flag-fill me-2 fs-4"></i> Statement </h3>
+                    <h3 class="text-center fw-bold mt-2" style="color:#0A4D68;"><i class="bi bi-flag-fill me-2 fs-4"></i> Snap Talk </h3>
                     <a hx-target="body" hx-get="{{ route('home') }}"
                         class="btn btn-danger d-flex align-items-center fw-bold shadow">
                         <i class="bi bi-arrow-left me-2"></i>Back</a>

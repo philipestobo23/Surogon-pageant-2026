@@ -68,10 +68,11 @@ class AdminController extends Controller
         //update total_ranking
         $allContestant = Preliminary::all();
         foreach($allContestant as $contestant){
-            $total_ranking = $contestant->talent + $contestant->production_number + $contestant->eloquent + $contestant->friendship + $contestant->runway_challenge + $contestant->production_wear + $contestant->advocacy_video  + $contestant->white_collection + $contestant->peoples_choice;
+            $total_ranking = $contestant->photogeneic + $contestant->production_number + $contestant->white_collection + $contestant->runway_challenge + $contestant->attendance + $contestant->interview + $contestant->talent  + $contestant->advocacy_video + $contestant->peoples_choice + $contestant->production_wear;
             Preliminary::where('id', $contestant->id)->update([
                 'total_ranking' => $total_ranking,
             ]);
+
         }
 
         //generate ranking based on total_ranking
@@ -198,9 +199,12 @@ class AdminController extends Controller
         //update total_ranking
         $allContestant = Coronation::all();
         foreach($allContestant as $contestant){
-            $total_ranking = $contestant->rank_swimsuit + $contestant->rank_gown + $contestant->rank_question + $contestant->rank_production_wear;
+            $prejudge_total = Preliminary::where('id', $contestant->contestant_number)->first();
+
+            $total_ranking = $contestant->rank_swimsuit + $contestant->rank_gown  + $contestant->rank_production_wear + $prejudge_total->rank;
             Coronation::where('id', $contestant->id)->update([
                 'total_ranking' => $total_ranking,
+                'preliminary_ranking' => $prejudge_total->rank
             ]);
         }
 

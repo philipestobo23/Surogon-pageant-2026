@@ -29,15 +29,12 @@
                                     <i class="bi bi-hearts me-2 fs-5"></i> Swimwear
                                 </a>
                                 <a href="{{ route('gown_form') }}" class="btn btn-lg neon-btn-2 rounded-pill flex-fill">
-                                    <i class="bi bi-suit-heart-fill me-2 fs-5"></i> Formal Wear
+                                    <i class="bi bi-suit-heart-fill me-2 fs-5"></i>Gown
                                 </a>
-                                <a href="{{ route('question_form') }}" class="btn btn-lg neon-btn-3 rounded-pill flex-fill">
-                                    <i class="bi bi-flag-fill me-2 fs-5"></i> Filipiniana
+                                <a href="{{ route('production_wear_form') }}" class="btn btn-lg neon-btn-3 rounded-pill flex-fill">
+                                    <i class="bi bi-flag-fill me-2 fs-5"></i> Filipiniana Wear
                                 </a>
-                                <a href="{{ route('production_wear_form') }}"
-                                    class="btn btn-lg neon-btn-4 rounded-pill flex-fill">
-                                    <i class="bi bi-star-fill me-2 fs-5"></i> Production Wear
-                                </a>
+                                
                             </div>
                         </div>
 
@@ -108,7 +105,7 @@
         /* Neon buttons */
         .neon-btn-1 {
             background: transparent;
-            border: 2px solid #624E88;
+            border: 4px solid #624E88;
             color: #fff;
         }
 
