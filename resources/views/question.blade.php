@@ -23,10 +23,10 @@
                         @csrf
                         <div class="d-flex flex-row flex-wrap justify-content-center gap-5 mb-5">
                             @foreach($data as $key=>$datum)
-                                <div class="card shadow" style="width: 18rem;">
+                                <div class="card shadow" style="width: 10rem;">
                                     <span
                                         class="position-absolute start-0 translate-middle border border-5 border-light rounded-circle text-white text-center d-flex justify-content-center align-items-center fw-bold fs-3"
-                                        style="background-color:#050C9C; width: 50px ;height: 50px ;top:9px">{{ $datum[0] }}</span>
+                                        style="background-color:#050C9C; width: 40px ;height: 40px ;top:9px">{{ $datum[0] }}</span>
                                     <img src="{{ asset('cons/'. $key+1 .'.jpg') }}"
                                         class="card-img-top shadow shadow-lg" alt="..."
                                         style="height:200px;object-fit: cover;background-color:#F0EBE3;">

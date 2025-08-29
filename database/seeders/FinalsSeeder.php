@@ -62,14 +62,6 @@ class FinalsSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-
-            
-
-
-
-
-
-
         ];
 
         // Insert data into the 'production_event' table
