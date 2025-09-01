@@ -16,52 +16,49 @@ class FinalsSeeder extends Seeder
         DB::table('finals')->truncate();
         $data = [
 
-            [
-                'contestant_number' => 3,
-                'contestant_name' => 'Keana Saavedra',
-                'Address' => 'Municipality Of Placer',
 
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-
-            [
-                'contestant_number' => 2,
-                'contestant_name' => 'Serchyne Dela Cruz Resullar',
-                'Address' => 'Municipality of Placer',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
-                'contestant_number' => 6,
-                'contestant_name' => 'Pamela Conales Taypa',
-                'Address' => 'Surigao City',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-
-             
             [
                 'contestant_number' => 12,
-                'contestant_name' => 'Trisha Mae Alsong',
-                'Address' => 'Municipality of Mainit',
+                'contestant_name' => 'Jhunel Mosquite',
+                'Address' => 'Municipality Of Bacuag',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'contestant_number' => 20,
+                'contestant_name' => 'Divvy Potter',
+                'Address' => 'Brgy. Luna, Surigao City',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             
-
-            [
-
+             [
                 'contestant_number' => 11,
-                'contestant_name' => 'Kristine Yap',
-                'Address' => 'Municipality of Bacuag',
+                'contestant_name' => 'Jess Plaza Merle',
+                'Address' => 'Municipality Of Dapa',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+
+            [
+                'contestant_number' => 18,
+                'contestant_name' => 'Philisha Lumamba',
+                'Address' => 'Municipality Of Claver',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'contestant_number' => 1,
+                'contestant_name' => 'Ricky E. Enoya',
+                'Address' => 'Municipality Of General Luna',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+
         ];
 
         // Insert data into the 'production_event' table

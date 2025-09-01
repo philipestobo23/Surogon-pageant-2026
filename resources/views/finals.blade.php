@@ -35,7 +35,7 @@
                                         <span
                                             class="position-absolute start-0 translate-middle border border-3 border-light rounded-circle text-dark text-center d-flex justify-content-center align-items-center fw-bold fs-3"
                                             style=" background: linear-gradient(135deg, #FFD700, #FFA500, #FFF8DC, #FFD700); width: 40px ;height: 40px ;top:9px">{{ $datum[0] }}</span>
-                                        <img src="{{ asset('cons/' . $key + 1 . '.jpg') }}"
+                                        <img src="{{ asset('cons/' . $datum[0] . '.jpg') }}"
                                             class="card-img-top shadow shadow-lg" alt="..."
                                             style="height:200px;object-fit: cover;background-color:#F0EBE3;">
                                         <div

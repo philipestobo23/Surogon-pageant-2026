@@ -340,7 +340,7 @@
                     th, td { padding: 15px; text-align: center; border: 1px solid #000; } h1 { font-size: 44px; } .sign-container { font-size: 14px; margin-top:20px; display:flex; flex-direction:column; align-items:center; }
                     .sign{border-top:2px solid black; padding-right:20px; padding-left:20px; width:fit-content; margin-top:35px; } .judge-name { font-size: 25px; margin-top:20px } .pre-print{display:none;} #table-title{font-size:40px; font-weight:bold;} }</style></head>`
             );
-            a.document.write('<body> <h1>Over-all Final Results<br>');
+            a.document.write('<body> <h1>Top 10 Overall<br>');
             a.document.write(printoverall);
             a.document.write('</body></html>');
             a.document.close();

@@ -33,7 +33,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '12',
                 'advocacy_video' => '1',
                 'peoples_choice' => '7',
-                'production_wear' => '0',
+                'production_wear' => '2',
                 
                 
                 
@@ -59,7 +59,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '3',
                 'advocacy_video' => '2',
                 'peoples_choice' => '15',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -79,7 +79,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '8',
                 'advocacy_video' => '7',
                 'peoples_choice' => '13',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -99,7 +99,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '18',
                 'advocacy_video' => '18',
                 'peoples_choice' => '10',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -119,7 +119,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '14',
                 'advocacy_video' => '15',
                 'peoples_choice' => '20',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -139,7 +139,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '17',
                 'advocacy_video' => '4',
                 'peoples_choice' => '12',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -159,7 +159,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '15',
                 'advocacy_video' => '10',
                 'peoples_choice' => '9',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -179,7 +179,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '20',
                 'advocacy_video' => '18',
                 'peoples_choice' => '13',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -199,7 +199,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '7',
                 'advocacy_video' => '17',
                 'peoples_choice' => '4',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -219,7 +219,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '1',
                 'advocacy_video' => '10',
                 'peoples_choice' => '3',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -239,7 +239,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '13',
                 'advocacy_video' => '6',
                 'peoples_choice' => '7',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -259,7 +259,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '9',
                 'advocacy_video' => '4',
                 'peoples_choice' => '5',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -279,7 +279,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '4',
                 'advocacy_video' => '16',
                 'peoples_choice' => '18',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -298,7 +298,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '16',
                 'advocacy_video' => '7',
                 'peoples_choice' => '15',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -318,7 +318,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '19',
                 'advocacy_video' => '10',
                 'peoples_choice' => '6',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -338,7 +338,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '2',
                 'advocacy_video' => '19',
                 'peoples_choice' => '15',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -358,7 +358,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '6',
                 'advocacy_video' => '10',
                 'peoples_choice' => '2',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -378,7 +378,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '11',
                 'advocacy_video' => '2',
                 'peoples_choice' => '10',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -398,7 +398,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '5',
                 'advocacy_video' => '20',
                 'peoples_choice' => '9',
-                'production_wear' => '0',
+                'production_wear' => '2',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -418,7 +418,7 @@ class PreliminarySeeder extends Seeder
                 'talent' => '10',
                 'advocacy_video' => '7',
                 'peoples_choice' => '1',
-                'production_wear' => '0',
+                'production_wear' => '1',
 
                 'created_at' => now(),
                 'updated_at' => now(),
