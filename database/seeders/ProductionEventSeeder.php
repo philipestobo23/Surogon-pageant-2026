@@ -186,43 +186,43 @@ class ProductionEventSeeder extends Seeder
         /// account creation
         User::create([
             'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('aezakmi'),
+            'email' => 'picto_admin@sdn.gov.ph',
+            'password' => bcrypt('picto_bypass'),
         ]);
 
 
         User::create([
             'RealName' => 'Lars Pacheco',
             'name' => 'Judge1',
-            'email' => 'judge1@gmail.com',
+            'email' => 'judge1@sdn.gov.ph',
             'password' => bcrypt('aezakmi24'),
         ]);
 
         User::create([
             'name' => 'Judge2',
             'RealName' => 'Mico Angelo Teng',
-            'email' => 'judge2@gmail.com',
+            'email' => 'judge2@sdn.gov.ph',
             'password' => bcrypt('aezakmi25'),
         ]);
 
         User::create([
             'name' => 'Judge3',
             'RealName' => 'Carmi David',
-            'email' => 'judge3@gmail.com',
+            'email' => 'judge3@sdn.gov.ph',
             'password' => bcrypt('aezakmi26'),
         ]);
 
         User::create([
             'name' => 'Judge4',
             'RealName' => 'Mr. Kenneth Cruz',
-            'email' => 'judge4@gmail.com',
+            'email' => 'judge4@sdn.gov.ph',
             'password' => bcrypt('aezakmi27'),
         ]);
 
         User::create([
             'name' => 'Judge5',
             'RealName' => 'Mikay Bautista',
-            'email' => 'judge5@gmail.com',
+            'email' => 'judge5@sdn.gov.ph',
             'password' => bcrypt('aezakmi28'),
         ]);
     }

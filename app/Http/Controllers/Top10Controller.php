@@ -31,25 +31,29 @@ class Top10Controller extends Controller
     }
 
     public function post_question_form(Request $request){
-        // Add validation rules for each value in the request
-        for ($i = 1; $i <= 10; $i++) {
-            $rules["$i"] = 'numeric|max:10.0';
-        }
-        // Create the validator
-        $validator = Validator::make($request->all(), $rules);
+        $inputData = $request->except('_token');
 
-        // Check if validation fails
+        // Build validation rules dynamically from submitted IDs
+        $rules = [];
+        foreach (array_keys($inputData) as $key) {
+            $rules[$key] = 'numeric|max:10.0';
+        }
+
+        $validator = Validator::make($inputData, $rules);
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
         $score = Auth::user()->name . "_question";
 
-        for ($x = 1; $x <= 10; $x++) {
-            $contestant = Top10::where('id', $x)->first();
-            $contestant->update([$score => $request[$x]]);
-            $contestant->save();
+        foreach ($inputData as $id => $value) {
+            $contestant = Top10::find($id);
+            if ($contestant) {
+                $contestant->update([$score => $value]);
+            }
         }
+
         return response()->json(['message' => 'Grading Submitted']);
     }
 
