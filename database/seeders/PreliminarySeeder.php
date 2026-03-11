@@ -20,8 +20,8 @@ class PreliminarySeeder extends Seeder
         $data = [
             [
                 'contestant_number' => 1,
-                'contestant_name' => 'Ricky E. Enoya',
-                'Address' => 'Municipality Of General Luna',
+                'contestant_name' => 'Kendi Gwyneth Lynn Rosebrugh',
+                'Address' => 'The Eventor',
 
 
                 'photogeneic' => '2',
@@ -47,8 +47,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 2,
-                'contestant_name' => 'Alexis Calang Torralba',
-                'Address' => 'Municipality Of Sison',
+                'contestant_name' => 'Shieny Griethzer Lozada',
+                'Address' => 'Municipality of Alegria',
 
                 'photogeneic' => '12',
                 'production_number' => '4',
@@ -67,8 +67,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 3,
-                'contestant_name' => 'Keana Saavedra',
-                'Address' => 'Municipality Of Placer',
+                'contestant_name' => 'Chasty Escalada',
+                'Address' => 'Municipality of Placer',
 
                 'photogeneic' => '7',
                 'production_number' => '3',
@@ -87,8 +87,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 4,
-                'contestant_name' => 'Paw G. Lopez',
-                'Address' => 'Brgy. San Juan',
+                'contestant_name' => 'Janna May Ong',
+                'Address' => 'Brgy. San Juan, Surigao City',
 
                 'photogeneic' => '16',
                 'production_number' => '5',
@@ -107,8 +107,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 5,
-                'contestant_name' => 'Gel F. Doringuez',
-                'Address' => 'Brgy. San Juan',
+                'contestant_name' => 'Princess Ricci Reambonanza',
+                'Address' => 'Municipality of Bacuag',
 
                 'photogeneic' => '15',
                 'production_number' => '5',
@@ -127,8 +127,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 6,
-                'contestant_name' => 'Dods Taylor',
-                'Address' => 'Poblacion 2. General Luna',
+                'contestant_name' => 'Sophia Beatrice Paredes',
+                'Address' => 'Family Planning ORG of the Philippines',
 
                 'photogeneic' => '13',
                 'production_number' => '14',
@@ -147,8 +147,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 7,
-                'contestant_name' => 'Martin C. Dela Cruz',
-                'Address' => 'Surigao City',
+                'contestant_name' => 'Princess Glory Jane Escobal Handayan',
+                'Address' => 'Municipality of Sta. Monica',
 
                 'photogeneic' => '19',
                 'production_number' => '5',
@@ -167,8 +167,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 8,
-                'contestant_name' => 'Rhon C. Lopez',
-                'Address' => 'Hikdop Island',
+                'contestant_name' => 'Aisha Gelian Go',
+                'Address' => 'Brgy. Luna, Surigao City',
 
                 'photogeneic' => '11',
                 'production_number' => '3',
@@ -187,8 +187,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 9,
-                'contestant_name' => 'Edvirt Ignalig Naldoza',
-                'Address' => 'Municipality Of Bacuag',
+                'contestant_name' => 'Alyza Vic De Gracia',
+                'Address' => 'Brgy. Taft, Surigao City',
 
                 'photogeneic' => '10',
                 'production_number' => '1',
@@ -207,8 +207,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 10,
-                'contestant_name' => 'Danielle Jade Carbonilla',
-                'Address' => 'Brgy. Nonoc',
+                'contestant_name' => 'Christy Lee Alipao',
+                'Address' => 'Jamoyaon Del Carmen, Siargao Island',
 
                 'photogeneic' => '1',
                 'production_number' => '2',
@@ -227,8 +227,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 11,
-                'contestant_name' => 'Jess Plaza Merle',
-                'Address' => 'Municipality Of Dapa',
+                'contestant_name' => 'Phoebe Shane Sorongon',
+                'Address' => 'San Francisco, Anao-aon',
 
                 'photogeneic' => '9',
                 'production_number' => '6',
@@ -247,8 +247,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 12,
-                'contestant_name' => 'Jhunel Mosquite',
-                'Address' => 'Municipality Of Bacuag',
+                'contestant_name' => 'Princess Mae Espinosa',
+                'Address' => 'Municipality of Tagana-an',
 
                 'photogeneic' => '4',
                 'production_number' => '2',
@@ -267,8 +267,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 13,
-                'contestant_name' => 'Marj Villacencio',
-                'Address' => 'Municipality Of Anao Oan',
+                'contestant_name' => 'Yesha Mae Ebron',
+                'Address' => 'Municipality of Placer',
 
                 'photogeneic' => '20',
                 'production_number' => '7',
@@ -287,8 +287,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 14,
-                'contestant_name' => 'Lance churchill Lipio',
-                'Address' => 'Municipality Of Del Carmen',
+                'contestant_name' => 'Tricia Mae Comandante',
+                'Address' => 'Municipality of Malimono',
                 'photogeneic' => '8',
                 'production_number' => '6',
                 'white_collection' => '8',
@@ -306,8 +306,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 15,
-                'contestant_name' => 'Miah Kim Sajulga',
-                'Address' => 'Surigao - Gay Intellect Society Of Placer',
+                'contestant_name' => 'Kim Kristene Larong',
+                'Address' => 'Municipality of Gigaquit',
 
                 'photogeneic' => '6',
                 'production_number' => '7',
@@ -326,8 +326,8 @@ class PreliminarySeeder extends Seeder
 
             [
                 'contestant_number' => 16,
-                'contestant_name' => 'Gellan Paster',
-                'Address' => 'Municipality Of Tagana-an',
+                'contestant_name' => 'Glezany Manongsong',
+                'Address' => 'Brgy. Luna, Surigao City',
 
                 'photogeneic' => '16',
                 'production_number' => '6',
@@ -339,86 +339,6 @@ class PreliminarySeeder extends Seeder
                 'advocacy_video' => '19',
                 'peoples_choice' => '15',
                 'production_wear' => '2',
-
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
-                'contestant_number' => 17,
-                'contestant_name' => 'Raymart Jay Paramo',
-                'Address' => 'Municipality Of Mainit',
-
-                'photogeneic' => '5',
-                'production_number' => '4',
-                'white_collection' => '20',
-                'runway_challenge' => '4',
-                'attendance' => '6',
-                'interview' => '20',
-                'talent' => '6',
-                'advocacy_video' => '10',
-                'peoples_choice' => '2',
-                'production_wear' => '2',
-
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
-                'contestant_number' => 18,
-                'contestant_name' => 'Philisha Lumamba',
-                'Address' => 'Municipality Of Claver',
-
-                'photogeneic' => '14',
-                'production_number' => '1',
-                'white_collection' => '5',
-                'runway_challenge' => '11',
-                'attendance' => '6',
-                'interview' => '9',
-                'talent' => '11',
-                'advocacy_video' => '2',
-                'peoples_choice' => '10',
-                'production_wear' => '2',
-
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
-                'contestant_number' => 19,
-                'contestant_name' => 'Diane Echin',
-                'Address' => 'Municipality Of Sison',
-
-                'photogeneic' => '19',
-                'production_number' => '3',
-                'white_collection' => '17',
-                'runway_challenge' => '19',
-                'attendance' => '3',
-                'interview' => '16',
-                'talent' => '5',
-                'advocacy_video' => '20',
-                'peoples_choice' => '9',
-                'production_wear' => '2',
-
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
-                'contestant_number' => 20,
-                'contestant_name' => 'Divvy Potter',
-                'Address' => 'Brgy. Luna, Surigao City',
-
-                'photogeneic' => '3',
-                'production_number' => '1',
-                'white_collection' => '4',
-                'runway_challenge' => '2',
-                'attendance' => '1',
-                'interview' => '6',
-                'talent' => '10',
-                'advocacy_video' => '7',
-                'peoples_choice' => '1',
-                'production_wear' => '1',
 
                 'created_at' => now(),
                 'updated_at' => now(),

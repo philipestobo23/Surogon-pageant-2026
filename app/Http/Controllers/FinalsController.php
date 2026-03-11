@@ -36,24 +36,25 @@ class FinalsController extends Controller
     }
 
     public function post_final_form(Request $request){
-        // Add validation rules for each value in the request
-        for ($i = 1; $i <= 12; $i++) {
-            $rules["$i"] = 'numeric|max:10.0';
-        }
-        // Create the validator
-        $validator = Validator::make($request->all(), $rules);
+        $inputData = $request->except('_token');
 
-        // Check if validation fails
+        $rules = [];
+        foreach (array_keys($inputData) as $key) {
+            $rules[$key] = 'numeric|max:10.0';
+        }
+        $validator = Validator::make($inputData, $rules);
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
         $score = Auth::user()->name . "_final";
 
-        for ($x = 1; $x <= 5; $x++) {
-            $contestant = Finals::where('id', $x)->first();
-            $contestant->update([$score => $request[$x]]);
-            $contestant->save();
+        foreach ($inputData as $id => $value) {
+            $contestant = Finals::find($id);
+            if ($contestant) {
+                $contestant->update([$score => $value]);
+            }
         }
         return response()->json(['message' => 'Grading Submitted']);
     }

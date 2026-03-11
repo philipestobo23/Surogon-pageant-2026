@@ -17,159 +17,127 @@ class CoronarySeeder extends Seeder
         $data = [
             [
                 'contestant_number' => 1,
-                'contestant_name' => 'Ricky E. Enoya',
-                'Address' => 'Municipality Of General Luna',
+                'contestant_name' => 'Kendi Gwyneth Lynn Rosebrugh',
+                'Address' => 'The Eventor',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 2,
-                'contestant_name' => 'Alexis Calang Torralba',
-                'Address' => 'Municipality Of Sison',
+                'contestant_name' => 'Shieny Griethzer Lozada',
+                'Address' => 'Municipality of Alegria',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 3,
-                'contestant_name' => 'Keana Saavedra',
-                'Address' => 'Municipality Of Placer',
+                'contestant_name' => 'Chasty Escalada',
+                'Address' => 'Municipality of Placer',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 4,
-                'contestant_name' => 'Paw G. Lopez',
-                'Address' => 'Brgy. San Juan',
+                'contestant_name' => 'Janna May Ong',
+                'Address' => 'Brgy. San Juan, Surigao City',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 5,
-                'contestant_name' => 'Gel F. Doringuez',
-                'Address' => 'Brgy. San Juan',
+                'contestant_name' => 'Princess Ricci Reambonanza',
+                'Address' => 'Municipality of Bacuag',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 6,
-                'contestant_name' => 'Dods Taylor',
-                'Address' => 'Poblacion 2. General Luna',
+                'contestant_name' => 'Sophia Beatrice Paredes',
+                'Address' => 'Family Planning ORG of the Philippines',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 7,
-                'contestant_name' => 'Martin C. Dela Cruz',
-                'Address' => 'Surigao City',
+                'contestant_name' => 'Princess Glory Jane Escobal Handayan',
+                'Address' => 'Municipality of Sta. Monica',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 8,
-                'contestant_name' => 'Rhon C. Lopez',
-                'Address' => 'Hikdop Island',
+                'contestant_name' => 'Aisha Gelian Go',
+                'Address' => 'Brgy. Luna, Surigao City',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 9,
-                'contestant_name' => 'Edvirt Ignalig Naldoza',
-                'Address' => 'Municipality Of Bacuag',
+                'contestant_name' => 'Alyza Vic De Gracia',
+                'Address' => 'Brgy. Taft, Surigao City',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 10,
-                'contestant_name' => 'Danielle Jade Carbonilla',
-                'Address' => 'Brgy. Nonoc',
+                'contestant_name' => 'Christy Lee Alipao',
+                'Address' => 'Jamoyaon Del Carmen, Siargao Island',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 11,
-                'contestant_name' => 'Jess Plaza Merle',
-                'Address' => 'Municipality Of Dapa',
+                'contestant_name' => 'Phoebe Shane Sorongon',
+                'Address' => 'San Francisco, Anao-aon',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 12,
-                'contestant_name' => 'Jhunel Mosquite',
-                'Address' => 'Municipality Of Bacuag',
+                'contestant_name' => 'Princess Mae Espinosa',
+                'Address' => 'Municipality of Tagana-an',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 13,
-                'contestant_name' => 'Marj Villacencio',
-                'Address' => 'Municipality Of Anao Oan',
+                'contestant_name' => 'Yesha Mae Ebron',
+                'Address' => 'Municipality of Placer',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 14,
-                'contestant_name' => 'Lance churchill Lipio',
-                'Address' => 'Municipality Of Del Carmen',
+                'contestant_name' => 'Tricia Mae Comandante',
+                'Address' => 'Municipality of Malimono',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 15,
-                'contestant_name' => 'Miah Kim Sajulga',
-                'Address' => 'Surigao - Gay Intellect Society Of Placer',
+                'contestant_name' => 'Kim Kristene Larong',
+                'Address' => 'Municipality of Gigaquit',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             [
                 'contestant_number' => 16,
-                'contestant_name' => 'Gellan Paster',
-                'Address' => 'Municipality Of Tagana-an',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
-                'contestant_number' => 17,
-                'contestant_name' => 'Raymart Jay Paramo',
-                'Address' => 'Municipality Of Mainit',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
-                'contestant_number' => 18,
-                'contestant_name' => 'Philisha Lumamba',
-                'Address' => 'Municipality Of Claver',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
-                'contestant_number' => 19,
-                'contestant_name' => 'Diane Echin',
-                'Address' => 'Municipality Of Sison',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
-                'contestant_number' => 20,
-                'contestant_name' => 'Divvy Potter',
+                'contestant_name' => 'Glezany Manongsong',
                 'Address' => 'Brgy. Luna, Surigao City',
                 'created_at' => now(),
                 'updated_at' => now(),

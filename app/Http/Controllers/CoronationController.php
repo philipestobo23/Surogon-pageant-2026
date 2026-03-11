@@ -43,24 +43,25 @@ class CoronationController extends Controller
     }
 
     public function post_swimsuit_form(Request $request){
-        // Add validation rules for each value in the request
-        for ($i = 1; $i <= $this->maxContestant; $i++) {
-            $rules["$i"] = 'numeric|max:10.0';
-        }
-        // Create the validator
-        $validator = Validator::make($request->all(), $rules);
+        $inputData = $request->except('_token');
 
-        // Check if validation fails
+        $rules = [];
+        foreach (array_keys($inputData) as $key) {
+            $rules[$key] = 'numeric|max:10.0';
+        }
+        $validator = Validator::make($inputData, $rules);
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
         $score = Auth::user()->name . "_swimsuit";
 
-        for ($x = 1; $x <= $this->maxContestant; $x++) {
-            $contestant = Coronation::where('id', $x)->first();
-            $contestant->update([$score => $request[$x]]);
-            $contestant->save();
+        foreach ($inputData as $id => $value) {
+            $contestant = Coronation::find($id);
+            if ($contestant) {
+                $contestant->update([$score => $value]);
+            }
         }
         return response()->json(['message' => 'Grading Submitted']);
     }
@@ -119,24 +120,25 @@ class CoronationController extends Controller
     }
 
     public function post_gown_form(Request $request){
-        // Add validation rules for each value in the request
-        for ($i = 1; $i <= $this->maxContestant; $i++) {
-            $rules["$i"] = 'numeric|max:10.0';
-        }
-        // Create the validator
-        $validator = Validator::make($request->all(), $rules);
+        $inputData = $request->except('_token');
 
-        // Check if validation fails
+        $rules = [];
+        foreach (array_keys($inputData) as $key) {
+            $rules[$key] = 'numeric|max:10.0';
+        }
+        $validator = Validator::make($inputData, $rules);
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
         $score = Auth::user()->name . "_gown";
 
-        for ($x = 1; $x <= $this->maxContestant; $x++) {
-            $contestant = Coronation::where('id', $x)->first();
-            $contestant->update([$score => $request[$x]]);
-            $contestant->save();
+        foreach ($inputData as $id => $value) {
+            $contestant = Coronation::find($id);
+            if ($contestant) {
+                $contestant->update([$score => $value]);
+            }
         }
         return response()->json(['message' => 'Grading Submitted']);
     }
@@ -199,24 +201,25 @@ class CoronationController extends Controller
     }
 
     public function post_production_wear_form(Request $request){
-        // Add validation rules for each value in the request
-        for ($i = 1; $i <= $this->maxContestant; $i++) {
-            $rules["$i"] = 'numeric|max:10.0';
-        }
-        // Create the validator
-        $validator = Validator::make($request->all(), $rules);
+        $inputData = $request->except('_token');
 
-        // Check if validation fails
+        $rules = [];
+        foreach (array_keys($inputData) as $key) {
+            $rules[$key] = 'numeric|max:10.0';
+        }
+        $validator = Validator::make($inputData, $rules);
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
         $score = Auth::user()->name . "_production_wear";
 
-        for ($x = 1; $x <= $this->maxContestant; $x++) {
-            $contestant = Coronation::where('id', $x)->first();
-            $contestant->update([$score => $request[$x]]);
-            $contestant->save();
+        foreach ($inputData as $id => $value) {
+            $contestant = Coronation::find($id);
+            if ($contestant) {
+                $contestant->update([$score => $value]);
+            }
         }
         return response()->json(['message' => 'Grading Submitted']);
     }
