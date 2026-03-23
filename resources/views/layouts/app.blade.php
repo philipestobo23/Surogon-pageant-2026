@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -49,7 +49,7 @@
             -webkit-backdrop-filter: blur(20px) !important;
             border-bottom: 1px solid rgba(130, 60, 255, 0.25) !important;
             box-shadow: 0 2px 40px rgba(80, 0, 200, 0.20), inset 0 -1px 0 rgba(160, 80, 255, 0.15) !important;
-            padding: 0.5rem 0;
+            padding: 0.35rem 0;
         }
 
         .cosmic-nav .nav-brand-title {
@@ -64,57 +64,77 @@
             text-shadow: none;
         }
 
-        .cosmic-nav .navbar-toggler {
-            border-color: rgba(160, 80, 255, 0.45);
-            background: rgba(80, 0, 180, 0.2);
-        }
-        .cosmic-nav .navbar-toggler-icon {
-            filter: invert(1) sepia(1) saturate(5) hue-rotate(220deg);
-        }
-
-        .cosmic-nav .nav-user-btn {
+        /* ── User dropdown button ── */
+        .nav-user-btn {
             font-family: 'Rajdhani', sans-serif;
             font-weight: 600;
-            color: #c4b5fd !important;
+            font-size: 0.88rem;
+            color: #c4b5fd;
             letter-spacing: 0.04em;
-            padding: 0.35rem 0.85rem;
+            background: rgba(80, 0, 180, 0.12);
+            border: 1px solid rgba(130, 60, 255, 0.28);
             border-radius: 8px;
-            border: 1px solid rgba(130, 60, 255, 0.0);
-            transition: all 0.25s ease;
+            padding: 0.3rem 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            transition: all 0.22s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        .cosmic-nav .nav-user-btn:hover {
-            color: #ffffff !important;
-            background: rgba(120, 50, 255, 0.25);
-            border-color: rgba(130, 60, 255, 0.45);
-            box-shadow: 0 0 14px rgba(130, 60, 255, 0.35);
+        .nav-user-btn:hover, .nav-user-btn:focus,
+        .nav-user-btn.show {
+            color: #e9d5ff;
+            background: rgba(100, 20, 220, 0.28);
+            border-color: rgba(160, 80, 255, 0.55);
+            box-shadow: 0 0 14px rgba(130, 60, 255, 0.30);
         }
-        .cosmic-nav .nav-user-btn .bi {
+        .nav-user-btn .bi-person-circle {
             color: #a78bfa;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .nav-user-btn::after {
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+        .nav-user-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
-        /* dropdown */
-        .cosmic-nav .dropdown-menu {
-            background: rgba(10, 5, 50, 0.92);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(130, 60, 255, 0.30);
+        /* ── Dropdown panel ── */
+        .nav-user-dropdown {
+            background: rgba(8, 3, 45, 0.96);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(130, 60, 255, 0.32);
             border-radius: 10px;
-            box-shadow: 0 8px 32px rgba(60, 0, 160, 0.45);
-            min-width: 180px;
+            box-shadow: 0 10px 40px rgba(50, 0, 150, 0.50);
+            min-width: 170px;
+            padding: 0.35rem 0;
             overflow: hidden;
         }
-        .cosmic-nav .dropdown-item {
+        .nav-user-dropdown .dropdown-item {
             font-family: 'Rajdhani', sans-serif;
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 700;
+            font-size: 0.92rem;
             color: #f87171;
-            letter-spacing: 0.04em;
-            padding: 0.6rem 1rem;
-            transition: background 0.2s;
+            letter-spacing: 0.05em;
+            padding: 0.55rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.18s;
         }
-        .cosmic-nav .dropdown-item:hover {
-            background: rgba(255, 50, 80, 0.15);
-            color: #ff6b6b;
+        .nav-user-dropdown .dropdown-item:hover {
+            background: rgba(255, 50, 80, 0.16);
+            color: #fca5a5;
+        }
+        .nav-user-dropdown .dropdown-item .bi {
+            font-size: 1rem;
         }
 
         /* accent line at very top */
@@ -126,61 +146,73 @@
             background: linear-gradient(90deg, transparent, #7c3aed, #a78bfa, #7c3aed, transparent);
             opacity: 0.8;
         }
+
+        /* ── Brand title truncation ── */
+        .nav-brand-title {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: clamp(120px, 38vw, 480px);
+        }
+
+        /* ── Landscape phone: ultra compact ── */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .cosmic-nav { padding: 0.15rem 0; }
+            .cosmic-nav img { width: 36px !important; }
+            .nav-brand-title { font-size: 0.65rem !important; max-width: 26vw; }
+            .nav-user-name { max-width: 80px; font-size: 0.78rem !important; }
+            #main-content { padding-top: 0.4rem !important; padding-bottom: 0.4rem !important; }
+        }
+
+        /* ── Tablet landscape ── */
+        @media (min-width: 768px) and (orientation: landscape) {
+            .cosmic-nav { padding: 0.25rem 0; }
+            .nav-brand-title { font-size: 0.76rem; max-width: 42vw; }
+            #main-content { padding-top: 0.6rem !important; padding-bottom: 0.6rem !important; }
+        }
     </style>
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 </head>
 
-<body>
+<body hx-boost="true">
     <div id="app">
-        <nav class="navbar navbar-expand-md cosmic-nav">
+        <nav class="navbar navbar-expand cosmic-nav">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="#">
-                    <img src="{{ URL::asset('../images/surigay_logo.png') }}" alt="Surigay Logo"
-                         class="img-fluid" style="width:72px; filter: drop-shadow(0 0 8px rgba(167,139,250,0.6));" onclick="toggleFullScreen()">
+                    <img src="{{ URL::asset('../images/surogon2026.png') }}" alt="Surogon Logo"
+                         class="img-fluid" style="width:80px; flex-shrink:0; filter: drop-shadow(0 0 8px rgba(167,139,250,0.6));" onclick="toggleFullScreen()">
                     <span class="nav-brand-title d-none d-sm-block">
-                        Grand Coronation Night of the Binibining Surigay 2025
+                        Grand Coronation Night of the Kababajinhan Surogon 2026
                     </span>
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto"></ul>
-
-                    <ul class="navbar-nav ms-auto align-items-center">
-                        @auth
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown"
-                                   class="nav-link nav-user-btn dropdown-toggle d-flex align-items-center gap-2"
-                                   href="#" role="button" data-bs-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="bi bi-person-circle"></i>
-                                    <span>{{ Auth::user()->name }}</span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item d-flex align-items-center gap-2"
-                                       href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <i class="bi bi-power"></i> Logout
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endauth
+                @auth
+                <div class="ms-auto flex-shrink-0 dropdown">
+                    <button class="nav-user-btn dropdown-toggle" type="button"
+                            id="userDropdown" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <i class="bi bi-person-circle"></i>
+                        <span class="nav-user-name">{{ Auth::user()->name }}</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end nav-user-dropdown" aria-labelledby="userDropdown">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </a>
+                        </li>
                     </ul>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
+                @endauth
             </div>
         </nav>
 
-        <main id="main-content" class="py-4">
+        <main id="main-content" class="py-2 py-md-3">
             @yield('content')
         </main>
 

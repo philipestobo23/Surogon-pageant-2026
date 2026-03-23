@@ -30,16 +30,15 @@
                                         <th scope="col">Contestant #</th>
                                         <th scope="col">Contestant Name</th>
 
-                                        <th class="col">Photogeneic</th>
-                                        <th scope="col">Production Number</th>
+                                        <th scope="col">Closed Interview</th>
+                                        <th class="col">Photogenic</th>
                                         <th scope="col">White Collection</th>
-                                        <th class="col">Runway Challenge</th>
-                                        <th class="col">Attendance</th>
-                                        <th scope="col">Interview</th>
-                                        <th scope="col">Talents Night</th>
-                                        <th scope="col">Advocacy Video</th>
-                                        <th scope="col">People's Choice</th>
+                                        <th scope="col">Tourism Video</th>
+                                        <th scope="col">Talent</th>
+                                        <th scope="col">Filipiniana</th>
                                         <th scope="col">Production Wear</th>
+                                        <th scope="col">Production Number</th>
+                                        <th class="col">Runway</th>
                                     </tr>
 
                                    
@@ -74,12 +73,6 @@
                             <div class="mx-1">
                                 <button class="btn btn-success" id="gown-ranking"><i
                                         class="bi bi-clipboard2-data-fill me-1"></i>Gown Rankings</button>
-                            </div>
-
-                    
-                            <div class="mx-1">
-                                <button class="btn btn-success" id="filipiniana-ranking"><i
-                                        class="bi bi-clipboard2-data-fill me-1"></i>Filipiniana Rankings</button>
                                 <button class="btn btn-outline-success rounded swimsuit-ranking-close" id=""><i
                                         class="bi bi-caret-up-fill"></i></button>
                             </div>
@@ -138,7 +131,6 @@
                                             
                                             <th scope="col">Swimwear Rank</th>
                                             <th scope="col">Gown Rank</th>
-                                            <th scope="col">Filipiniana Rank</th>
                                             <th scope="col" class="bg-primary text-white">Preliminary</th>
                                             
                                         </tr>
@@ -263,16 +255,6 @@
 
 
                 </div>
-
-
-
-                <footer class="container-fluid py-2 mt-auto" style="width: 100%;">
-                    <div class="row img-footer"
-                        style="background: url('{{ asset('/images/footer-bg.png') }}') no-repeat center; height:50px;  ">
-                    </div>
-                    <h6 class="text-center justify-content-center fw-bold m-0 text-muted">Developed By:
-                        JCKs-Artisan.Dev</h6>
-                </footer>
             </div>
         </div>
     </div>
@@ -374,10 +356,6 @@
             $('#print-preliminary-ranking').attr("hidden", true);
         });
 
-        $("#filipiniana-ranking-close").click(function() {
-            $('#print-preliminary-ranking').attr("hidden", true);
-        });
-
         $(".overall-ranking-close").click(function() {
             $('#overall-ranking-container').attr("hidden", true);
         });
@@ -414,16 +392,15 @@
                                     <td>${value.contestant_number}</td>
                                     <td>${value.contestant_name}</td>
 
-                                    <td>${value.photogeneic}</td>
-                                    <td>${value.production_number}</td>
+                                    <td>${value.closed_interview}</td>
+                                    <td>${value.photogenic}</td>
                                     <td>${value.white_collection}</td>
-                                    <td>${value.runway_challenge}</td>
-                                    <td>${value.attendance}</td>
-                                    <td>${value.interview}</td>
+                                    <td>${value.tourism_video}</td>
                                     <td>${value.talent}</td>
-                                    <td>${value.advocacy_video}</td>
-                                    <td>${value.peoples_choice}</td>
+                                    <td>${value.filipiniana}</td>
                                     <td>${value.production_wear}</td>
+                                    <td>${value.production_number}</td>
+                                    <td>${value.runway}</td>
                                 </tr>`);
 
                                 
@@ -555,42 +532,6 @@
         });
 
 
-        $("#filipiniana-ranking").click(function() {
-            $.ajax({
-                    type: 'GET',
-                    url: '{{ route('overall_production_wear') }}',
-                    success: function(response) {
-                        console.log(response);
-                        $('#swimsuit-rank-table').empty();
-                        $.each(response.ranking, function(key, value) {
-                            console.log(value.rank_production_wear);
-
-                            var newRow = $(`
-                                <tr class="text-center">
-                                    <td>${value.rank_production_wear}</td>
-                                    <td>${value.contestant_number}</td>
-                                    <td>${value.contestant_name}</td>
-                                    <td>${value.overall_ranking_production_wear}</td>
-                                    <td>${value.Judge1_production_wear_ranking}</td>
-                                    <td>${value.Judge2_production_wear_ranking}</td>
-                                    <td>${value.Judge3_production_wear_ranking}</td>
-                                    <td>${value.Judge4_production_wear_ranking}</td>
-                                    <td>${value.Judge5_production_wear_ranking}</td>
-
-                                </tr>`);
-                            // Append the new row to the tbody with id 'rank-table'
-                            $('#swimsuit-rank-table').append(newRow);
-                        });
-                        $('#table-title').text("Filipiniana Ranking")
-                        $('#swimsuit-ranking-container  ').removeAttr('hidden');
-                    },
-                    error: function(error) {
-                        // Handle error response
-                        console.error(error);
-                    }
-                });
-        });
-
         $("#overall-ranking").click(function() {
             $.ajax({
                     type: 'GET',
@@ -607,7 +548,6 @@
                                     <td>${value.total_ranking}</td>
                                     <td>${value.rank_swimsuit}</td>
                                     <td>${value.rank_gown}</td>
-                                    <td>${value.rank_production_wear}</td>
                                     <td>${value.preliminary_ranking}</td>
                                     
                                 </tr>`);

@@ -65,7 +65,7 @@ class AdminController extends Controller
         //update total_ranking
         $allContestant = Preliminary::all();
         foreach($allContestant as $contestant){
-            $total_ranking = $contestant->photogeneic + $contestant->production_number + $contestant->white_collection + $contestant->runway_challenge + $contestant->attendance + $contestant->interview + $contestant->talent  + $contestant->advocacy_video + $contestant->peoples_choice + $contestant->production_wear;
+            $total_ranking = $contestant->closed_interview + $contestant->photogenic + $contestant->white_collection + $contestant->tourism_video + $contestant->talent + $contestant->filipiniana + $contestant->production_wear + $contestant->production_number + $contestant->runway;
             Preliminary::where('id', $contestant->id)->update([
                 'total_ranking' => $total_ranking,
             ]);
@@ -167,41 +167,14 @@ class AdminController extends Controller
         ]);
     }
 
-    public function overall_production_wear(){
-        //update total_ranking
-        $allContestant = Coronation::all();
-        foreach($allContestant as $contestant){
-            $total_ranking = $contestant->Judge1_production_wear_ranking + $contestant->Judge2_production_wear_ranking + $contestant->Judge3_production_wear_ranking + $contestant->Judge4_production_wear_ranking +$contestant->Judge5_production_wear_ranking;
-            Coronation::where('id', $contestant->id)->update([
-                'overall_ranking_production_wear' => $total_ranking,
-            ]);
-        }
-
-        //generate ranking based on total_ranking
-        $rankContestants = Coronation::select(['*', \DB::raw('RANK() OVER (ORDER BY overall_ranking_production_wear) AS row_id ')])->get();
-        foreach ($rankContestants as $item) {
-            // Update the rank column
-            Coronation::where('id', $item->id)->update(['rank_production_wear' => $item->row_id]);
-        }
-
-        $sortedRanking = Coronation::orderBy('rank_production_wear', 'asc')->get();
-        return response()->json([
-            'message' => 'overall Production Wear Ranking',
-            'ranking' => $sortedRanking
-        ]);
-    }
-
-
-
-
-    //// todo change for additional cat3egories,, update list
+    //// Round 1 categories: Swim Wear + Long Gown only
     public function overall_final(){
         //update total_ranking
         $allContestant = Coronation::all();
         foreach($allContestant as $contestant){
             $prejudge_total = Preliminary::where('id', $contestant->contestant_number)->first();
 
-            $total_ranking = $contestant->rank_swimsuit + $contestant->rank_gown  + $contestant->rank_production_wear + $prejudge_total->rank;
+            $total_ranking = $contestant->rank_swimsuit + $contestant->rank_gown + $prejudge_total->rank;
             Coronation::where('id', $contestant->id)->update([
                 'total_ranking' => $total_ranking,
                 'preliminary_ranking' => $prejudge_total->rank

@@ -56,46 +56,6 @@ return new class extends Migration
             $table->integer('overall_ranking_gown')->default(0);
             $table->integer('rank_gown')->default(0);
 
-             //question
-             $table->decimal('Judge1_question', 3, 1)->default(0.0);
-             $table->integer('Judge1_question_ranking')->default(0);
- 
-             $table->decimal('Judge2_question', 3, 1)->default(0.0);
-             $table->integer('Judge2_question_ranking')->default(0);
- 
-             $table->decimal('Judge3_question', 3, 1)->default(0.0);
-             $table->integer('Judge3_question_ranking')->default(0);
- 
-             $table->decimal('Judge4_question', 3, 1)->default(0.0);
-             $table->integer('Judge4_question_ranking')->default(0);
- 
-             $table->decimal('Judge5_question', 3, 1)->default(0.0);
-             $table->integer('Judge5_question_ranking')->default(0);
- 
-             $table->integer('overall_ranking_question')->default(0);
-             $table->integer('rank_question')->default(0);
-
-
-             //question
-             $table->decimal('Judge1_production_wear', 3, 1)->default(0.0);
-             $table->integer('Judge1_production_wear_ranking')->default(0);
- 
-             $table->decimal('Judge2_production_wear', 3, 1)->default(0.0);
-             $table->integer('Judge2_production_wear_ranking')->default(0);
- 
-             $table->decimal('Judge3_production_wear', 3, 1)->default(0.0);
-             $table->integer('Judge3_production_wear_ranking')->default(0);
- 
-             $table->decimal('Judge4_production_wear', 3, 1)->default(0.0);
-             $table->integer('Judge4_production_wear_ranking')->default(0);
- 
-             $table->decimal('Judge5_production_wear', 3, 1)->default(0.0);
-             $table->integer('Judge5_production_wear_ranking')->default(0);
- 
-             $table->integer('overall_ranking_production_wear')->default(0);
-             $table->integer('rank_production_wear')->default(0);
-
-
             //preliminary ranking total prejudge
              $table->integer('preliminary_ranking')->default(0);
             

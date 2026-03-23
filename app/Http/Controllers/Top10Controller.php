@@ -13,7 +13,7 @@ class Top10Controller extends Controller
     public function question_form(){
         $currentjudge = Auth::user()->name;
 
-        $candidates = Top10::select("*", $currentjudge . "_question")->get();
+        $candidates = Top10::select('*', $currentjudge . '_question')->take(8)->get();
         $data = [];
 
         foreach ($candidates as $candidate) {
@@ -63,13 +63,13 @@ class Top10Controller extends Controller
         $score = $currentjudge . "_question";
         $rank  = $currentjudge . "_question_ranking";
         //generate ranking based on judge swimsuit score
-        $rankContestants = Top10::select(['*', \DB::raw('RANK() OVER (ORDER BY '. $score .' DESC) AS row_id')])->get();
+        $rankContestants = Top10::select(['*', \DB::raw('RANK() OVER (ORDER BY '. $score .' DESC) AS row_id')])->take(8)->get();
         foreach ($rankContestants as $item) {
             // Update the rank column
             Top10::where('id', $item->id)->update([$rank => $item->row_id]); 
         }
 
-        $sortedRanking = Top10::orderBy($rank, 'asc')->get();
+        $sortedRanking = Top10::orderBy($rank, 'asc')->take(8)->get();
         $data = [];
         foreach ($sortedRanking as $item){
             $data[] = [

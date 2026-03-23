@@ -17,16 +17,15 @@ return new class extends Migration
             $table->string('contestant_name');
             $table->string('Address');
 
-            $table->integer('photogeneic')->default(0);
-            $table->integer('production_number')->default(0);
+            $table->integer('closed_interview')->default(0);
+            $table->integer('photogenic')->default(0);
             $table->integer('white_collection')->default(0);
-            $table->integer('runway_challenge')->default(0);
-            $table->integer('attendance')->default(0);
-            $table->integer('interview')->default(0);
+            $table->integer('tourism_video')->default(0);
             $table->integer('talent')->default(0);
-            $table->integer('advocacy_video')->default(0);
-            $table->integer('peoples_choice')->default(0);
+            $table->integer('filipiniana')->default(0);
             $table->integer('production_wear')->default(0);
+            $table->integer('production_number')->default(0);
+            $table->integer('runway')->default(0);
 
             $table->integer('total_ranking')->default(0);
             $table->integer('rank')->default(0);

@@ -42,11 +42,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/gown/rank', [App\Http\Controllers\CoronationController::class, 'rank_gown'])->name('rank_gown');
 
 
-    //production_wear
-    Route::get('/production_wear/form', [App\Http\Controllers\CoronationController::class, 'production_wear_form'])->name('production_wear_form');
-    Route::post('/production_wear/post', [App\Http\Controllers\CoronationController::class, 'post_production_wear_form'])->name('post_production_wear_form');
-    Route::get('/production_wear/rank', [App\Http\Controllers\CoronationController::class, 'rank_production_wear'])->name('rank_production_wear');
-
     // top 5 selection snap talk
     //question
     Route::get('/question/form', [ Top10Controller::class, 'question_form'])->name('question_form');
@@ -67,7 +62,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/swimsuit/rank', [App\Http\Controllers\AdminController::class, 'overall_swimsuit'])->name('overall_swimsuit');
     Route::get('/admin/gown/rank', [App\Http\Controllers\AdminController::class, 'overall_gown'])->name('overall_gown');
     Route::get('/admin/question/rank', [App\Http\Controllers\AdminController::class, 'overall_question'])->name('overall_question');
-    Route::get('/admin/production_wear/rank', [App\Http\Controllers\AdminController::class, 'overall_production_wear'])->name('overall_production_wear');
     Route::get('/admin/overall/coronation', [App\Http\Controllers\AdminController::class, 'overall_final'])->name('overall_final');
 
     Route::get('/admin/overall/rank', [App\Http\Controllers\AdminController::class, 'overall_winner'])->name('overall_winner');

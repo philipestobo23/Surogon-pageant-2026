@@ -34,14 +34,17 @@
         @csrf
         <div class="gown-grid">
             @foreach($data as $key => $datum)
-            <div class="gown-card">
+            <div class="gown-card" style="--card-i:{{ $loop->index }}">
                 <div class="gown-num-badge">{{ $datum[0] }}</div>
                 <div class="gown-photo-wrap">
+                    <div class="gown-photo-skeleton"></div>
                     <img src="{{ asset('cons/' . $datum[0] . '.jpg') }}"
                          alt="Contestant {{ $datum[0] }}"
                          class="gown-photo"
                          loading="lazy"
-                         onerror="this.src='{{ asset('images/surigay_logo.png') }}'">
+                         decoding="async"
+                         onload="this.classList.add('loaded');this.previousElementSibling.style.display='none';"
+                         onerror="this.classList.add('loaded');this.previousElementSibling.style.display='none';this.src='{{ asset('images/surigay_logo.png') }}';">
                     <div class="gown-photo-overlay"></div>
                 </div>
                 <div class="gown-card-body">
@@ -92,6 +95,9 @@
                 <button class="gown-print-btn" type="button" onclick="printDiv()">
                     <i class="bi bi-printer-fill me-2"></i>Print Rankings
                 </button>
+                <a href="{{ route('home') }}" class="gown-home-btn">
+                    <i class="bi bi-house-fill me-2"></i>Back to Home
+                </a>
             </div>
         </div>
     </div>
@@ -116,6 +122,9 @@ body {
     min-height: 100vh;
 }
 #app, #main-content { background: transparent !important; }
+
+/* force [hidden] to not be overridden by display rules */
+[hidden] { display: none !important; }
 
 .gown-page {
     min-height: calc(100vh - 70px);
@@ -199,6 +208,12 @@ body {
     border: 1px solid rgba(180,0,90,0.22);
     overflow: hidden; display: flex; flex-direction: column;
     transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    animation: gownCardIn 0.45s cubic-bezier(.22,.68,0,1.2) both;
+    animation-delay: calc(var(--card-i, 0) * 0.055s);
+}
+@keyframes gownCardIn {
+    from { opacity: 0; transform: translateY(22px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)    scale(1); }
 }
 .gown-card:hover {
     transform: translateY(-4px);
@@ -218,10 +233,28 @@ body {
     position: relative; width: 100%;
     aspect-ratio: 3/4; overflow: hidden; background: #100408;
 }
-.gown-photo {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform 0.35s ease;
+/* skeleton shimmer while image loads */
+.gown-photo-skeleton {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(90deg,
+        rgba(80,0,40,0.35) 25%,
+        rgba(160,0,80,0.22) 50%,
+        rgba(80,0,40,0.35) 75%);
+    background-size: 200% 100%;
+    animation: gownSkeleton 1.4s ease-in-out infinite;
 }
+@keyframes gownSkeleton {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+.gown-photo {
+    position: relative; z-index: 2;
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    opacity: 0;
+    transition: opacity 0.45s ease, transform 0.35s ease;
+    will-change: opacity, transform;
+}
+.gown-photo.loaded { opacity: 1; }
 .gown-card:hover .gown-photo { transform: scale(1.04); }
 .gown-photo-overlay {
     position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
@@ -342,7 +375,7 @@ body {
     color: var(--text-primary); letter-spacing: 0.08em;
 }
 .gown-sig-desc { font-size: 0.70rem; color: var(--text-secondary); letter-spacing: 0.14em; text-transform: uppercase; }
-.gown-print-wrap { display: flex; justify-content: center; margin-top: 20px; }
+.gown-print-wrap { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
 .gown-print-btn {
     display: flex; align-items: center; padding: 9px 26px; border-radius: 50px;
     background: rgba(180,140,0,0.22);
@@ -351,6 +384,14 @@ body {
     cursor: pointer; transition: var(--transition);
 }
 .gown-print-btn:hover { background: rgba(200,160,0,0.32); }
+.gown-home-btn {
+    display: flex; align-items: center; padding: 9px 26px; border-radius: 50px;
+    background: rgba(30, 60, 100, 0.28);
+    border: 1px solid rgba(80, 140, 220, 0.42); color: #aaccff;
+    font-family: 'Rajdhani', sans-serif; font-size: 0.93rem; font-weight: 600;
+    text-decoration: none; cursor: pointer; transition: var(--transition);
+}
+.gown-home-btn:hover { background: rgba(40, 80, 140, 0.40); color: #cce0ff; text-decoration: none; }
 </style>
 
 @endsection
@@ -387,16 +428,49 @@ body {
 
         $('#gown-form').submit(function (event) {
             event.preventDefault();
+            const $btn = $('.gown-submit-btn').prop('disabled', true);
             $.ajax({
                 type: 'POST',
                 url: '{{ route('post_gown_form') }}',
                 data: $(this).serialize(),
                 success: function (response) {
-                    Swal.fire({ title: "Scores Saved", text: "Gown grading submitted.", icon: "success", background: '#07003a', color: '#f0ebff', confirmButtonColor: '#770033' });
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Scores Saved!',
+                        text: 'Gown grading submitted successfully.',
+                        background: 'rgba(48, 4, 18, 0.97)',
+                        color: '#ffccdd',
+                        iconColor: '#ff55aa',
+                        showConfirmButton: false,
+                        timer: 2800,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.style.border = '1px solid rgba(200,0,100,0.45)';
+                            toast.style.boxShadow = '0 8px 32px rgba(180,0,80,0.40)';
+                        }
+                    });
                     $('#generate-rank').trigger('click');
+                    $btn.prop('disabled', false);
                 },
                 error: function (error) {
-                    Swal.fire({ title: "Submission Error", text: JSON.stringify(error.responseJSON), icon: "error", background: '#07003a', color: '#f0ebff' });
+                    $btn.prop('disabled', false);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Submission Failed',
+                        text: error.responseJSON?.message ?? 'Please check your scores and try again.',
+                        background: 'rgba(48, 4, 18, 0.97)',
+                        color: '#ffccdd',
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.style.border = '1px solid rgba(220,50,80,0.50)';
+                        }
+                    });
                 }
             });
         });
@@ -411,8 +485,9 @@ body {
                     $.each(response.ranking, function (key, value) {
                         $('#rank-table').append(`<tr><td>${value.ranking}</td><td>${value.contestant_number}</td><td>${value.contestant_name}</td><td>${value.score}</td></tr>`);
                     });
-                    $('#rank-table-container').removeAttr('hidden');
-                    document.getElementById('rank-table-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('rank-table-container').removeAttribute('hidden');
+                    var target = $('#rank-table-container').offset().top - 24;
+                    $('html, body').animate({ scrollTop: target }, 1200, 'swing');
                 },
                 error: function (error) { console.error(error); }
             });

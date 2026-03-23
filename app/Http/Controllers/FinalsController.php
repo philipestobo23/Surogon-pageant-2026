@@ -18,7 +18,7 @@ class FinalsController extends Controller
     public function final_form(){
         $currentjudge = Auth::user()->name;
 
-        $candidates = Finals::select("*", $currentjudge . "_final")->get();
+        $candidates = Finals::select('*', $currentjudge . '_final')->take(3)->get();
         $data = [];
 
         foreach ($candidates as $candidate) {
@@ -64,13 +64,13 @@ class FinalsController extends Controller
         $score = $currentjudge . "_final";
         $rank  = $currentjudge . "_final_ranking";
         //generate ranking based on judge final score
-        $rankContestants = Finals::select(['*', \DB::raw('RANK() OVER (ORDER BY '. $score .' DESC) AS row_id')])->get();
+        $rankContestants = Finals::select(['*', \DB::raw('RANK() OVER (ORDER BY '. $score .' DESC) AS row_id')])->take(3)->get();
         foreach ($rankContestants as $item) {
             // Update the rank column
             Finals::where('id', $item->id)->update([$rank => $item->row_id]); 
         }
 
-        $sortedRanking = Finals::orderBy($rank, 'asc')->get();
+        $sortedRanking = Finals::orderBy($rank, 'asc')->take(3)->get();
         $data = [];
         foreach ($sortedRanking as $item){
             $data[] = [
