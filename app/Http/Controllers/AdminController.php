@@ -224,4 +224,62 @@ class AdminController extends Controller
         ]);
     }
 
+    public function proceedToRound2(Request $request) {
+        if (Auth::user()->name !== 'admin') {
+            return response()->json(['message' => 'Unauthorized.'], 403);
+        }
+
+        $request->validate([
+            'contestant_ids'   => 'required|array|size:8',
+            'contestant_ids.*' => 'required|integer',
+        ]);
+
+        $selected = Coronation::whereIn('id', $request->contestant_ids)->get();
+
+        if ($selected->count() !== 8) {
+            return response()->json(['message' => 'Could not find all selected contestants. Please try again.'], 422);
+        }
+
+        Top10::truncate();
+
+        foreach ($selected as $contestant) {
+            Top10::create([
+                'contestant_number' => $contestant->contestant_number,
+                'contestant_name'   => $contestant->contestant_name,
+                'Address'           => $contestant->Address,
+            ]);
+        }
+
+        return response()->json(['message' => 'Top 8 successfully set for Round 2! Judges can now score the Snap Talk round.']);
+    }
+
+    public function proceedToFinal(Request $request) {
+        if (Auth::user()->name !== 'admin') {
+            return response()->json(['message' => 'Unauthorized.'], 403);
+        }
+
+        $request->validate([
+            'contestant_ids'   => 'required|array|size:3',
+            'contestant_ids.*' => 'required|integer',
+        ]);
+
+        $selected = Top10::whereIn('id', $request->contestant_ids)->get();
+
+        if ($selected->count() !== 3) {
+            return response()->json(['message' => 'Could not find all selected contestants. Please try again.'], 422);
+        }
+
+        Finals::truncate();
+
+        foreach ($selected as $contestant) {
+            Finals::create([
+                'contestant_number' => $contestant->contestant_number,
+                'contestant_name'   => $contestant->contestant_name,
+                'Address'           => $contestant->Address,
+            ]);
+        }
+
+        return response()->json(['message' => 'Top 3 successfully set for the Final Event! Judges can now score the Final round.']);
+    }
+
 }

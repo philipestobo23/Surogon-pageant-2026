@@ -159,7 +159,7 @@ class ProductionEventSeeder extends Seeder
 
 
         User::create([
-            'RealName' => 'Lars Pacheco',
+            'RealName' => 'Lorenzo Isip',
             'name' => 'Judge1',
             'email' => 'judge1@sdn.gov.ph',
             'password' => bcrypt('aezakmi24'),
@@ -167,28 +167,28 @@ class ProductionEventSeeder extends Seeder
 
         User::create([
             'name' => 'Judge2',
-            'RealName' => 'Mico Angelo Teng',
+            'RealName' => 'Kris Tiffany Janson',
             'email' => 'judge2@sdn.gov.ph',
             'password' => bcrypt('aezakmi25'),
         ]);
 
         User::create([
             'name' => 'Judge3',
-            'RealName' => 'Carmi David',
+            'RealName' => 'Kirk Virtudazo Popiolek',
             'email' => 'judge3@sdn.gov.ph',
             'password' => bcrypt('aezakmi26'),
         ]);
 
         User::create([
             'name' => 'Judge4',
-            'RealName' => 'Mr. Kenneth Cruz',
+            'RealName' => 'Steffi Rose Aberasturi Arcenas',
             'email' => 'judge4@sdn.gov.ph',
             'password' => bcrypt('aezakmi27'),
         ]);
 
         User::create([
             'name' => 'Judge5',
-            'RealName' => 'Mikay Bautista',
+            'RealName' => 'Kenneth Cabungcal',
             'email' => 'judge5@sdn.gov.ph',
             'password' => bcrypt('aezakmi28'),
         ]);
