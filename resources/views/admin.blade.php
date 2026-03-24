@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 
@@ -28,6 +28,9 @@
             <div class="adm-header-badge">
                 <i class="bi bi-shield-fill-check me-1"></i>Secured
             </div>
+            <button type="button" class="adm-pdf-btn" id="btn-export-pdf" title="Download full pageant report as PDF">
+                <i class="bi bi-file-earmark-pdf-fill me-1"></i>Export PDF Report
+            </button>
             <button class="adm-theme-toggle" id="adm-theme-toggle" title="Toggle light / dark mode" type="button">
                 <i class="bi bi-sun-fill" id="adm-theme-icon"></i>
             </button>
@@ -1038,6 +1041,41 @@ body.adm-light .adm-golden-title {
 body.adm-light .adm-btn--gold-final { background:rgba(180,130,0,.12); border-color:rgba(180,130,0,.45); color:#7a4f00; text-shadow:none; box-shadow:0 0 10px rgba(180,130,0,.16); animation:none; }
 body.adm-light .adm-btn--gold-final:hover { background:rgba(200,150,0,.20); box-shadow:0 0 20px rgba(180,130,0,.32); }
 
+/* ── PDF Export Button ── */
+.adm-pdf-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 10px; text-decoration: none;
+    font-family: 'Rajdhani', sans-serif; font-size: .82rem; font-weight: 700;
+    letter-spacing: .04em; white-space: nowrap;
+    background: linear-gradient(135deg, rgba(180,10,10,.55) 0%, rgba(120,0,0,.50) 100%);
+    border: 1px solid rgba(255,80,80,.45);
+    color: #ffb3b3;
+    transition: var(--adm-transition);
+    animation: pdfBtnPulse 3s ease-in-out infinite;
+}
+.adm-pdf-btn:hover {
+    background: linear-gradient(135deg, rgba(210,20,20,.70) 0%, rgba(160,0,0,.65) 100%);
+    box-shadow: 0 0 24px rgba(255,60,60,.50);
+    color: #fff;
+    text-decoration: none;
+}
+@keyframes pdfBtnPulse {
+    0%,100% { box-shadow: 0 0 8px rgba(220,40,40,.25); }
+    50%      { box-shadow: 0 0 20px rgba(255,60,60,.50); }
+}
+body.adm-light .adm-pdf-btn {
+    background: rgba(200,0,0,.10);
+    border-color: rgba(200,40,40,.38);
+    color: #aa0000;
+    animation: none;
+    box-shadow: 0 0 8px rgba(200,0,0,.12);
+}
+body.adm-light .adm-pdf-btn:hover {
+    background: rgba(200,0,0,.18);
+    box-shadow: 0 0 18px rgba(200,0,0,.28);
+    color: #880000;
+}
+
 /* Crown banner */
 .adm-golden-crown-banner {
     display: flex; align-items: center; justify-content: center; gap: 16px;
@@ -1926,5 +1964,53 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
 
 
 
+
+
+        /* -- PDF Export with SweetAlert2 loading (fetch+blob) -- */
+        document.getElementById('btn-export-pdf').addEventListener('click', function () {
+            Swal.fire({
+                title: 'Generating PDF\u2026',
+                html: 'Please wait while the report is being prepared.',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: function () {
+                    Swal.showLoading();
+
+                    fetch('{{ route('admin.report.pdf') }}', { credentials: 'same-origin' })
+                        .then(function (response) {
+                            if (!response.ok) throw new Error('Server error ' + response.status);
+                            return response.blob();
+                        })
+                        .then(function (blob) {
+                            var url = window.URL.createObjectURL(blob);
+                            var a   = document.createElement('a');
+                            a.href     = url;
+                            a.download = 'surogon-2026-report.pdf';
+                            document.body.appendChild(a);
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                            document.body.removeChild(a);
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Download Complete!',
+                                text: 'Your PDF report has been downloaded.',
+                                timer: 2200,
+                                timerProgressBar: true,
+                                showConfirmButton: false,
+                            });
+                        })
+                        .catch(function (err) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed',
+                                text: 'Could not generate the PDF report. Please try again.',
+                            });
+                            console.error(err);
+                        });
+                }
+            });
+        });
     </script>
 @endpush

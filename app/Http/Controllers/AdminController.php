@@ -282,4 +282,23 @@ class AdminController extends Controller
         return response()->json(['message' => 'Top 3 successfully set for the Final Event! Judges can now score the Final round.']);
     }
 
+    public function generatePdfReport()
+    {
+        if (Auth::user()->name !== 'admin') {
+            abort(403, 'Unauthorized.');
+        }
+
+        $preliminary = Preliminary::orderBy('rank', 'asc')->get();
+        $coronation  = Coronation::orderBy('overall_ranking', 'asc')->get();
+        $top10       = Top10::orderBy('rank_question', 'asc')->get();
+        $finals      = Finals::orderBy('rank_final', 'asc')->get();
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdf.full-report', compact('preliminary', 'coronation', 'top10', 'finals'));
+        $pdf->setPaper('a4', 'landscape');
+
+        $filename = 'surogon-2026-report-' . now()->format('Ymd-His') . '.pdf';
+        return $pdf->download($filename);
+    }
+
 }

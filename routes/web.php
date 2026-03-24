@@ -67,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/overall/rank', [App\Http\Controllers\AdminController::class, 'overall_winner'])->name('overall_winner');
     Route::post('/admin/proceed-to-round2', [App\Http\Controllers\AdminController::class, 'proceedToRound2'])->name('proceed_to_round2');
     Route::post('/admin/proceed-to-final', [App\Http\Controllers\AdminController::class, 'proceedToFinal'])->name('proceed_to_final');
+    Route::get('/admin/report/pdf', [App\Http\Controllers\AdminController::class, 'generatePdfReport'])->name('admin.report.pdf');
 
 
     // postProductionGrading
