@@ -39,7 +39,7 @@
                 <div class="qt-num-badge">{{ $datum[0] }}</div>
                 <div class="qt-photo-wrap">
                     <div class="qt-photo-skeleton"></div>
-                    <img src="{{ asset('cons/' . $datum[0] . '.jpg') }}"
+                    <img src="{{ asset('cons/' . $datum[0] . '.webp') }}"
                          alt="Contestant {{ $datum[0] }}"
                          class="qt-photo"
                          loading="lazy"

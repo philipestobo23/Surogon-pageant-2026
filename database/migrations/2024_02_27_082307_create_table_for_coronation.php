@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Coronation', function (Blueprint $table) {
+        Schema::create('coronation', function (Blueprint $table) {
             $table->id();
             $table->integer('contestant_number');
             $table->string('contestant_name');

@@ -90,7 +90,7 @@
                 <div class="fn-card-ring"></div>
                 <div class="fn-num-badge">{{ $datum[0] }}</div>
                 <div class="fn-photo-wrap">
-                    <img src="{{ asset('cons/' . $datum[0] . '.jpg') }}"
+                    <img src="{{ asset('cons/' . $datum[0] . '.webp') }}"
                         alt="Contestant {{ $datum[0] }}"
                         class="fn-photo"
                         loading="lazy"

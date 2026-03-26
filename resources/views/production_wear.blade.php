@@ -37,7 +37,7 @@
             <div class="pw-card">
                 <div class="pw-num-badge">{{ $datum[0] }}</div>
                 <div class="pw-photo-wrap">
-                    <img src="{{ asset('cons/' . $datum[0] . '.jpg') }}"
+                    <img src="{{ asset('cons/' . $datum[0] . '.webp') }}"
                          alt="Contestant {{ $datum[0] }}"
                          class="pw-photo"
                          loading="lazy"

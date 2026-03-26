@@ -38,7 +38,7 @@
                 <div class="gown-num-badge">{{ $datum[0] }}</div>
                 <div class="gown-photo-wrap">
                     <div class="gown-photo-skeleton"></div>
-                    <img src="{{ asset('cons/' . $datum[0] . '.jpg') }}"
+                    <img src="{{ asset('cons/' . $datum[0] . '.webp') }}"
                          alt="Contestant {{ $datum[0] }}"
                          class="gown-photo"
                          loading="lazy"

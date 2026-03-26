@@ -38,7 +38,7 @@
                 <div class="sw-num-badge">{{ $datum[0] }}</div>
                 <div class="sw-photo-wrap">
                     <div class="sw-photo-skeleton"></div>
-                    <img src="{{ asset('cons/' . $datum[0] . '.jpg') }}"
+                    <img src="{{ asset('cons/' . $datum[0] . '.webp') }}"
                          alt="Contestant {{ $datum[0] }}"
                          class="sw-photo"
                          loading="lazy"
