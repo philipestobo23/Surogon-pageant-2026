@@ -184,7 +184,7 @@
                     <img src="{{ URL::asset('../images/surogon2026.png') }}" alt="Surogon Logo"
                          class="img-fluid" style="width:80px; flex-shrink:0; filter: drop-shadow(0 0 8px rgba(167,139,250,0.6));" onclick="toggleFullScreen()">
                     <span class="nav-brand-title d-none d-sm-block">
-                        Grand Coronation Night of the Kababajinhan Surogon 2026
+                        Grand Coronation Night of the Kababajinhang Surogon 2026
                     </span>
                 </a>
 

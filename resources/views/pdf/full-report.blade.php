@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Kababajinhan Surogon 2026 – Official Pageant Report</title>
+    <title>Kababajinhang Surogon 2026 – Official Pageant Report</title>
     <style>
         /* ── Reset & Base ── */
         * {
@@ -45,7 +45,7 @@
             top: 0;
             left: 0;
             right: 0;
-            background: #ffffff;
+            background: rgba(255,255,255,0.82);
             border-bottom: 2px solid #1a1a1a;
             padding-bottom: 8px;
             padding-top: 4px;
@@ -136,7 +136,7 @@
             color: #0d0d0d;
             border-left: 3px solid #0d0d0d;
             padding: 5px 8px;
-            background: #f2f2f2;
+            background: rgba(242,242,242,0.55);
             margin-top: 8px;
             margin-bottom: 0;
         }
@@ -145,7 +145,7 @@
             font-size: 7px;
             color: #666;
             padding: 3px 8px 5px;
-            background: #fafafa;
+            background: rgba(250,250,250,0.50);
             border-left: 3px solid #ccc;
             margin-bottom: 2px;
         }
@@ -158,6 +158,7 @@
             border-collapse: collapse;
             margin-bottom: 2px;
             font-size: 7.8px;
+            line-height: 1.3;
         }
 
         table.data-table thead {
@@ -196,15 +197,15 @@
         }
 
         table.data-table tbody tr:nth-child(even) {
-            background: #f8f8f8;
+            background: rgba(248,248,248,0.55);
         }
 
         table.data-table tbody tr:nth-child(odd) {
-            background: #ffffff;
+            background: rgba(255,255,255,0.45);
         }
 
         table.data-table tbody tr:hover {
-            background: #f0f0f0;
+            background: rgba(240,240,240,0.60);
         }
 
         /* Final top-3 row accents — minimal */
@@ -276,6 +277,364 @@
             margin-top: 2px;
         }
 
+        /* ═══════════════════════════════════════════
+           GRAND FINAL — GOLDEN CREATIVE STYLES
+        ═══════════════════════════════════════════ */
+
+        /* Section banner */
+        .final-banner {
+            text-align: center;
+            padding: 14px 10px 10px;
+            border-top: 3px solid #b8860b;
+            border-bottom: 3px solid #b8860b;
+            border-left: 1px solid #d4a820;
+            border-right: 1px solid #d4a820;
+            background: rgba(255,248,220,0.60);
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .final-banner-crown {
+            font-size: 22px;
+            line-height: 1;
+            color: #b8860b;
+        }
+        .final-banner-supertitle {
+            font-size: 6.5px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #8b6914;
+            margin: 4px 0 2px;
+        }
+        .final-banner-title {
+            font-size: 17px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7a4f00;
+        }
+        .final-banner-line {
+            border: none;
+            border-top: 1px solid #d4a820;
+            margin: 6px auto;
+            width: 60%;
+        }
+        .final-banner-subtitle {
+            font-size: 7.5px;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: #9a6b00;
+        }
+        .final-banner-ornament {
+            font-size: 9px;
+            color: #c9940a;
+            letter-spacing: 5px;
+        }
+
+        /* Golden table */
+        table.final-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 6px;
+            font-size: 8px;
+            border: 1.5px solid #b8860b;
+        }
+        table.final-table thead tr {
+            background: #7a4f00;
+            color: #ffe9a0;
+        }
+        table.final-table th {
+            padding: 6px 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 7px;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+            border: 1px solid #9a6200;
+            color: #ffe9a0;
+        }
+        table.final-table th.col-left { text-align: left; }
+        table.final-table td {
+            padding: 5px 8px;
+            text-align: center;
+            border: 1px solid #e8c97a;
+            vertical-align: middle;
+        }
+        table.final-table td.col-name {
+            text-align: left;
+            font-weight: 700;
+            color: #4a2e00;
+        }
+
+        /* Rank 1 — Gold shimmer row */
+        .final-row-1 td {
+            background: rgba(255,215,0,0.22) !important;
+            border-color: #c9940a !important;
+            font-weight: 700;
+            color: #4a2e00;
+        }
+        /* Rank 2 — Silver row */
+        .final-row-2 td {
+            background: rgba(192,192,192,0.18) !important;
+            border-color: #bbb !important;
+            color: #333;
+        }
+        /* Rank 3 — Bronze row */
+        .final-row-3 td {
+            background: rgba(205,127,50,0.13) !important;
+            border-color: #c07830 !important;
+            color: #4a2e00;
+        }
+
+        /* Medallion rank badges */
+        .final-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 7.5px;
+            font-weight: bold;
+            letter-spacing: .5px;
+            border: 1px solid currentColor;
+        }
+        .final-badge-1 {
+            background: #b8860b;
+            color: #fff8dc;
+            border-color: #7a5000;
+        }
+        .final-badge-2 {
+            background: #8c8c8c;
+            color: #ffffff;
+            border-color: #555;
+        }
+        .final-badge-3 {
+            background: #a0522d;
+            color: #fff;
+            border-color: #6b3010;
+        }
+
+        /* Medal icon prefix in name */
+        .medal-icon { font-size: 9px; margin-right: 3px; }
+
+        /* Winner proclamation */
+        .winner-proclamation {
+            margin-top: 14px;
+            border: 2px solid #b8860b;
+            background: rgba(255,248,210,0.55);
+            text-align: center;
+            padding: 0;
+            overflow: hidden;
+        }
+        .winner-proc-top {
+            background: #7a4f00;
+            padding: 5px 12px;
+            color: #ffe9a0;
+            font-size: 7px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .winner-proc-body {
+            padding: 10px 20px 12px;
+        }
+        .winner-proc-crown {
+            font-size: 28px;
+            color: #b8860b;
+            line-height: 1;
+            margin-bottom: 3px;
+        }
+        .winner-proc-event {
+            font-size: 7px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #9a6b00;
+            margin-bottom: 6px;
+        }
+        .winner-proc-divider {
+            border: none;
+            border-top: 1px solid #d4a820;
+            width: 50%;
+            margin: 6px auto;
+        }
+        .winner-proc-label {
+            font-size: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: #7a4f00;
+            margin-bottom: 5px;
+        }
+        .winner-proc-name {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #7a4f00;
+            margin: 4px 0 3px;
+            text-transform: uppercase;
+        }
+        .winner-proc-number {
+            font-size: 7.5px;
+            color: #8b6914;
+            letter-spacing: 1px;
+        }
+        .winner-proc-stars {
+            font-size: 11px;
+            color: #c9940a;
+            letter-spacing: 4px;
+            margin-top: 6px;
+        }
+        .winner-proc-bottom {
+            background: #7a4f00;
+            padding: 4px 12px;
+            color: rgba(255,233,160,0.80);
+            font-size: 6.5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ═══════════════════════════════════════════
+           SECTION 5 — JUDGE SCORECARDS
+        ═══════════════════════════════════════════ */
+        .scorecard-section-header {
+            display: table;
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 6px;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 5px;
+        }
+        .scorecard-event-title {
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #0d0d0d;
+            margin: 0 0 2px;
+        }
+        .scorecard-event-sub {
+            font-size: 6.5px;
+            color: #666;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
+        table.scorecard-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 6.5px;
+            line-height: 1.9;
+            margin-bottom: 8px;
+            border: 1px solid #bbb;
+        }
+        table.scorecard-table thead tr {
+            background: #2a2a2a;
+            color: #ffffff;
+        }
+        table.scorecard-table th {
+            padding: 2px 4px;
+            text-align: center;
+            font-size: 6px;
+            font-weight: bold;
+            letter-spacing: .3px;
+            text-transform: uppercase;
+            border: 1px solid #444;
+        }
+        table.scorecard-table th.sc-name { text-align: left; }
+        table.scorecard-table td {
+            padding: 2px 4px;
+            text-align: center;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+        table.scorecard-table td.sc-name {
+            text-align: left;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        table.scorecard-table tbody tr:nth-child(even) { background: rgba(245,245,245,0.55); }
+        table.scorecard-table tbody tr:nth-child(odd)  { background: rgba(255,255,255,0.45); }
+        table.scorecard-table td.sc-total {
+            font-weight: 700;
+            background: rgba(230,230,230,0.60) !important;
+            border-left: 2px solid #999;
+        }
+        /* Judge column header colour bands */
+        .sc-j1 { background: rgba(30,100,200,.75) !important; }
+        .sc-j2 { background: rgba(150,30,160,.75) !important; }
+        .sc-j3 { background: rgba(20,130,80,.75)  !important; }
+        .sc-j4 { background: rgba(180,90,0,.80)   !important; }
+        .sc-j5 { background: rgba(160,20,20,.75)  !important; }
+        /* Judge sub-headers (Score / Rank) */
+        .sc-sub { background: rgba(40,40,40,.85) !important; font-size: 6px !important; color: #ddd !important; }
+        /* Scorecard summary box */
+        .scorecard-summary {
+            border: 1px solid #bbb;
+            background: rgba(248,248,248,0.55);
+            margin-bottom: 14px;
+        }
+        .scorecard-summary-head {
+            background: #2a2a2a;
+            color: #fff;
+            font-size: 6.8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 8px;
+        }
+        table.sc-summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 6.5px;
+            line-height: 1.2;
+        }
+        table.sc-summary-table th {
+            background: rgba(50,50,50,0.85);
+            color: #fff;
+            padding: 2px 5px;
+            border: 1px solid #444;
+            font-size: 6px;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+        table.sc-summary-table td {
+            padding: 2px 5px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        table.sc-summary-table td.sc-name { text-align: left; font-weight: 600; }
+        table.sc-summary-table tbody tr:nth-child(even) { background: rgba(240,240,240,0.55); }
+        table.sc-summary-table tbody tr:nth-child(odd)  { background: rgba(255,255,255,0.45); }
+        /* Final Placement badge — tiered creative */
+        .sc-rank-badge {
+            display: inline-block;
+            min-width: 44px;
+            padding: 2px 7px;
+            border-radius: 3px;
+            font-size: 6.5px;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+            border-width: 1px;
+            border-style: solid;
+        }
+        .sc-rank-1 {
+            background: #c9940a;
+            color: #fff;
+            border-color: #8a6000;
+        }
+        .sc-rank-2 {
+            background: #888888;
+            color: #ffffff;
+            border-color: #555;
+        }
+        .sc-rank-3 {
+            background: #a0522d;
+            color: #ffffff;
+            border-color: #6b3010;
+        }
+        .sc-rank-other {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            border-color: #000;
+        }
+
         /* Page break */
         .page-break {
             page-break-after: always;
@@ -314,7 +673,7 @@
             right: 0;
             padding-top: 7px;
             border-top: 2px solid #1a1a1a;
-            background: #ffffff;
+            background: rgba(255,255,255,0.82);
         }
 
         .footer-heading {
@@ -379,10 +738,71 @@
             color: #aaa;
             margin-top: 12px;
         }
-    </style>
+
+        /* ── Coordinator signature ── */
+        .coordinator-row {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+            margin-top: 10px;
+        }
+        .coordinator-row td {
+            border: none;
+            padding: 0 12px;
+            vertical-align: bottom;
+            text-align: center;
+        }
+        .coordinator-line {
+            border-bottom: 1.5px solid #1a1a1a;
+            height: 22px;
+            display: block;
+            margin: 0 auto 4px;
+            width: 60%;
+        }
+        .coordinator-name {
+            font-size: 8px;
+            font-weight: bold;
+            color: #1a1a1a;
+            display: block;
+            letter-spacing: .4px;
+        }
+        .coordinator-label {
+            font-size: 6.5px;
+            color: #444;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            display: block;
+            margin-top: 1px;
+        }
+        .coordinator-sub {
+            font-size: 6px;
+            color: #888;
+            display: block;
+            margin-top: 1px;
+        }
+        .coordinator-divider {
+            border: none;
+            border-top: 1px dashed #ccc;
+            margin: 8px 0 6px;
+        }
+
+        /* ── Watermark (fixed → every page) ── */
+        .watermark {
+            position: fixed;
+            top: 35mm;
+            left: 58.5mm;
+            width: 180mm;
+            height: 140mm;
+            opacity: 0.30;
+            z-index: -1;
+        }
 </head>
 
 <body>
+
+    {{-- ═══ WATERMARK (fixed — repeats every page) ═══ --}}
+    <img class="watermark" src="{{ public_path('images/KS1.png') }}" alt="">
 
     @php
         /* ── Update judge names here ── */
@@ -404,11 +824,10 @@
                 </td>
                 <td class="header-text-cell">
                     <div class="header-org">Republic of the Philippines &mdash; Surigao del Norte</div>
-                    <div class="header-title">Kababajinhan Surogon 2026</div>
+                    <div class="header-title">Kababajinhang Surogon 2026</div>
                     <div class="header-subtitle">Official Pageant Scoring &amp; Rankings Report</div>
                     <div class="header-doc-info">Date Generated: {{ now('Asia/Manila')->format('F j, Y') }}
-                        &nbsp;&bull;&nbsp; {{ now('Asia/Manila')->format('g:i A') }} (PHT) &nbsp;&bull;&nbsp;
-                        Prepared by: {{ auth()->user()->name ?? 'Administrator' }}</div>
+                        &nbsp;&bull;&nbsp; {{ now('Asia/Manila')->format('g:i A') }} (PHT) &nbsp;&bull;&nbsp;</div>
                 </td>
                 <td class="header-right-logo-cell">
                     <img src="{{ public_path('images/rainbow.png') }}" class="header-logo" alt="Surogon 2026">
@@ -636,17 +1055,25 @@
         SECTION 4 — GRAND FINAL
         ═══════════════════════════════ --}}
         <div class="h-spacer"></div>
-        <div class="section-title">&sect; 4 &mdash; Grand Final Event &mdash; Top 3</div>
+
+        {{-- Golden banner --}}
+        <div class="final-banner">
+            <div class="final-banner-crown">&#9819;</div>
+            <div class="final-banner-supertitle">Kababajinhang Surogon 2026 &mdash; Official Results</div>
+            <div class="final-banner-title">Grand Coronation Final Event</div>
+            <hr class="final-banner-line">
+            <div class="final-banner-subtitle">Top 3 Finalists</div>
+            <div class="final-banner-ornament">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+        </div>
+
         @if($finals->count())
-            <div class="section-meta">{{ $finals->count() }} finalist(s) &nbsp;&bull;&nbsp; Grand Final Q&amp;A /
-                Performance scoring</div>
-            <table class="data-table">
+            <table class="final-table">
                 <thead>
                     <tr>
-                        <th style="width:42px">Rank</th>
+                        <th style="width:50px">Rank</th>
                         <th style="width:28px">No.</th>
                         <th class="col-left">Contestant Name</th>
-                        <th>Total Rank</th>
+                        <th>Score</th>
                         <th>Judge 1</th>
                         <th>Judge 2</th>
                         <th>Judge 3</th>
@@ -658,12 +1085,12 @@
                     @foreach($finals->sortBy('rank_final') as $f)
                         @php
                             $r = (int) $f->rank_final;
-                            $rowCls = $r === 1 ? 'row-1st' : ($r === 2 ? 'row-2nd' : 'row-3rd');
-                            $bdgCls = $r === 1 ? 'rank-1st' : ($r === 2 ? 'rank-2nd' : 'rank-3rd');
-                            $lbl = $r === 1 ? '1st Place' : ($r === 2 ? '2nd Place' : '3rd Place');
+                            $rowCls  = $r === 1 ? 'final-row-1' : ($r === 2 ? 'final-row-2' : 'final-row-3');
+                            $bdgCls  = $r === 1 ? 'final-badge-1' : ($r === 2 ? 'final-badge-2' : 'final-badge-3');
+                            $lbl     = $r === 1 ? '1st Place' : ($r === 2 ? '2nd Place' : '3rd Place');
                         @endphp
                         <tr class="{{ $rowCls }}">
-                            <td><span class="rank-badge {{ $bdgCls }}">{{ $lbl }}</span></td>
+                            <td><span class="final-badge {{ $bdgCls }}">{{ $lbl }}</span></td>
                             <td>{{ $f->contestant_number }}</td>
                             <td class="col-name">{{ $f->contestant_name }}</td>
                             <td><strong>{{ $f->overall_ranking_final }}</strong></td>
@@ -679,16 +1106,159 @@
 
             @php $winner = $finals->sortBy('rank_final')->first(); @endphp
             @if($winner)
-                <div class="winner-box">
-                    <div class="winner-label">&#9670;&nbsp; Kababajinhan Surogon 2026 &nbsp;&#9670;</div>
-                    <div class="winner-name">{{ $winner->contestant_name }}</div>
-                    <div class="winner-detail">Contestant No. {{ $winner->contestant_number }} &nbsp;&bull;&nbsp; Final Score:
-                        {{ $winner->overall_ranking_final }}</div>
+                <div class="winner-proclamation">
+                    <div class="winner-proc-top">
+                        &#10022; &nbsp; Official Proclamation &nbsp; &#10022;
+                    </div>
+                    <div class="winner-proc-body">
+                        <div class="winner-proc-name">{{ $winner->contestant_name }}</div>
+                        <div class="winner-proc-number">Contestant No. {{ $winner->contestant_number }}</div>
+                    </div>
                 </div>
             @endif
 
         @else
             <div class="empty-note">No Grand Final scores have been recorded.</div>
+        @endif
+
+
+        <div class="page-break"></div>
+
+
+        {{-- ═══════════════════════════════
+        SECTION 5 — JUDGE SCORECARDS
+        ═══════════════════════════════ --}}
+        <div class="h-spacer"></div>
+
+        @if($coronation->count())
+
+            {{-- 5A Swimsuit Scorecard --}}
+            <div style="margin-top:0; margin-bottom:3px;">
+                <div class="scorecard-event-title">Event 5A &mdash; Swimwear Competition</div>
+                <div class="scorecard-event-sub">Individual judge scores &amp; rankings per contestant</div>
+            </div>
+            <table class="scorecard-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="width:26px">No.</th>
+                        <th rowspan="2" class="sc-name" style="min-width:90px">Contestant Name</th>
+                        <th colspan="2" class="sc-j1">{{ $judges[1] }}</th>
+                        <th colspan="2" class="sc-j2">{{ $judges[2] }}</th>
+                        <th colspan="2" class="sc-j3">{{ $judges[3] }}</th>
+                        <th colspan="2" class="sc-j4">{{ $judges[4] }}</th>
+                        <th colspan="2" class="sc-j5">{{ $judges[5] }}</th>
+                        <th rowspan="2">Overall<br>Rank</th>
+                    </tr>
+                    <tr>
+                        <th class="sc-sub">Score</th><th class="sc-sub">Rank</th>
+                        <th class="sc-sub">Score</th><th class="sc-sub">Rank</th>
+                        <th class="sc-sub">Score</th><th class="sc-sub">Rank</th>
+                        <th class="sc-sub">Score</th><th class="sc-sub">Rank</th>
+                        <th class="sc-sub">Score</th><th class="sc-sub">Rank</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($coronation->sortBy('rank_swimsuit') as $c)
+                    <tr>
+                        <td>{{ $c->contestant_number }}</td>
+                        <td class="sc-name">{{ $c->contestant_name }}</td>
+                        <td>{{ $c->Judge1_swimsuit }}</td><td>{{ $c->Judge1_swimsuit_ranking }}</td>
+                        <td>{{ $c->Judge2_swimsuit }}</td><td>{{ $c->Judge2_swimsuit_ranking }}</td>
+                        <td>{{ $c->Judge3_swimsuit }}</td><td>{{ $c->Judge3_swimsuit_ranking }}</td>
+                        <td>{{ $c->Judge4_swimsuit }}</td><td>{{ $c->Judge4_swimsuit_ranking }}</td>
+                        <td>{{ $c->Judge5_swimsuit }}</td><td>{{ $c->Judge5_swimsuit_ranking }}</td>
+                        <td><strong>{{ $c->rank_swimsuit }}</strong></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <div class="page-break"></div>
+            <div class="h-spacer"></div>
+            {{-- 5B Long Gown Scorecard --}}
+            <div style="margin-top:0; margin-bottom:3px;">
+                <div class="scorecard-event-title">Event 5B &mdash; Long Gown Competition</div>
+                <div class="scorecard-event-sub">Individual judge scores &amp; rankings per contestant</div>
+            </div>
+            <table class="scorecard-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="width:26px">No.</th>
+                        <th rowspan="2" class="sc-name" style="min-width:90px">Contestant Name</th>
+                        <th colspan="2" class="sc-j1">{{ $judges[1] }}</th>
+                        <th colspan="2" class="sc-j2">{{ $judges[2] }}</th>
+                        <th colspan="2" class="sc-j3">{{ $judges[3] }}</th>
+                        <th colspan="2" class="sc-j4">{{ $judges[4] }}</th>
+                        <th colspan="2" class="sc-j5">{{ $judges[5] }}</th>
+                        <th rowspan="2">Overall<br>Rank</th>
+                    </tr>
+                    <tr>
+                        <th class="sc-sub">Score</th><th class="sc-sub">Rank</th>
+                        <th class="sc-sub">Score</th><th class="sc-sub">Rank</th>
+                        <th class="sc-sub">Score</th><th class="sc-sub">Rank</th>
+                        <th class="sc-sub">Score</th><th class="sc-sub">Rank</th>
+                        <th class="sc-sub">Score</th><th class="sc-sub">Rank</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($coronation->sortBy('rank_gown') as $c)
+                    <tr>
+                        <td>{{ $c->contestant_number }}</td>
+                        <td class="sc-name">{{ $c->contestant_name }}</td>
+                        <td>{{ $c->Judge1_gown }}</td><td>{{ $c->Judge1_gown_ranking }}</td>
+                        <td>{{ $c->Judge2_gown }}</td><td>{{ $c->Judge2_gown_ranking }}</td>
+                        <td>{{ $c->Judge3_gown }}</td><td>{{ $c->Judge3_gown_ranking }}</td>
+                        <td>{{ $c->Judge4_gown }}</td><td>{{ $c->Judge4_gown_ranking }}</td>
+                        <td>{{ $c->Judge5_gown }}</td><td>{{ $c->Judge5_gown_ranking }}</td>
+                        <td><strong>{{ $c->rank_gown }}</strong></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <div class="page-break"></div>
+            <div class="h-spacer"></div>
+            {{-- 5C Combined Summary --}}
+            <div style="margin-top:0; margin-bottom:3px;">
+                <div class="scorecard-event-title">Event 5C &mdash; Combined Score Summary</div>
+                <div class="scorecard-event-sub">Swimwear rank + Long Gown rank + Pre-Judge rank = Total ranking &rarr; Final placement</div>
+            </div>
+            <table class="sc-summary-table">
+                <thead>
+                    <tr>
+                        <th style="width:26px">No.</th>
+                        <th class="sc-name">Contestant Name</th>
+                        <th>Swimwear<br>Rank</th>
+                        <th>Long Gown<br>Rank</th>
+                        <th>Pre-Judge<br>Rank</th>
+                        <th>Total<br>Ranking</th>
+                        <th>Final<br>Placement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($coronation->sortBy('overall_ranking') as $c)
+                    <tr>
+                        <td>{{ $c->contestant_number }}</td>
+                        <td class="sc-name">{{ $c->contestant_name }}</td>
+                        <td>{{ $c->rank_swimsuit }}</td>
+                        <td>{{ $c->rank_gown }}</td>
+                        <td>{{ $c->preliminary_ranking }}</td>
+                        <td><strong>{{ $c->total_ranking }}</strong></td>
+                        <td>
+                            @php
+                                $pr = (int) $c->overall_ranking;
+                                $prCls = $pr === 1 ? 'sc-rank-1' : ($pr === 2 ? 'sc-rank-2' : ($pr === 3 ? 'sc-rank-3' : 'sc-rank-other'));
+                                $prLbl = $pr === 1 ? '&#9733; 1st' : ($pr === 2 ? '&#9733; 2nd' : ($pr === 3 ? '&#9733; 3rd' : $pr . 'th'));
+                            @endphp
+                            <span class="sc-rank-badge {{ $prCls }}">{!! $prLbl !!}</span>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+        @else
+            <div class="empty-note">No coronation scores have been recorded.</div>
         @endif
 
 
@@ -711,8 +1281,22 @@
                 @endfor
             </tr>
         </table>
+
+        <hr class="coordinator-divider">
+
+        <table class="coordinator-row">
+            <tr>
+                <td style="width:60%"></td>
+                <td style="width:40%">
+                    <span class="coordinator-line"></span>
+                    <span class="coordinator-name">Baby Rax Dolfo</span>
+                    <span class="coordinator-label">Head / Coordinator of the Event</span>
+                    <span class="coordinator-sub">Signature over Printed Name</span>
+                </td>
+            </tr>
+        </table>
         <div class="footer-note">
-            Kababajinhan Surogon 2026 &mdash; Official Pageant Report &mdash; This document is computer-generated and
+            Kababajinhang Surogon 2026 &mdash; Official Pageant Report &mdash; This document is computer-generated and
             valid without signature except on the judges&rsquo; signatory section above.
         </div>
     </div>

@@ -148,11 +148,11 @@
         <div class="cosmos-marquee">
             <div class="cm-track">
                 @for ($i = 0; $i < 3; $i++)
-                    <span><i class="bi bi-star-fill"></i> Grand Coronation Night of the Kababajinhan Surogon 2026</span>
+                    <span><i class="bi bi-star-fill"></i> Grand Coronation Night of the Kababajinhang Surogon 2026</span>
                     <span><i class="bi bi-star-fill"></i> Rainbow Connection — Surigao Del Norte</span>
                     <span><i class="bi bi-star-fill"></i> Provincial Government of Surigao Del Norte</span>
                     <span><i class="bi bi-star-fill"></i> Provincial ICT Office (PICTO)</span>
-                    <span><i class="bi bi-star-fill"></i> Kababajinhan Surogon 2026</span>
+                    <span><i class="bi bi-star-fill"></i> Kababajinhang Surogon 2026</span>
                 @endfor
             </div>
         </div>

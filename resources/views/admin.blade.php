@@ -22,7 +22,7 @@
                 <i class="bi bi-person-fill-lock"></i>
             </div>
             <div>
-                <p class="adm-header-label">Kababajinhan Surogon 2026</p>
+                <p class="adm-header-label">Kababajinhang Surogon 2026</p>
                 <h1 class="adm-header-title">Admin Control Panel</h1>
             </div>
             <div class="adm-header-badge">
@@ -72,6 +72,13 @@
             <div class="adm-tab-text">
                 <span class="adm-tab-label">Final Event</span>
                 <span class="adm-tab-sub">Grand Finale</span>
+            </div>
+        </button>
+        <button class="adm-tab adm-tab--online" data-tab="online" role="tab" aria-selected="false">
+            <div class="adm-tab-icon"><i class="bi bi-broadcast-pin"></i></div>
+            <div class="adm-tab-text">
+                <span class="adm-tab-label">Judges <span class="adm-online-badge" id="tab-online-count">0</span></span>
+                <span class="adm-tab-sub">Live Monitor</span>
             </div>
         </button>
     </div>
@@ -422,6 +429,46 @@
                 <div class="sign">Signature Over Printed Name</div>
             </div>
             <div class="final-print" style="display:none"></div>
+        </div>
+    </div>
+
+    {{-- PANEL 6 — ONLINE JUDGES MONITOR --}}
+    <div class="adm-tab-panel adm-panel--online" id="tab-online" role="tabpanel">
+        <div class="adm-panel-bar">
+            <div class="adm-section-icon online"><i class="bi bi-broadcast-pin"></i></div>
+            <div>
+                <p class="adm-section-sub">Live Session</p>
+                <h2 class="adm-section-title">Online Judges Monitor</h2>
+            </div>
+            <div class="adm-btn-group ms-auto">
+                <span class="adm-online-pulse" id="online-pulse-dot"></span>
+                <span class="adm-online-status-text" id="online-status-text">Auto-refreshing every 30s</span>
+                <button class="adm-btn adm-btn--online-refresh" id="btn-refresh-online" title="Refresh now">
+                    <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+                </button>
+            </div>
+        </div>
+
+        <div class="adm-online-grid" id="online-cards-grid">
+            <div class="adm-online-loading" id="online-loading">
+                <div class="adm-online-spinner"></div>
+                <span>Loading judges&hellip;</span>
+            </div>
+        </div>
+
+        <div class="adm-online-summary">
+            <div class="adm-online-summary-item" id="summary-online">
+                <i class="bi bi-circle-fill" style="color:#00e5b0"></i>
+                <span id="count-online">0</span> Online
+            </div>
+            <div class="adm-online-summary-item" id="summary-offline">
+                <i class="bi bi-circle-fill" style="color:#666"></i>
+                <span id="count-offline">0</span> Offline
+            </div>
+            <div class="adm-online-summary-item">
+                <i class="bi bi-clock-history" style="color:var(--adm-gold)"></i>
+                Last updated: <span id="online-last-updated">&mdash;</span>
+            </div>
         </div>
     </div>
 
@@ -1188,6 +1235,129 @@ body.adm-light #final-rank-table tr.final-top3 td { background: linear-gradient(
 body.adm-light .adm-rank-gold   { background:rgba(200,152,0,.12); border-color:rgba(180,132,0,.46); color:#7a4f00; text-shadow:none; animation:none; }
 body.adm-light .adm-rank-silver { background:rgba(138,138,158,.12); border-color:rgba(158,158,178,.40); color:#44446a; }
 body.adm-light .adm-rank-bronze { background:rgba(138,78,18,.10); border-color:rgba(158,100,28,.38); color:#6a3800; }
+
+/* ══ Online Monitor Tab ══════════════════════════════════════════ */
+.adm-tab--online::after { background: linear-gradient(90deg, #00e5b0, #00a878, #00e5b0); background-size:300% 100%; animation: admBarShimmer 3s linear infinite; }
+.adm-tab--online.is-active { background: rgba(0,100,75,.28); border-color: rgba(0,220,160,.50); box-shadow: 0 0 26px rgba(0,190,140,.30); }
+.adm-tab--online.is-active .adm-tab-icon { background: rgba(0,120,88,.40); color: #00ffc8; box-shadow: 0 0 16px rgba(0,210,155,.45); }
+.adm-tab--online.is-active .adm-tab-label { color: #00ffc8; }
+.adm-tab--online.is-active .adm-tab-sub   { color: rgba(0,230,180,.70); }
+body.adm-light .adm-tab--online.is-active { background:rgba(220,255,248,.95); border-color:rgba(0,170,125,.42); box-shadow:0 4px 22px rgba(0,160,115,.16); }
+body.adm-light .adm-tab--online.is-active .adm-tab-icon { background:rgba(0,160,115,.12); color:#005f48; }
+body.adm-light .adm-tab--online.is-active .adm-tab-label { color:#005f48; }
+body.adm-light .adm-tab--online.is-active .adm-tab-sub   { color:rgba(0,120,88,.60); }
+
+.adm-online-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 18px; height: 18px; padding: 0 4px;
+    background: rgba(0,210,150,.30); border: 1px solid rgba(0,210,150,.55);
+    border-radius: 99px; font-size: .68rem; font-weight: 700;
+    color: #00ffc8; vertical-align: middle; margin-left: 4px;
+    transition: background .3s;
+}
+body.adm-light .adm-online-badge { background:rgba(0,160,110,.12); border-color:rgba(0,160,110,.40); color:#005f48; }
+
+.adm-panel--online { background: rgba(0,50,38,.26); border: 1px solid rgba(0,200,148,.22); flex-direction: column; gap: 20px; }
+.adm-panel--online::before { background: linear-gradient(90deg,#006644,#00c890,#00ffcc,#00c890,#006644); background-size:300% 100%; animation: admBarShimmer 3s linear infinite; }
+body.adm-light .adm-panel--online { background:rgba(224,255,248,.90); border-color:rgba(0,175,130,.22); box-shadow:0 4px 24px rgba(0,160,115,.10); }
+
+.adm-section-icon.online { background:rgba(0,120,90,.30); color:#00e5b0; box-shadow:0 0 16px rgba(0,200,150,.30); }
+body.adm-light .adm-section-icon.online { background:rgba(0,150,110,.12); color:#005f48; box-shadow:0 0 12px rgba(0,150,110,.16); }
+
+/* refresh button */
+.adm-btn--online-refresh { background:rgba(0,100,75,.32); border:1px solid rgba(0,200,148,.45); color:#00e5b0; }
+.adm-btn--online-refresh:hover { background:rgba(0,130,100,.44); box-shadow:0 0 18px rgba(0,200,148,.38); }
+body.adm-light .adm-btn--online-refresh { background:rgba(0,140,100,.12); border-color:rgba(0,160,115,.38); color:#005f48; }
+
+/* pulse dot */
+.adm-online-pulse {
+    display: inline-block; width: 10px; height: 10px;
+    border-radius: 50%; background: #00e5b0;
+    box-shadow: 0 0 8px rgba(0,230,176,.70);
+    animation: onlinePulse 1.4s ease-in-out infinite;
+}
+@keyframes onlinePulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.5);opacity:.50} }
+.adm-online-status-text { font-size:.78rem; color:var(--adm-muted); letter-spacing:.04em; }
+body.adm-light .adm-online-status-text { color:#5533aa; }
+
+/* cards grid */
+.adm-online-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+}
+
+.adm-online-loading {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; padding: 40px; color: var(--adm-muted); font-size: .9rem;
+}
+.adm-online-spinner {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid rgba(0,210,150,.20);
+    border-top-color: #00e5b0;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* judge card */
+.adm-judge-card {
+    background: rgba(0,0,0,.22);
+    border: 1px solid rgba(80,80,80,.25);
+    border-radius: var(--adm-radius-sm);
+    padding: 16px 14px;
+    display: flex; flex-direction: column; gap: 8px;
+    transition: var(--adm-transition);
+    animation: admFadeIn .35s ease both;
+}
+.adm-judge-card.is-online {
+    background: rgba(0,80,60,.28);
+    border-color: rgba(0,210,155,.40);
+    box-shadow: 0 0 18px rgba(0,190,140,.20);
+}
+body.adm-light .adm-judge-card { background:rgba(255,255,255,.85); border-color:rgba(180,180,180,.30); }
+body.adm-light .adm-judge-card.is-online { background:rgba(220,255,245,.92); border-color:rgba(0,170,125,.38); box-shadow:0 0 14px rgba(0,160,115,.14); }
+
+.adm-judge-card-top { display:flex; align-items:center; gap:10px; }
+.adm-judge-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items:center; justify-content:center;
+    font-size: 1rem; font-weight: 700; flex-shrink: 0;
+    background: rgba(80,40,140,.35); color: #cc88ff;
+    border: 1px solid rgba(140,80,255,.30);
+}
+.adm-judge-card.is-online .adm-judge-avatar {
+    background: rgba(0,110,82,.40); color: #00ffc8;
+    border-color: rgba(0,200,148,.40);
+}
+body.adm-light .adm-judge-avatar { background:rgba(160,80,220,.12); color:#7700cc; border-color:rgba(160,80,220,.30); }
+body.adm-light .adm-judge-card.is-online .adm-judge-avatar { background:rgba(0,150,110,.12); color:#005f48; border-color:rgba(0,160,115,.35); }
+
+.adm-judge-info { flex: 1; min-width: 0; }
+.adm-judge-name { font-size:.88rem; font-weight:700; color:var(--adm-text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.adm-judge-email { font-size:.70rem; color:var(--adm-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+.adm-judge-status-row { display:flex; align-items:center; gap:6px; }
+.adm-status-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.adm-status-dot.online  { background:#00e5b0; box-shadow:0 0 6px rgba(0,210,160,.70); animation:onlinePulse 1.6s ease infinite; }
+.adm-status-dot.offline { background:#555; }
+.adm-status-label { font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; font-weight:600; }
+.adm-status-label.online  { color:#00e5b0; }
+.adm-status-label.offline { color:#666; }
+body.adm-light .adm-status-label.online  { color:#005f48; }
+body.adm-light .adm-status-label.offline { color:#888; }
+
+.adm-judge-lastseen { font-size:.68rem; color:var(--adm-muted); margin-left:auto; white-space:nowrap; }
+
+/* summary bar */
+.adm-online-summary {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    padding: 10px 4px 0;
+    border-top: 1px solid rgba(255,255,255,.07);
+    font-size: .78rem; color: var(--adm-muted);
+}
+body.adm-light .adm-online-summary { border-top-color:rgba(0,0,0,.08); color:#5533aa; }
+.adm-online-summary-item { display:flex; align-items:center; gap:6px; }
 </style>
 
 
@@ -1209,6 +1379,118 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
         if (panel) panel.classList.add('is-active');
     });
 });
+
+/* ── Online Judges Monitor ── */
+(function() {
+    var POLL_INTERVAL = 30000; // 30 seconds
+    var pollTimer = null;
+
+    function timeAgo(unixTs) {
+        var diff = Math.floor(Date.now() / 1000) - unixTs;
+        if (diff < 10)  return 'just now';
+        if (diff < 60)  return diff + 's ago';
+        if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+        return Math.floor(diff / 3600) + 'h ago';
+    }
+
+    function initials(name) {
+        return name.split(' ').map(function(w){ return w[0]; }).join('').toUpperCase().slice(0,2);
+    }
+
+    function renderCards(data) {
+        var grid    = document.getElementById('online-cards-grid');
+        var loading = document.getElementById('online-loading');
+        var onlineIds = data.online_ids.map(function(id){ return parseInt(id); });
+        var onlineCount = 0;
+
+        // remove loading spinner
+        if (loading) loading.remove();
+
+        // clear old cards
+        grid.innerHTML = '';
+
+        // sort: online first
+        var users = data.users.slice().sort(function(a, b) {
+            var aOn = onlineIds.indexOf(a.id) !== -1 ? 0 : 1;
+            var bOn = onlineIds.indexOf(b.id) !== -1 ? 0 : 1;
+            return aOn - bOn;
+        });
+
+        users.forEach(function(user) {
+            var isOnline = onlineIds.indexOf(user.id) !== -1;
+            if (isOnline) onlineCount++;
+
+            var lastSeen = data.last_seen[user.id];
+            var lastSeenText = lastSeen ? timeAgo(lastSeen.last_activity) : 'never';
+
+            var card = document.createElement('div');
+            card.className = 'adm-judge-card' + (isOnline ? ' is-online' : '');
+            card.innerHTML =
+                '<div class="adm-judge-card-top">' +
+                    '<div class="adm-judge-avatar">' + initials(user.name) + '</div>' +
+                    '<div class="adm-judge-info">' +
+                        '<div class="adm-judge-name">' + user.name + '</div>' +
+                        '<div class="adm-judge-email">' + user.email + '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="adm-judge-status-row">' +
+                    '<span class="adm-status-dot ' + (isOnline ? 'online' : 'offline') + '"></span>' +
+                    '<span class="adm-status-label ' + (isOnline ? 'online' : 'offline') + '">' + (isOnline ? 'Online' : 'Offline') + '</span>' +
+                    '<span class="adm-judge-lastseen">' + lastSeenText + '</span>' +
+                '</div>';
+            grid.appendChild(card);
+        });
+
+        // update counters
+        var offlineCount = users.length - onlineCount;
+        document.getElementById('count-online').textContent  = onlineCount;
+        document.getElementById('count-offline').textContent = offlineCount;
+
+        // update tab badge
+        var badge = document.getElementById('tab-online-count');
+        if (badge) badge.textContent = onlineCount;
+
+        // last updated
+        var now = new Date();
+        document.getElementById('online-last-updated').textContent =
+            now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    }
+
+    function fetchOnline() {
+        document.getElementById('online-status-text').textContent = 'Refreshing…';
+        fetch('{{ route("admin.online_users") }}')
+            .then(function(r){ return r.json(); })
+            .then(function(data){
+                renderCards(data);
+                document.getElementById('online-status-text').textContent = 'Auto-refreshing every 30s';
+            })
+            .catch(function(){
+                document.getElementById('online-status-text').textContent = 'Refresh failed — retrying…';
+            });
+    }
+
+    function startPolling() {
+        fetchOnline();
+        pollTimer = setInterval(fetchOnline, POLL_INTERVAL);
+    }
+
+    // start when tab is clicked; stop when leaving
+    document.querySelectorAll('.adm-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            if (this.dataset.tab === 'online') {
+                startPolling();
+            } else {
+                clearInterval(pollTimer);
+            }
+        });
+    });
+
+    // manual refresh button
+    document.getElementById('btn-refresh-online').addEventListener('click', function() {
+        clearInterval(pollTimer);
+        startPolling();
+    });
+})();
 
 /* ── Light / dark toggle ── */
 (function() {

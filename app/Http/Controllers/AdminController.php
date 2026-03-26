@@ -301,4 +301,43 @@ class AdminController extends Controller
         return $pdf->download($filename);
     }
 
+    public function onlineUsers()
+    {
+        if (Auth::user()->name !== 'admin') {
+            abort(403);
+        }
+
+        $threshold = now()->subMinutes(5)->timestamp;
+
+        $onlineUserIds = DB::table('sessions')
+            ->whereNotNull('user_id')
+            ->where('last_activity', '>=', $threshold)
+            ->pluck('user_id')
+            ->unique();
+
+        $users = DB::table('users')
+            ->whereIn('id', $onlineUserIds)
+            ->select('id', 'name', 'email')
+            ->get();
+
+        $allUsers = DB::table('users')
+            ->select('id', 'name', 'email')
+            ->get();
+
+        $lastSeen = DB::table('sessions')
+            ->whereNotNull('user_id')
+            ->orderBy('last_activity', 'desc')
+            ->get(['user_id', 'last_activity'])
+            ->unique('user_id')
+            ->keyBy('user_id');
+
+        return response()->json([
+            'online_ids'  => $onlineUserIds->values(),
+            'users'       => $allUsers,
+            'last_seen'   => $lastSeen,
+            'threshold'   => $threshold,
+            'server_time' => now()->timestamp,
+        ]);
+    }
+
 }
