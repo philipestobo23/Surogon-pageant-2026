@@ -45,7 +45,7 @@
                          loading="lazy"
                          decoding="async"
                          onload="this.classList.add('loaded');this.previousElementSibling.style.display='none';"
-                         onerror="this.classList.add('loaded');this.previousElementSibling.style.display='none';this.src='{{ asset('images/surigay_logo.png') }}';">
+                         onerror="this.classList.add('loaded');this.previousElementSibling.style.display='none';this.src='{{ asset('images/KS1.png') }}';">
                     <div class="qt-photo-overlay"></div>
                     <div class="qt-crown-icon"><i class="bi bi-patch-check-fill"></i></div>
                 </div>

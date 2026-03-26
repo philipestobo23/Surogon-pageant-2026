@@ -44,7 +44,7 @@
                          loading="lazy"
                          decoding="async"
                          onload="this.classList.add('loaded');this.previousElementSibling.style.display='none';"
-                         onerror="this.classList.add('loaded');this.previousElementSibling.style.display='none';this.src='{{ asset('images/surigay_logo.png') }}';">
+                         onerror="this.classList.add('loaded');this.previousElementSibling.style.display='none';this.src='{{ asset('images/KS1.png') }}';">
                     <div class="sw-photo-overlay"></div>
                 </div>
                 <div class="sw-card-body">

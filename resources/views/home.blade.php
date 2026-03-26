@@ -128,7 +128,7 @@
                 </div>
 
                 <p class="sc-desc">Determine the ultimate winner. Score the Top 3 finalists in the final Q&amp;A to crown
-                    Binibining Surigay 2026.</p>
+                    Kababajinhang Surogon 2026.</p>
 
                 <div class="sc-buttons">
                     <a href="{{ route('final_form') }}" class="judge-btn btn-final">

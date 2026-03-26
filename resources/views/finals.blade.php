@@ -94,7 +94,7 @@
                         alt="Contestant {{ $datum[0] }}"
                         class="fn-photo"
                         loading="lazy"
-                        onerror="this.src='{{ asset('images/surigay_logo.png') }}'">
+                        onerror="this.src='{{ asset('images/KS.png') }}'">
                     <div class="fn-photo-overlay"></div>
                     <div class="fn-finalist-crown"><i class="bi bi-gem"></i></div>
                     <div class="fn-top5-badge"><i class="bi bi-trophy-fill"></i> TOP 3</div>

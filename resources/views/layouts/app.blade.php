@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Binibining Surigay 2025</title>
+    <title>Kababajinhang Surogon 2026</title>
 
     <!-- Fonts -->
     <link rel="icon" type="image/x-icon" href="{{ asset('images/SDN_LOGO.svg') }}" />

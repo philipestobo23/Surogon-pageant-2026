@@ -41,7 +41,7 @@
                          alt="Contestant {{ $datum[0] }}"
                          class="pw-photo"
                          loading="lazy"
-                         onerror="this.src='{{ asset('images/surigay_logo.png') }}'">
+                         onerror="this.src='{{ asset('images/KS1.png') }}'">
                     <div class="pw-photo-overlay"></div>
                 </div>
                 <div class="pw-card-body">
