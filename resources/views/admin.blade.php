@@ -127,6 +127,7 @@
                             <th>Production Wear</th>
                             <th>Production Number</th>
                             <th>Runway</th>
+                            <th>Miss Congeniality</th>
                         </tr>
                     </thead>
                     <tbody id="preliminary-rank-table"></tbody>
@@ -2126,7 +2127,8 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
                                     <td>${value.production_wear}</td>
                                     <td>${value.production_number}</td>
                                     <td>${value.runway}</td>
-                                </tr>`);
+                                    <td>${value.miss_congeniality}</td>
+                                </tr>`)
 
                                 
 
