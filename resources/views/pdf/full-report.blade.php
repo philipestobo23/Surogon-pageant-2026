@@ -24,7 +24,7 @@
 
         /* ── Page Margins ── */
         @page {
-            margin: 8mm 7mm 38mm 7mm;
+            margin: 8mm 7mm 55mm 7mm;
             size: A4 landscape;
         }
 
@@ -194,6 +194,7 @@
         table.data-table td.col-name {
             text-align: left;
             font-weight: 600;
+            text-transform: uppercase;
         }
 
         table.data-table tbody tr:nth-child(even) {
@@ -363,6 +364,8 @@
             text-align: left;
             font-weight: 700;
             color: #4a2e00;
+            text-transform: uppercase;
+            font-size: 7.8px;
         }
 
         /* Rank 1 — Gold shimmer row */
@@ -546,6 +549,8 @@
             text-align: left;
             font-weight: 600;
             color: #1a1a1a;
+            text-transform: uppercase;
+            font-size: 7.8px;
         }
         table.scorecard-table tbody tr:nth-child(even) { background: rgba(245,245,245,0.55); }
         table.scorecard-table tbody tr:nth-child(odd)  { background: rgba(255,255,255,0.45); }
@@ -597,7 +602,7 @@
             border: 1px solid #ddd;
             text-align: center;
         }
-        table.sc-summary-table td.sc-name { text-align: left; font-weight: 600; }
+        table.sc-summary-table td.sc-name { text-align: left; font-weight: 600; text-transform: uppercase; font-size: 7.8px; }
         table.sc-summary-table tbody tr:nth-child(even) { background: rgba(240,240,240,0.55); }
         table.sc-summary-table tbody tr:nth-child(odd)  { background: rgba(255,255,255,0.45); }
         /* Final Placement badge — tiered creative */
@@ -649,7 +654,7 @@
 
         /* Space reserved for the fixed header on every page */
         .h-spacer {
-            height: 34mm;
+            height: 29mm;
             display: block;
         }
 
@@ -781,6 +786,15 @@
             display: block;
             margin-top: 1px;
         }
+        .coordinator-verified {
+            font-size: 6.5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555;
+            display: block;
+            margin-bottom: 2px;
+        }
         .coordinator-divider {
             border: none;
             border-top: 1px dashed #ccc;
@@ -807,11 +821,11 @@
     @php
         /* ── Update judge names here ── */
         $judges = [
-            1 => 'Lorenzo Isip',
-            2 => 'Kris Tiffany Janson',
-            3 => 'Kirk Virtudazo Popiolek',
-            4 => 'Steffi Rose Aberasturi Arcenas',
-            5 => 'Kenneth Cabungcal',
+            1 => strtoupper('Lorenzo Isip'),
+            2 => strtoupper('Kris Tiffany Janson'),
+            3 => strtoupper('Kirk Virtudazo Popiolek'),
+            4 => strtoupper('Steffi Rose Aberasturi Arcenas'),
+            5 => strtoupper('Kenneth Cabungcal'),
         ];
     @endphp
 
@@ -1288,9 +1302,10 @@
             <tr>
                 <td style="width:60%"></td>
                 <td style="width:40%">
+                    <span class="coordinator-verified">Verified by:</span>
                     <span class="coordinator-line"></span>
-                    <span class="coordinator-name">Baby Rax Dolfo</span>
-                    <span class="coordinator-label">Head / Coordinator of the Event</span>
+                    <span class="coordinator-name">RAXIEY G. ADOLFO, MPA</span>
+                    <span class="coordinator-label">SDN Internal Auditor</span>
                     <span class="coordinator-sub">Signature over Printed Name</span>
                 </td>
             </tr>

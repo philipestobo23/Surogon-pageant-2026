@@ -73,7 +73,7 @@
                 <span class="pw-submit-shimmer"></span>
                 <i class="bi bi-floppy-fill me-2"></i>Submit Scores
             </button>
-            <button hidden id="generate-rank" class="pw-generate-btn">
+            <button hidden id="generate-rank" type="button" class="pw-generate-btn">
                 <i class="bi bi-file-earmark-arrow-down-fill me-2"></i>Generate Rankings
             </button>
         </div>
@@ -348,6 +348,7 @@ body {
     cursor: pointer; transition: var(--transition);
 }
 .pw-generate-btn:hover { background: linear-gradient(135deg, #440088, #330066); }
+.pw-generate-btn:disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 
 /* ── ranking section ── */
 .pw-rank-section { margin-top: 36px; padding-bottom: 40px; }
@@ -491,6 +492,7 @@ body {
         function loadRankings(forceScroll) {
             var alreadyVisible = !document.getElementById('rank-table-container').hasAttribute('hidden');
             $('#rank-table').empty();
+            $('#generate-rank').prop('disabled', true);
             $.ajax({
                 type: 'GET',
                 url: '{{ route('rank_production_wear') }}',

@@ -78,7 +78,7 @@
                 <span class="qt-submit-shimmer"></span>
                 <i class="bi bi-floppy-fill me-2"></i>Submit Scores
             </button>
-            <button hidden id="generate-rank" class="qt-generate-btn">
+            <button hidden id="generate-rank" type="button" class="qt-generate-btn">
                 <i class="bi bi-file-earmark-arrow-down-fill me-2"></i>Generate Rankings
             </button>
         </div>
@@ -408,6 +408,7 @@ body {
     cursor: pointer; transition: var(--qt-transition);
 }
 .qt-generate-btn:hover { background: linear-gradient(135deg, #3a2800, #2a1d00); }
+.qt-generate-btn:disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 
 /* ── Ranking Section ── */
 .qt-rank-section { margin-top: 36px; padding-bottom: 40px; }
@@ -593,9 +594,10 @@ body {
             });
         });
 
-        function loadRankings(forceScroll) {
-            var alreadyVisible = !document.getElementById('rank-table-container').hasAttribute('hidden');
+        $('#generate-rank').click(function (event) {
+            event.preventDefault();
             $('#rank-table').empty();
+            $('#generate-rank').prop('disabled', true);
             $.ajax({
                 type: 'GET',
                 url: '{{ route('rank_question') }}',
@@ -611,21 +613,14 @@ body {
                         $('#rank-table').append(newRow);
                     });
                     document.getElementById('rank-table-container').removeAttribute('hidden');
-                    $('#generate-rank').prop('disabled', false);
-                    if (!alreadyVisible || forceScroll) {
-                        var target = $('#rank-table-container').offset().top - 24;
-                        $('html, body').animate({ scrollTop: target }, 1200, 'swing');
-                    }
+                    var target = $('#rank-table-container').offset().top - 24;
+                    $('html, body').animate({ scrollTop: target }, 1200, 'swing');
                 },
                 error: function (error) {
+                    $('#generate-rank').prop('disabled', false);
                     console.error(error);
                 }
             });
-        }
-
-        $('#generate-rank').click(function (event) {
-            event.preventDefault();
-            loadRankings();
         });
     });
 </script>

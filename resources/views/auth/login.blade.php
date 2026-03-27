@@ -6,11 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Surogon Pageant 2026 — Access Portal</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/SDN_LOGO.svg') }}" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
     @vite(['resources/sass/app.scss'])
 
     <style>

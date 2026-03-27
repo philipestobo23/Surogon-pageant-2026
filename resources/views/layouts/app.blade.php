@@ -12,10 +12,6 @@
 
     <!-- Fonts -->
     <link rel="icon" type="image/x-icon" href="{{ asset('images/SDN_LOGO.svg') }}" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         .floating-button {
@@ -219,7 +215,6 @@
     </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @stack('scripts')
 <script>
     function toggleFullScreen() {

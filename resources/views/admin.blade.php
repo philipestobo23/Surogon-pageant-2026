@@ -74,11 +74,11 @@
                 <span class="adm-tab-sub">Grand Finale</span>
             </div>
         </button>
-        <button class="adm-tab adm-tab--online" data-tab="online" role="tab" aria-selected="false">
-            <div class="adm-tab-icon"><i class="bi bi-broadcast-pin"></i></div>
+        <button class="adm-tab adm-tab--log" data-tab="activity-log" role="tab" aria-selected="false">
+            <div class="adm-tab-icon"><i class="bi bi-journal-text"></i></div>
             <div class="adm-tab-text">
-                <span class="adm-tab-label">Judges <span class="adm-online-badge" id="tab-online-count">0</span></span>
-                <span class="adm-tab-sub">Live Monitor</span>
+                <span class="adm-tab-label">Activity Log</span>
+                <span class="adm-tab-sub">Score Submissions</span>
             </div>
         </button>
     </div>
@@ -432,42 +432,59 @@
         </div>
     </div>
 
-    {{-- PANEL 6 — ONLINE JUDGES MONITOR --}}
-    <div class="adm-tab-panel adm-panel--online" id="tab-online" role="tabpanel">
+    {{-- PANEL 6 — ACTIVITY LOG --}}
+    <div class="adm-tab-panel adm-panel--log" id="tab-activity-log" role="tabpanel">
         <div class="adm-panel-bar">
-            <div class="adm-section-icon online"><i class="bi bi-broadcast-pin"></i></div>
+            <div class="adm-section-icon log"><i class="bi bi-journal-text"></i></div>
             <div>
-                <p class="adm-section-sub">Live Session</p>
-                <h2 class="adm-section-title">Online Judges Monitor</h2>
+                <p class="adm-section-sub">Monitoring</p>
+                <h2 class="adm-section-title">Judge Score Submission Log</h2>
             </div>
             <div class="adm-btn-group ms-auto">
-                <span class="adm-online-pulse" id="online-pulse-dot"></span>
-                <span class="adm-online-status-text" id="online-status-text">Auto-refreshing every 30s</span>
-                <button class="adm-btn adm-btn--online-refresh" id="btn-refresh-online" title="Refresh now">
+                <span class="adm-log-status-text" id="log-status-text"></span>
+                <button class="adm-btn adm-btn--log-refresh" id="btn-refresh-log" type="button">
                     <i class="bi bi-arrow-clockwise me-1"></i>Refresh
                 </button>
             </div>
         </div>
 
-        <div class="adm-online-grid" id="online-cards-grid">
-            <div class="adm-online-loading" id="online-loading">
-                <div class="adm-online-spinner"></div>
-                <span>Loading judges&hellip;</span>
+        {{-- Event legend --}}
+        <div class="adm-log-legend">
+            <span class="adm-log-legend-item submitted"><i class="bi bi-check-circle-fill"></i> Submitted</span>
+            <span class="adm-log-legend-item pending"><i class="bi bi-hourglass-split"></i> Pending</span>
+        </div>
+
+        {{-- Judge cards grid --}}
+        <div class="adm-log-grid" id="log-cards-grid">
+            <div class="adm-log-loading" id="log-loading">
+                <div class="adm-log-spinner"></div>
+                <span>Loading activity&hellip;</span>
             </div>
         </div>
 
-        <div class="adm-online-summary">
-            <div class="adm-online-summary-item" id="summary-online">
-                <i class="bi bi-circle-fill" style="color:#00e5b0"></i>
-                <span id="count-online">0</span> Online
-            </div>
-            <div class="adm-online-summary-item" id="summary-offline">
-                <i class="bi bi-circle-fill" style="color:#666"></i>
-                <span id="count-offline">0</span> Offline
-            </div>
-            <div class="adm-online-summary-item">
+        {{-- Summary bar --}}
+        <div class="adm-log-summary" id="log-summary" hidden>
+            <div class="adm-log-summary-item">
                 <i class="bi bi-clock-history" style="color:var(--adm-gold)"></i>
-                Last updated: <span id="online-last-updated">&mdash;</span>
+                Last fetched: <span id="log-last-updated">&mdash;</span>
+            </div>
+        </div>
+    </div>
+
+    {{-- Score Drill-Down Modal --}}
+    <div class="adm-score-overlay" id="score-overlay" hidden>
+        <div class="adm-score-modal">
+            <div class="adm-score-modal-header">
+                <div>
+                    <div class="adm-score-modal-title" id="score-modal-title">Scores</div>
+                    <div class="adm-score-modal-sub" id="score-modal-sub"></div>
+                </div>
+                <button class="adm-score-modal-close" id="score-modal-close" type="button" aria-label="Close">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="adm-score-modal-body" id="score-modal-body">
+                <div class="adm-score-loading"><div class="adm-log-spinner"></div> Loading scores&hellip;</div>
             </div>
         </div>
     </div>
@@ -1236,128 +1253,226 @@ body.adm-light .adm-rank-gold   { background:rgba(200,152,0,.12); border-color:r
 body.adm-light .adm-rank-silver { background:rgba(138,138,158,.12); border-color:rgba(158,158,178,.40); color:#44446a; }
 body.adm-light .adm-rank-bronze { background:rgba(138,78,18,.10); border-color:rgba(158,100,28,.38); color:#6a3800; }
 
-/* ══ Online Monitor Tab ══════════════════════════════════════════ */
-.adm-tab--online::after { background: linear-gradient(90deg, #00e5b0, #00a878, #00e5b0); background-size:300% 100%; animation: admBarShimmer 3s linear infinite; }
-.adm-tab--online.is-active { background: rgba(0,100,75,.28); border-color: rgba(0,220,160,.50); box-shadow: 0 0 26px rgba(0,190,140,.30); }
-.adm-tab--online.is-active .adm-tab-icon { background: rgba(0,120,88,.40); color: #00ffc8; box-shadow: 0 0 16px rgba(0,210,155,.45); }
-.adm-tab--online.is-active .adm-tab-label { color: #00ffc8; }
-.adm-tab--online.is-active .adm-tab-sub   { color: rgba(0,230,180,.70); }
-body.adm-light .adm-tab--online.is-active { background:rgba(220,255,248,.95); border-color:rgba(0,170,125,.42); box-shadow:0 4px 22px rgba(0,160,115,.16); }
-body.adm-light .adm-tab--online.is-active .adm-tab-icon { background:rgba(0,160,115,.12); color:#005f48; }
-body.adm-light .adm-tab--online.is-active .adm-tab-label { color:#005f48; }
-body.adm-light .adm-tab--online.is-active .adm-tab-sub   { color:rgba(0,120,88,.60); }
+/* ── Activity Log Tab ── */
+.adm-tab--log::after { background: linear-gradient(90deg, #6600cc, #aa44ff, #cc88ff, #aa44ff, #6600cc); background-size:300% 100%; animation: admBarShimmer 3s linear infinite; }
+.adm-tab--log.is-active { background: rgba(80,0,160,.28); border-color: rgba(160,80,255,.50); box-shadow: 0 0 26px rgba(120,40,255,.30); }
+.adm-tab--log.is-active .adm-tab-icon { background: rgba(100,0,200,.40); color: #cc88ff; box-shadow: 0 0 16px rgba(160,80,255,.45); }
+.adm-tab--log.is-active .adm-tab-label { color: #cc88ff; }
+.adm-tab--log.is-active .adm-tab-sub   { color: rgba(180,120,255,.70); }
+body.adm-light .adm-tab--log.is-active { background:rgba(240,230,255,.95); border-color:rgba(130,60,220,.42); box-shadow:0 4px 22px rgba(110,40,200,.16); }
+body.adm-light .adm-tab--log.is-active .adm-tab-icon { background:rgba(130,60,220,.12); color:#6600cc; }
+body.adm-light .adm-tab--log.is-active .adm-tab-label { color:#6600cc; }
+body.adm-light .adm-tab--log.is-active .adm-tab-sub   { color:rgba(90,30,180,.60); }
 
-.adm-online-badge {
-    display: inline-flex; align-items: center; justify-content: center;
-    min-width: 18px; height: 18px; padding: 0 4px;
-    background: rgba(0,210,150,.30); border: 1px solid rgba(0,210,150,.55);
-    border-radius: 99px; font-size: .68rem; font-weight: 700;
-    color: #00ffc8; vertical-align: middle; margin-left: 4px;
-    transition: background .3s;
+/* ── Activity Log Panel ── */
+.adm-panel--log { background: rgba(30,0,70,.26); border: 1px solid rgba(130,60,255,.22); flex-direction: column; gap: 20px; }
+.adm-panel--log::before { background: linear-gradient(90deg,#440088,#9933ff,#cc77ff,#9933ff,#440088); background-size:300% 100%; animation: admBarShimmer 3s linear infinite; }
+body.adm-light .adm-panel--log { background:rgba(245,238,255,.90); border-color:rgba(130,60,220,.22); box-shadow:0 4px 24px rgba(100,40,200,.10); }
+
+.adm-section-icon.log { background:rgba(80,0,160,.30); color:#cc88ff; box-shadow:0 0 16px rgba(140,60,255,.30); }
+body.adm-light .adm-section-icon.log { background:rgba(130,60,220,.12); color:#6600cc; box-shadow:0 0 12px rgba(110,40,200,.16); }
+
+.adm-btn--log-refresh { background:rgba(80,0,160,.32); border:1px solid rgba(160,80,255,.45); color:#cc88ff; }
+.adm-btn--log-refresh:hover { background:rgba(100,0,200,.44); box-shadow:0 0 18px rgba(160,80,255,.38); }
+body.adm-light .adm-btn--log-refresh { background:rgba(130,60,220,.12); border-color:rgba(130,60,220,.38); color:#6600cc; }
+
+.adm-log-status-text { font-size:.78rem; color:var(--adm-muted); letter-spacing:.04em; }
+
+/* legend */
+.adm-log-legend {
+    display: flex; gap: 18px; flex-wrap: wrap;
+    font-size: .76rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    padding: 0 2px;
 }
-body.adm-light .adm-online-badge { background:rgba(0,160,110,.12); border-color:rgba(0,160,110,.40); color:#005f48; }
+.adm-log-legend-item { display: flex; align-items: center; gap: 6px; }
+.adm-log-legend-item.submitted { color: #44dd88; }
+.adm-log-legend-item.pending   { color: #ff9944; }
+body.adm-light .adm-log-legend-item.submitted { color: #007740; }
+body.adm-light .adm-log-legend-item.pending   { color: #cc5500; }
 
-.adm-panel--online { background: rgba(0,50,38,.26); border: 1px solid rgba(0,200,148,.22); flex-direction: column; gap: 20px; }
-.adm-panel--online::before { background: linear-gradient(90deg,#006644,#00c890,#00ffcc,#00c890,#006644); background-size:300% 100%; animation: admBarShimmer 3s linear infinite; }
-body.adm-light .adm-panel--online { background:rgba(224,255,248,.90); border-color:rgba(0,175,130,.22); box-shadow:0 4px 24px rgba(0,160,115,.10); }
-
-.adm-section-icon.online { background:rgba(0,120,90,.30); color:#00e5b0; box-shadow:0 0 16px rgba(0,200,150,.30); }
-body.adm-light .adm-section-icon.online { background:rgba(0,150,110,.12); color:#005f48; box-shadow:0 0 12px rgba(0,150,110,.16); }
-
-/* refresh button */
-.adm-btn--online-refresh { background:rgba(0,100,75,.32); border:1px solid rgba(0,200,148,.45); color:#00e5b0; }
-.adm-btn--online-refresh:hover { background:rgba(0,130,100,.44); box-shadow:0 0 18px rgba(0,200,148,.38); }
-body.adm-light .adm-btn--online-refresh { background:rgba(0,140,100,.12); border-color:rgba(0,160,115,.38); color:#005f48; }
-
-/* pulse dot */
-.adm-online-pulse {
-    display: inline-block; width: 10px; height: 10px;
-    border-radius: 50%; background: #00e5b0;
-    box-shadow: 0 0 8px rgba(0,230,176,.70);
-    animation: onlinePulse 1.4s ease-in-out infinite;
-}
-@keyframes onlinePulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.5);opacity:.50} }
-.adm-online-status-text { font-size:.78rem; color:var(--adm-muted); letter-spacing:.04em; }
-body.adm-light .adm-online-status-text { color:#5533aa; }
-
-/* cards grid */
-.adm-online-grid {
+/* judge activity card grid */
+.adm-log-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
 }
-
-.adm-online-loading {
+.adm-log-loading {
     grid-column: 1 / -1;
-    display: flex; align-items: center; justify-content: center;
-    gap: 12px; padding: 40px; color: var(--adm-muted); font-size: .9rem;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 40px 0; color: var(--adm-muted); font-size: .88rem;
 }
-.adm-online-spinner {
-    width: 20px; height: 20px; border-radius: 50%;
-    border: 2px solid rgba(0,210,150,.20);
-    border-top-color: #00e5b0;
+.adm-log-spinner {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid rgba(160,80,255,.25);
+    border-top-color: #cc88ff;
     animation: spin 0.8s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* judge card */
-.adm-judge-card {
-    background: rgba(0,0,0,.22);
-    border: 1px solid rgba(80,80,80,.25);
+/* judge log card */
+.adm-log-card {
+    background: rgba(40,0,80,.32);
+    border: 1px solid rgba(120,60,220,.28);
     border-radius: var(--adm-radius-sm);
-    padding: 16px 14px;
-    display: flex; flex-direction: column; gap: 8px;
+    padding: 16px 16px 14px;
+    display: flex; flex-direction: column; gap: 12px;
     transition: var(--adm-transition);
     animation: admFadeIn .35s ease both;
 }
-.adm-judge-card.is-online {
-    background: rgba(0,80,60,.28);
-    border-color: rgba(0,210,155,.40);
-    box-shadow: 0 0 18px rgba(0,190,140,.20);
+.adm-log-card:hover { border-color: rgba(180,100,255,.55); box-shadow: 0 4px 22px rgba(120,40,255,.22); transform: translateY(-2px); }
+body.adm-light .adm-log-card { background:rgba(255,255,255,.88); border-color:rgba(160,80,220,.22); }
+body.adm-light .adm-log-card:hover { border-color:rgba(120,40,200,.45); box-shadow:0 4px 18px rgba(100,30,180,.12); }
+
+.adm-log-card-header { display:flex; align-items:center; gap:10px; }
+.adm-log-judge-info { flex:1; min-width:0; }
+.adm-log-avatar {
+    width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Orbitron', monospace; font-size: .80rem; font-weight: 700;
+    background: rgba(100,0,200,.38); color: #cc88ff;
+    border: 2px solid rgba(160,80,255,.40);
 }
-body.adm-light .adm-judge-card { background:rgba(255,255,255,.85); border-color:rgba(180,180,180,.30); }
-body.adm-light .adm-judge-card.is-online { background:rgba(220,255,245,.92); border-color:rgba(0,170,125,.38); box-shadow:0 0 14px rgba(0,160,115,.14); }
+body.adm-light .adm-log-avatar { background:rgba(130,60,220,.12); color:#6600cc; border-color:rgba(130,60,220,.30); }
 
-.adm-judge-card-top { display:flex; align-items:center; gap:10px; }
-.adm-judge-avatar {
-    width: 38px; height: 38px; border-radius: 50%;
-    display: flex; align-items:center; justify-content:center;
-    font-size: 1rem; font-weight: 700; flex-shrink: 0;
-    background: rgba(80,40,140,.35); color: #cc88ff;
-    border: 1px solid rgba(140,80,255,.30);
+.adm-log-judge-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.00rem; font-weight: 700;
+    color: var(--adm-text); letter-spacing: .04em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.adm-judge-card.is-online .adm-judge-avatar {
-    background: rgba(0,110,82,.40); color: #00ffc8;
-    border-color: rgba(0,200,148,.40);
+.adm-log-judge-sub {
+    font-size: .68rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; opacity: .55; color: var(--adm-muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-body.adm-light .adm-judge-avatar { background:rgba(160,80,220,.12); color:#7700cc; border-color:rgba(160,80,220,.30); }
-body.adm-light .adm-judge-card.is-online .adm-judge-avatar { background:rgba(0,150,110,.12); color:#005f48; border-color:rgba(0,160,115,.35); }
+.adm-log-completion {
+    margin-left: auto; white-space: nowrap;
+    font-size: .68rem; font-weight: 700; letter-spacing: .08em;
+    padding: 2px 8px; border-radius: 50px;
+    background: rgba(160,80,255,.16); border: 1px solid rgba(160,80,255,.30);
+    color: #cc88ff;
+}
+.adm-log-completion.complete { background:rgba(40,180,100,.16); border-color:rgba(40,180,100,.35); color:#44dd88; }
+body.adm-light .adm-log-completion { background:rgba(130,60,220,.10); color:#6600cc; }
+body.adm-light .adm-log-completion.complete { background:rgba(0,140,70,.10); color:#007740; }
 
-.adm-judge-info { flex: 1; min-width: 0; }
-.adm-judge-name { font-size:.88rem; font-weight:700; color:var(--adm-text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.adm-judge-email { font-size:.70rem; color:var(--adm-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+/* event rows */
+.adm-log-events { display:flex; flex-direction:column; gap:6px; }
+.adm-log-event-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 10px; border-radius: 8px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.05);
+    font-size: .78rem;
+    transition: background .2s;
+}
+.adm-log-event-row.is-submitted { background: rgba(30,160,80,.12); border-color: rgba(40,200,100,.22); }
+.adm-log-event-row.is-pending   { background: rgba(180,80,0,.10); border-color: rgba(220,120,0,.18); }
+body.adm-light .adm-log-event-row { background:rgba(0,0,0,.03); border-color:rgba(0,0,0,.07); }
+body.adm-light .adm-log-event-row.is-submitted { background:rgba(0,150,70,.07); border-color:rgba(0,150,70,.18); }
+body.adm-light .adm-log-event-row.is-pending   { background:rgba(180,80,0,.06); border-color:rgba(180,80,0,.15); }
 
-.adm-judge-status-row { display:flex; align-items:center; gap:6px; }
-.adm-status-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-.adm-status-dot.online  { background:#00e5b0; box-shadow:0 0 6px rgba(0,210,160,.70); animation:onlinePulse 1.6s ease infinite; }
-.adm-status-dot.offline { background:#555; }
-.adm-status-label { font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; font-weight:600; }
-.adm-status-label.online  { color:#00e5b0; }
-.adm-status-label.offline { color:#666; }
-body.adm-light .adm-status-label.online  { color:#005f48; }
-body.adm-light .adm-status-label.offline { color:#888; }
+.adm-log-event-icon { font-size: .90rem; flex-shrink: 0; }
+.adm-log-event-row.is-submitted .adm-log-event-icon { color: #44dd88; }
+.adm-log-event-row.is-pending   .adm-log-event-icon { color: #ff9944; }
+body.adm-light .adm-log-event-row.is-submitted .adm-log-event-icon { color:#007740; }
+body.adm-light .adm-log-event-row.is-pending   .adm-log-event-icon { color:#cc5500; }
 
-.adm-judge-lastseen { font-size:.68rem; color:var(--adm-muted); margin-left:auto; white-space:nowrap; }
+.adm-log-event-name { flex: 1; color: var(--adm-text); font-weight: 600; letter-spacing:.04em; }
+.adm-log-event-time {
+    font-size: .65rem; color: var(--adm-muted); white-space: nowrap;
+    font-family: 'Orbitron', monospace; letter-spacing: .02em;
+}
+.adm-log-event-row.is-submitted .adm-log-event-time { color: rgba(80,220,140,.70); }
+body.adm-light .adm-log-event-row.is-submitted .adm-log-event-time { color:#007740; }
 
-/* summary bar */
-.adm-online-summary {
+/* log summary bar */
+.adm-log-summary {
     display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
     padding: 10px 4px 0;
     border-top: 1px solid rgba(255,255,255,.07);
     font-size: .78rem; color: var(--adm-muted);
 }
-body.adm-light .adm-online-summary { border-top-color:rgba(0,0,0,.08); color:#5533aa; }
-.adm-online-summary-item { display:flex; align-items:center; gap:6px; }
+body.adm-light .adm-log-summary { border-top-color:rgba(0,0,0,.08); color:#5533aa; }
+
+/* ── Score drill-down modal ── */
+.adm-score-overlay {
+    position: fixed; inset: 0; z-index: 8000;
+    background: rgba(5,0,20,.72); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+    animation: admFadeIn .18s ease both;
+}
+.adm-score-modal {
+    background: rgba(14,0,38,.97);
+    border: 1px solid rgba(160,80,255,.42);
+    border-radius: var(--adm-radius-sm);
+    width: 100%; max-width: 520px;
+    max-height: 80vh; display: flex; flex-direction: column;
+    box-shadow: 0 8px 48px rgba(80,0,200,.42);
+}
+body.adm-light .adm-score-overlay { background: rgba(20,0,60,.50); }
+body.adm-light .adm-score-modal   { background: #faf8ff; border-color: rgba(130,60,220,.30); box-shadow: 0 8px 40px rgba(100,30,180,.18); }
+.adm-score-modal-header {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 16px 16px 14px;
+    border-bottom: 1px solid rgba(160,80,255,.20);
+    flex-shrink: 0;
+}
+body.adm-light .adm-score-modal-header { border-bottom-color: rgba(130,60,220,.15); }
+.adm-score-modal-title {
+    font-family: 'Rajdhani', sans-serif; font-size: 1.06rem; font-weight: 700;
+    color: var(--adm-text); letter-spacing: .06em; text-transform: uppercase;
+}
+.adm-score-modal-sub {
+    font-size: .68rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--adm-gold); margin-top: 3px;
+}
+.adm-score-modal-close {
+    margin-left: auto; background: transparent; border: none;
+    color: var(--adm-muted); font-size: 1rem; cursor: pointer;
+    padding: 2px 4px; border-radius: 4px; line-height: 1; flex-shrink: 0;
+    transition: color .15s;
+}
+.adm-score-modal-close:hover { color: var(--adm-text); }
+.adm-score-modal-body { overflow-y: auto; padding: 14px 16px 18px; flex: 1; }
+.adm-score-loading { display: flex; align-items: center; gap: 8px; color: var(--adm-muted); font-size: .82rem; padding: 12px 0; }
+/* Scores table */
+.adm-score-table { width: 100%; border-collapse: collapse; font-size: .78rem; }
+.adm-score-table thead th {
+    text-align: left; padding: 5px 8px 8px;
+    font-family: 'Orbitron', monospace; font-size: .60rem; letter-spacing: .12em;
+    color: var(--adm-gold); border-bottom: 1px solid rgba(160,80,255,.22);
+    white-space: nowrap;
+}
+.adm-score-table thead th.th-r { text-align: right; }
+.adm-score-table tbody tr { border-bottom: 1px solid rgba(255,255,255,.05); }
+body.adm-light .adm-score-table tbody tr { border-bottom-color: rgba(0,0,0,.06); }
+.adm-score-table tbody tr:last-child { border-bottom: none; }
+.adm-score-table tbody td { padding: 7px 8px; color: var(--adm-text); vertical-align: middle; }
+.adm-score-table tbody tr:hover td { background: rgba(255,255,255,.03); }
+body.adm-light .adm-score-table tbody tr:hover td { background: rgba(0,0,0,.03); }
+.adm-score-table .td-num  { font-family: 'Orbitron', monospace; font-size: .68rem; color: var(--adm-muted); white-space: nowrap; }
+.adm-score-table .td-name { font-weight: 600; }
+.adm-score-table .td-score { text-align: right; font-weight: 700; font-family: 'Orbitron', monospace; color: #aa99ff; white-space: nowrap; font-size: .82rem; }
+.adm-score-table .td-rank  { text-align: right; font-size: .68rem; font-family: 'Orbitron', monospace; color: var(--adm-muted); }
+body.adm-light .adm-score-table .td-score { color: #5500bb; }
+/* Clickable event rows */
+.adm-log-event-clickable { cursor: pointer; }
+.adm-log-event-clickable:hover {
+    background: rgba(80,40,160,.28) !important;
+    border-color: rgba(160,80,255,.48) !important;
+}
+body.adm-light .adm-log-event-clickable:hover {
+    background: rgba(100,30,180,.08) !important;
+    border-color: rgba(120,40,200,.35) !important;
+}
+.adm-log-event-view-icon {
+    font-size: .75rem; opacity: .40; flex-shrink: 0;
+    color: var(--adm-muted); transition: opacity .15s, color .15s;
+}
+.adm-log-event-clickable:hover .adm-log-event-view-icon { opacity: .90; color: #cc88ff; }
+body.adm-light .adm-log-event-clickable:hover .adm-log-event-view-icon { color: #6600cc; }
 </style>
 
 
@@ -1380,115 +1495,148 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
     });
 });
 
-/* ── Online Judges Monitor ── */
+/* ── Activity Log ── */
 (function() {
-    var POLL_INTERVAL = 30000; // 30 seconds
-    var pollTimer = null;
-
-    function timeAgo(unixTs) {
-        var diff = Math.floor(Date.now() / 1000) - unixTs;
-        if (diff < 10)  return 'just now';
-        if (diff < 60)  return diff + 's ago';
-        if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
-        return Math.floor(diff / 3600) + 'h ago';
+    function fmtTime(iso) {
+        if (!iso) return '';
+        try {
+            var d = new Date(iso.replace(' ', 'T'));
+            return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+        } catch(e) { return iso; }
     }
 
-    function initials(name) {
-        return name.split(' ').map(function(w){ return w[0]; }).join('').toUpperCase().slice(0,2);
-    }
-
-    function renderCards(data) {
-        var grid    = document.getElementById('online-cards-grid');
-        var loading = document.getElementById('online-loading');
-        var onlineIds = data.online_ids.map(function(id){ return parseInt(id); });
-        var onlineCount = 0;
-
-        // remove loading spinner
+    function renderLog(data) {
+        var grid    = document.getElementById('log-cards-grid');
+        var loading = document.getElementById('log-loading');
+        var summary = document.getElementById('log-summary');
         if (loading) loading.remove();
-
-        // clear old cards
         grid.innerHTML = '';
 
-        // sort: online first
-        var users = data.users.slice().sort(function(a, b) {
-            var aOn = onlineIds.indexOf(a.id) !== -1 ? 0 : 1;
-            var bOn = onlineIds.indexOf(b.id) !== -1 ? 0 : 1;
-            return aOn - bOn;
-        });
+        data.judges.forEach(function(judge, idx) {
+            var total     = judge.events.length;
+            var submitted = judge.events.filter(function(e){ return e.submitted; }).length;
+            var isComplete = submitted === total;
 
-        users.forEach(function(user) {
-            var isOnline = onlineIds.indexOf(user.id) !== -1;
-            if (isOnline) onlineCount++;
+            var displayName = judge.real_name || judge.judge_name;
+            var initials = displayName.trim().split(/\s+/).map(function(w){ return w[0]; }).join('').toUpperCase().slice(0,2) || 'J'+(idx+1);
 
-            var lastSeen = data.last_seen[user.id];
-            var lastSeenText = lastSeen ? timeAgo(lastSeen.last_activity) : 'never';
+            var eventRows = judge.events.map(function(ev) {
+                var cls  = ev.submitted ? 'is-submitted' : 'is-pending';
+                var icon = ev.submitted
+                    ? '<i class="bi bi-check-circle-fill adm-log-event-icon"></i>'
+                    : '<i class="bi bi-hourglass-split adm-log-event-icon"></i>';
+                var time = ev.submitted && ev.submitted_at
+                    ? '<span class="adm-log-event-time">' + fmtTime(ev.submitted_at) + '</span>'
+                    : '<span class="adm-log-event-time" style="opacity:.35">pending</span>';
+                var clickable  = ev.submitted ? ' adm-log-event-clickable' : '';
+                var dataAttrs  = ev.submitted
+                    ? ' data-judge="' + judge.judge_name + '" data-judge-real="' + (judge.real_name || judge.judge_name).replace(/"/g, '') + '" data-event="' + ev.event + '"'
+                    : '';
+                var viewIcon   = ev.submitted ? '<i class="bi bi-eye adm-log-event-view-icon"></i>' : '';
+                return '<div class="adm-log-event-row ' + cls + clickable + '"' + dataAttrs + '>' +
+                    icon +
+                    '<span class="adm-log-event-name">' + ev.event + '</span>' +
+                    time +
+                    viewIcon +
+                    '</div>';
+            }).join('');
 
             var card = document.createElement('div');
-            card.className = 'adm-judge-card' + (isOnline ? ' is-online' : '');
+            card.className = 'adm-log-card';
+            card.style.animationDelay = (idx * 0.07) + 's';
             card.innerHTML =
-                '<div class="adm-judge-card-top">' +
-                    '<div class="adm-judge-avatar">' + initials(user.name) + '</div>' +
-                    '<div class="adm-judge-info">' +
-                        '<div class="adm-judge-name">' + user.name + '</div>' +
-                        '<div class="adm-judge-email">' + user.email + '</div>' +
+                '<div class="adm-log-card-header">' +
+                    '<div class="adm-log-avatar">' + initials + '</div>' +
+                    '<div class="adm-log-judge-info">' +
+                        '<div class="adm-log-judge-name">' + displayName + '</div>' +
+                        '<div class="adm-log-judge-sub">' + judge.judge_name + '</div>' +
                     '</div>' +
+                    '<span class="adm-log-completion' + (isComplete ? ' complete' : '') + '">' +
+                        submitted + '/' + total +
+                    '</span>' +
                 '</div>' +
-                '<div class="adm-judge-status-row">' +
-                    '<span class="adm-status-dot ' + (isOnline ? 'online' : 'offline') + '"></span>' +
-                    '<span class="adm-status-label ' + (isOnline ? 'online' : 'offline') + '">' + (isOnline ? 'Online' : 'Offline') + '</span>' +
-                    '<span class="adm-judge-lastseen">' + lastSeenText + '</span>' +
-                '</div>';
+                '<div class="adm-log-events">' + eventRows + '</div>';
             grid.appendChild(card);
         });
 
-        // update counters
-        var offlineCount = users.length - onlineCount;
-        document.getElementById('count-online').textContent  = onlineCount;
-        document.getElementById('count-offline').textContent = offlineCount;
-
-        // update tab badge
-        var badge = document.getElementById('tab-online-count');
-        if (badge) badge.textContent = onlineCount;
-
-        // last updated
-        var now = new Date();
-        document.getElementById('online-last-updated').textContent =
-            now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+        summary.removeAttribute('hidden');
+        document.getElementById('log-last-updated').textContent = data.fetched_at;
+        document.getElementById('log-status-text').textContent = 'Last refreshed: ' + fmtTime(data.fetched_at.replace(' ', 'T'));
     }
 
-    function fetchOnline() {
-        document.getElementById('online-status-text').textContent = 'Refreshing…';
-        fetch('{{ route("admin.online_users") }}')
+    function fetchLog() {
+        document.getElementById('log-status-text').textContent = 'Refreshing…';
+        fetch('{{ route("admin.activity_log") }}')
             .then(function(r){ return r.json(); })
-            .then(function(data){
-                renderCards(data);
-                document.getElementById('online-status-text').textContent = 'Auto-refreshing every 30s';
-            })
-            .catch(function(){
-                document.getElementById('online-status-text').textContent = 'Refresh failed — retrying…';
+            .then(function(data){ renderLog(data); })
+            .catch(function() {
+                document.getElementById('log-status-text').textContent = 'Failed to load — check connection';
             });
     }
 
-    function startPolling() {
-        fetchOnline();
-        pollTimer = setInterval(fetchOnline, POLL_INTERVAL);
-    }
-
-    // start when tab is clicked; stop when leaving
+    // Load when the tab is clicked
     document.querySelectorAll('.adm-tab').forEach(function(tab) {
         tab.addEventListener('click', function() {
-            if (this.dataset.tab === 'online') {
-                startPolling();
-            } else {
-                clearInterval(pollTimer);
-            }
+            if (this.dataset.tab === 'activity-log') { fetchLog(); }
         });
     });
 
-    // manual refresh button
-    document.getElementById('btn-refresh-online').addEventListener('click', function() {
-        clearInterval(pollTimer);
-        startPolling();
+    // Manual refresh button
+    document.getElementById('btn-refresh-log').addEventListener('click', fetchLog);
+
+    // ── Score drill-down ──
+    function openScoreModal(judgeName, realName, eventLabel) {
+        var overlay = document.getElementById('score-overlay');
+        var title   = document.getElementById('score-modal-title');
+        var sub     = document.getElementById('score-modal-sub');
+        var body    = document.getElementById('score-modal-body');
+        title.textContent = realName || judgeName;
+        sub.textContent   = eventLabel;
+        body.innerHTML    = '<div class="adm-score-loading"><div class="adm-log-spinner"></div> Loading scores\u2026</div>';
+        overlay.removeAttribute('hidden');
+        fetch('{{ route("admin.judge_scores") }}?judge=' + encodeURIComponent(judgeName) + '&event=' + encodeURIComponent(eventLabel))
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (!data.scores || !data.scores.length) {
+                    body.innerHTML = '<p style="color:var(--adm-muted);font-size:.82rem;padding:8px 0">No scores recorded yet.</p>';
+                    return;
+                }
+                var rows = data.scores.map(function(s) {
+                    return '<tr>' +
+                        '<td class="td-num">#' + s.contestant_number + '</td>' +
+                        '<td class="td-name">' + s.contestant_name + '</td>' +
+                        '<td class="td-score">' + parseFloat(s.score).toFixed(1) + '</td>' +
+                        '<td class="td-rank">' + (s.ranking || '&mdash;') + '</td>' +
+                        '</tr>';
+                }).join('');
+                body.innerHTML =
+                    '<table class="adm-score-table">' +
+                        '<thead><tr>' +
+                            '<th>#</th>' +
+                            '<th>Contestant</th>' +
+                            '<th class="th-r">Score</th>' +
+                            '<th class="th-r">Rank</th>' +
+                        '</tr></thead>' +
+                        '<tbody>' + rows + '</tbody>' +
+                    '</table>';
+            })
+            .catch(function() {
+                body.innerHTML = '<p style="color:#ff6655;font-size:.82rem;padding:8px 0">Failed to load scores.</p>';
+            });
+    }
+
+    document.getElementById('log-cards-grid').addEventListener('click', function(e) {
+        var row = e.target.closest('.adm-log-event-clickable');
+        if (!row) return;
+        openScoreModal(row.dataset.judge, row.dataset.judgeReal, row.dataset.event);
+    });
+
+    document.getElementById('score-modal-close').addEventListener('click', function() {
+        document.getElementById('score-overlay').setAttribute('hidden', '');
+    });
+
+    document.getElementById('score-overlay').addEventListener('click', function(e) {
+        if (e.target === this) this.setAttribute('hidden', '');
     });
 })();
 
@@ -1586,19 +1734,255 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
         }
 
         function printFinal() {
-            var printFinal = document.getElementById("final-ranking-container").innerHTML;
-            var a = window.open('', '', 'height=1000, width=700');
-            a.document.write('<html>');
-            a.document.write(
-                `<head><style>@media print { body { text-align: center; margin-top:50px; } table { margin: 0 auto; border-collapse: collapse; }
-                    th, td { padding: 15px; text-align: center; border: 1px solid #000; } h1 { font-size: 44px; } .sign-container { font-size: 14px; margin-top:20px; display:flex; flex-direction:column; align-items:center; }
-                    .sign{border-top:2px solid black; padding-right:20px; padding-left:20px; width:fit-content; margin-top:35px; } .judge-name { font-size: 25px; margin-top:20px } .final-print{display:none;} #table-title{font-size:40px; font-weight:bold;} }</style></head>`
-            );
-            a.document.write(`<body> <h1>Top 5 Final Results<br>`);
-            a.document.write(printFinal);
-            a.document.write('</body></html>');
-            a.document.close();
-            a.print();
+            // ── Collect data from the live table ──
+            var placements = [];
+            $('#final-rank-table tr').each(function () {
+                var $cells = $(this).find('td');
+                if ($cells.length < 3) return;
+                var cls   = $(this).attr('class') || '';
+                var rank  = cls.includes('final-top1') ? 1 : cls.includes('final-top2') ? 2 : 3;
+                var num   = $cells.eq(1).text().trim();
+                var name  = $cells.eq(2).text().trim();
+                placements.push({ rank, num, name });
+            });
+            if (!placements.length) {
+                Swal.fire({ icon: 'warning', title: 'No Data', text: 'Load the Final Ranking first before printing.' });
+                return;
+            }
+            // Sort 3 → 2 → 1 so the MC reads 3rd first, builds to the winner
+            placements.sort((a, b) => b.rank - a.rank);
+
+            var rankMeta = {
+                1: { label: 'GRAND WINNER',     crown: '&#x1F451;', color: '#b8860b', bg: '#fffbe6', border: '#d4a017', glow: '#f5c842' },
+                2: { label: '2nd Runner-Up',     crown: '&#x1F948;', color: '#5c5c7a', bg: '#f5f5fa', border: '#9090b0', glow: '#c0c0d8' },
+                3: { label: '3rd Runner-Up',     crown: '&#x1F949;', color: '#7a4a1a', bg: '#fdf6ee', border: '#c07830', glow: '#d4954a' },
+            };
+            var today = new Date().toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric' });
+
+            var cards = placements.map(function (p) {
+                var m = rankMeta[p.rank];
+                var isWinner = p.rank === 1;
+                return `
+                <div class="card ${isWinner ? 'card-winner' : ''}">
+                    <div class="card-inner" style="border-color:${m.border}; background:${m.bg};">
+                        <div class="card-crown" style="color:${m.color};">${m.crown}</div>
+                        <div class="card-rank-label" style="color:${m.color};">${m.label}</div>
+                        <div class="card-divider" style="background:${m.border};"></div>
+                        <div class="card-no-label">Contestant No.</div>
+                        <div class="card-no" style="color:${m.color};">${p.num}</div>
+                        <div class="card-name" style="color:${m.color};">${p.name}</div>
+                    </div>
+                </div>`;
+            }).join('');
+
+            var html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Final Results — Kababajinhang Surogon 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1000;
+    width: 210mm;
+    margin: 0 auto;
+    padding: 14mm 14mm 10mm;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Page Header ── */
+  .page-header {
+    text-align: center;
+    border: 3px double #b8860b;
+    padding: 18px 24px 14px;
+    margin-bottom: 20px;
+    background: linear-gradient(160deg, #fffbe6 0%, #fff8d6 50%, #fffbe6 100%);
+    position: relative;
+  }
+  .page-header::before,
+  .page-header::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #d4a017 20%, #d4a017 80%, transparent);
+    margin: 6px 0;
+  }
+  .ornament { font-size: 1.1rem; color: #b8860b; letter-spacing: 10px; display: block; margin-bottom: 4px; }
+  .title-event {
+    font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #7a5000;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    text-shadow: 0 1px 0 rgba(184,134,11,0.3);
+  }
+  .title-sub {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 0.88rem;
+    color: #a07820;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: block;
+  }
+  .title-night {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    color: #b8860b;
+    letter-spacing: 0.30em;
+    text-transform: uppercase;
+    margin-top: 2px;
+    display: block;
+  }
+
+  /* ── MC Herald ── */
+  .herald {
+    text-align: center;
+    margin: 14px 0 18px;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: #5a3e00;
+    letter-spacing: 0.05em;
+  }
+  .herald-rule {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    color: #b8860b;
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+  .herald-rule span { flex: 1; height: 1px; background: linear-gradient(to right, transparent, #b8860b, transparent); }
+
+  /* ── Placement Cards ── */
+  .cards { display: flex; flex-direction: column; gap: 14px; }
+  .card-inner {
+    border: 2px solid #d4a017;
+    border-radius: 6px;
+    padding: 18px 24px 14px;
+    text-align: center;
+    position: relative;
+  }
+  .card-winner .card-inner {
+    border: 3px double #b8860b;
+    box-shadow: inset 0 0 0 4px rgba(212,160,23,0.10);
+    padding: 22px 24px 18px;
+  }
+  .card-crown { font-size: 2.6rem; line-height: 1; margin-bottom: 2px; }
+  .card-winner .card-crown { font-size: 3.4rem; }
+  .card-rank-label {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .card-winner .card-rank-label {
+    font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
+    font-size: 1.55rem;
+    letter-spacing: 0.15em;
+  }
+  .card-divider { height: 1px; width: 60%; margin: 8px auto 10px; opacity: 0.50; }
+  .card-no-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.30em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 2px;
+  }
+  .card-no {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    margin-bottom: 4px;
+  }
+  .card-winner .card-no { font-size: 2rem; }
+  .card-name {
+    font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .card-winner .card-name { font-size: 2.1rem; }
+
+  /* ── Footer / Signature ── */
+  .footer {
+    margin-top: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 0.70rem;
+    color: #7a6000;
+    letter-spacing: 0.10em;
+  }
+  .sig-block { text-align: center; }
+  .sig-line { border-top: 1.5px solid #b8860b; padding-top: 4px; min-width: 180px; font-size: 0.68rem; color: #5a4000; }
+  .sig-desc { font-size: 0.58rem; color: #a09060; letter-spacing: 0.20em; text-transform: uppercase; margin-top: 2px; }
+  .date-block { text-align: right; font-size: 0.68rem; color: #7a6000; }
+
+  /* ── Print rules ── */
+  @media print {
+    body { padding: 10mm 12mm 8mm; }
+    .no-print { display: none !important; }
+    @page { size: A4 portrait; margin: 10mm; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="page-header">
+    <span class="ornament">✦ &nbsp; ✦ &nbsp; ✦ &nbsp; ✦ &nbsp; ✦</span>
+    <div class="title-event">Kababajinhang Surogon 2026</div>
+    <span class="title-sub">Coronation Night</span>
+    <span class="title-night">Official Final Results</span>
+    <span class="ornament">✦ &nbsp; ✦ &nbsp; ✦ &nbsp; ✦ &nbsp; ✦</span>
+  </div>
+
+  <!-- MC Herald -->
+  <div class="herald">
+    <div class="herald-rule"><span></span>— and the winners are —<span></span></div>
+  </div>
+
+  <!-- Placement Cards -->
+  <div class="cards">${cards}</div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="sig-block">
+      <div class="sig-line">&nbsp;</div>
+      <div class="sig-desc">Tabulator's Signature</div>
+    </div>
+    <div class="date-block">
+      Prepared: ${today}<br>
+      Kababajinhang Surogon 2026
+    </div>
+    <div class="sig-block">
+      <div class="sig-line">&nbsp;</div>
+      <div class="sig-desc">Chairperson's Signature</div>
+    </div>
+  </div>
+
+</body>
+</html>`;
+
+            var w = window.open('', '_blank', 'width=820,height=1050');
+            w.document.write(html);
+            w.document.close();
+            w.onload = function () { w.print(); };
         }
 
     </script>

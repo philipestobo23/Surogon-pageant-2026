@@ -76,7 +76,7 @@
                 <span class="sw-submit-shimmer"></span>
                 <i class="bi bi-floppy-fill me-2"></i>Submit Scores
             </button>
-            <button hidden id="generate-rank" class="sw-generate-btn">
+            <button hidden id="generate-rank" type="button" class="sw-generate-btn">
                 <i class="bi bi-file-earmark-arrow-down-fill me-2"></i>Generate Rankings
             </button>
         </div>
@@ -390,6 +390,7 @@ body {
     cursor: pointer; transition: var(--transition);
 }
 .sw-generate-btn:hover { background: linear-gradient(135deg,#009966,#006644); }
+.sw-generate-btn:disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 
 /* â”€â”€ ranking section â”€â”€ */
 .sw-rank-section { margin-top: 36px; padding-bottom: 40px; }
@@ -542,6 +543,7 @@ body {
         function loadRankings(forceScroll) {
             var alreadyVisible = !document.getElementById('rank-table-container').hasAttribute('hidden');
             $('#rank-table').empty();
+            $('#generate-rank').prop('disabled', true);
             $.ajax({
                 type: 'GET',
                 url: '{{ route('rank_swimsuit') }}',

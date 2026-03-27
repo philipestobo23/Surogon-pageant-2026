@@ -76,7 +76,7 @@
                 <span class="gown-submit-shimmer"></span>
                 <i class="bi bi-floppy-fill me-2"></i>Submit Scores
             </button>
-            <button hidden id="generate-rank" class="gown-generate-btn">
+            <button hidden id="generate-rank" type="button" class="gown-generate-btn">
                 <i class="bi bi-file-earmark-arrow-down-fill me-2"></i>Generate Rankings
             </button>
         </div>
@@ -371,6 +371,7 @@ body {
     cursor: pointer; transition: var(--transition);
 }
 .gown-generate-btn:hover { background: linear-gradient(135deg, #550044, #440033); }
+.gown-generate-btn:disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 .gown-rank-section { margin-top: 36px; padding-bottom: 40px; }
 .gown-rank-card {
     background: rgba(48, 4, 18, 0.88);
@@ -520,6 +521,7 @@ body {
         function loadRankings(forceScroll) {
             var alreadyVisible = !document.getElementById('rank-table-container').hasAttribute('hidden');
             $('#rank-table').empty();
+            $('#generate-rank').prop('disabled', true);
             $.ajax({
                 type: 'GET',
                 url: '{{ route('rank_gown') }}',
