@@ -67,7 +67,7 @@
                 <span class="pw-submit-shimmer"></span>
                 <i class="bi bi-floppy-fill me-2"></i>Submit Scores
             </button>
-            <button hidden id="generate-rank" class="pw-generate-btn">
+            <button hidden id="generate-rank" type="button" class="pw-generate-btn">
                 <i class="bi bi-file-earmark-arrow-down-fill me-2"></i>Generate Rankings
             </button>
         </div>
@@ -314,6 +314,7 @@ body {
     cursor: pointer; transition: var(--transition);
 }
 .pw-generate-btn:hover { background: linear-gradient(135deg, #440088, #330066); }
+.pw-generate-btn:disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 
 /* ── ranking section ── */
 .pw-rank-section { margin-top: 36px; padding-bottom: 40px; }
@@ -405,7 +406,8 @@ body {
                 data: $(this).serialize(),
                 success: function (response) {
                     Swal.fire({ title: "Scores Saved", text: "Filipiniana Wear grading submitted.", icon: "success", background: '#07003a', color: '#f0ebff', confirmButtonColor: '#5500aa' });
-                    $('#generate-rank').trigger('click');
+                    $('#generate-rank').removeAttr('hidden');
+                    loadRankings();
                 },
                 error: function (error) {
                     Swal.fire({ title: "Submission Error", text: JSON.stringify(error.responseJSON), icon: "error", background: '#07003a', color: '#f0ebff' });
@@ -413,9 +415,10 @@ body {
             });
         });
 
-        $('#generate-rank').click(function (event) {
-            event.preventDefault();
+        function loadRankings() {
+            var alreadyVisible = !document.getElementById('rank-table-container').hasAttribute('hidden');
             $('#rank-table').empty();
+            $('#generate-rank').prop('disabled', true);
             $.ajax({
                 type: 'GET',
                 url: '{{ route('rank_production_wear') }}',
@@ -424,10 +427,34 @@ body {
                         $('#rank-table').append(`<tr><td>${value.ranking}</td><td>${value.contestant_number}</td><td>${value.contestant_name}</td><td>${value.score}</td></tr>`);
                     });
                     $('#rank-table-container').removeAttr('hidden');
-                    document.getElementById('rank-table-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    $('#generate-rank').prop('disabled', false);
+                    if (!alreadyVisible) {
+                        document.getElementById('rank-table-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 },
-                error: function (error) { console.error(error); }
+                error: function (error) {
+                    $('#generate-rank').prop('disabled', false);
+                    console.error(error);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Failed to Load Rankings',
+                        text: 'Could not retrieve rankings. Please try again.',
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.style.border = '1px solid rgba(220,50,80,0.50)';
+                        }
+                    });
+                }
             });
+        }
+
+        $('#generate-rank').click(function (event) {
+            event.preventDefault();
+            loadRankings();
         });
     });
 </script>

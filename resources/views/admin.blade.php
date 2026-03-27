@@ -1586,19 +1586,255 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
         }
 
         function printFinal() {
-            var printFinal = document.getElementById("final-ranking-container").innerHTML;
-            var a = window.open('', '', 'height=1000, width=700');
-            a.document.write('<html>');
-            a.document.write(
-                `<head><style>@media print { body { text-align: center; margin-top:50px; } table { margin: 0 auto; border-collapse: collapse; }
-                    th, td { padding: 15px; text-align: center; border: 1px solid #000; } h1 { font-size: 44px; } .sign-container { font-size: 14px; margin-top:20px; display:flex; flex-direction:column; align-items:center; }
-                    .sign{border-top:2px solid black; padding-right:20px; padding-left:20px; width:fit-content; margin-top:35px; } .judge-name { font-size: 25px; margin-top:20px } .final-print{display:none;} #table-title{font-size:40px; font-weight:bold;} }</style></head>`
-            );
-            a.document.write(`<body> <h1>Top 5 Final Results<br>`);
-            a.document.write(printFinal);
-            a.document.write('</body></html>');
-            a.document.close();
-            a.print();
+            // ── Collect data from the live table ──
+            var placements = [];
+            $('#final-rank-table tr').each(function () {
+                var $cells = $(this).find('td');
+                if ($cells.length < 3) return;
+                var cls   = $(this).attr('class') || '';
+                var rank  = cls.includes('final-top1') ? 1 : cls.includes('final-top2') ? 2 : 3;
+                var num   = $cells.eq(1).text().trim();
+                var name  = $cells.eq(2).text().trim();
+                placements.push({ rank, num, name });
+            });
+            if (!placements.length) {
+                Swal.fire({ icon: 'warning', title: 'No Data', text: 'Load the Final Ranking first before printing.' });
+                return;
+            }
+            // Sort 3 → 2 → 1 so the MC reads 3rd first, builds to the winner
+            placements.sort((a, b) => b.rank - a.rank);
+
+            var rankMeta = {
+                1: { label: 'GRAND WINNER',     crown: '&#x1F451;', color: '#b8860b', bg: '#fffbe6', border: '#d4a017', glow: '#f5c842' },
+                2: { label: '2nd Runner-Up',     crown: '&#x1F948;', color: '#5c5c7a', bg: '#f5f5fa', border: '#9090b0', glow: '#c0c0d8' },
+                3: { label: '3rd Runner-Up',     crown: '&#x1F949;', color: '#7a4a1a', bg: '#fdf6ee', border: '#c07830', glow: '#d4954a' },
+            };
+            var today = new Date().toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric' });
+
+            var cards = placements.map(function (p) {
+                var m = rankMeta[p.rank];
+                var isWinner = p.rank === 1;
+                return `
+                <div class="card ${isWinner ? 'card-winner' : ''}">
+                    <div class="card-inner" style="border-color:${m.border}; background:${m.bg};">
+                        <div class="card-crown" style="color:${m.color};">${m.crown}</div>
+                        <div class="card-rank-label" style="color:${m.color};">${m.label}</div>
+                        <div class="card-divider" style="background:${m.border};"></div>
+                        <div class="card-no-label">Contestant No.</div>
+                        <div class="card-no" style="color:${m.color};">${p.num}</div>
+                        <div class="card-name" style="color:${m.color};">${p.name}</div>
+                    </div>
+                </div>`;
+            }).join('');
+
+            var html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Final Results — Kababajinhang Surogon 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #1a1000;
+    width: 210mm;
+    margin: 0 auto;
+    padding: 14mm 14mm 10mm;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Page Header ── */
+  .page-header {
+    text-align: center;
+    border: 3px double #b8860b;
+    padding: 18px 24px 14px;
+    margin-bottom: 20px;
+    background: linear-gradient(160deg, #fffbe6 0%, #fff8d6 50%, #fffbe6 100%);
+    position: relative;
+  }
+  .page-header::before,
+  .page-header::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #d4a017 20%, #d4a017 80%, transparent);
+    margin: 6px 0;
+  }
+  .ornament { font-size: 1.1rem; color: #b8860b; letter-spacing: 10px; display: block; margin-bottom: 4px; }
+  .title-event {
+    font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #7a5000;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    text-shadow: 0 1px 0 rgba(184,134,11,0.3);
+  }
+  .title-sub {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 0.88rem;
+    color: #a07820;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: block;
+  }
+  .title-night {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    color: #b8860b;
+    letter-spacing: 0.30em;
+    text-transform: uppercase;
+    margin-top: 2px;
+    display: block;
+  }
+
+  /* ── MC Herald ── */
+  .herald {
+    text-align: center;
+    margin: 14px 0 18px;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: #5a3e00;
+    letter-spacing: 0.05em;
+  }
+  .herald-rule {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    color: #b8860b;
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+  .herald-rule span { flex: 1; height: 1px; background: linear-gradient(to right, transparent, #b8860b, transparent); }
+
+  /* ── Placement Cards ── */
+  .cards { display: flex; flex-direction: column; gap: 14px; }
+  .card-inner {
+    border: 2px solid #d4a017;
+    border-radius: 6px;
+    padding: 18px 24px 14px;
+    text-align: center;
+    position: relative;
+  }
+  .card-winner .card-inner {
+    border: 3px double #b8860b;
+    box-shadow: inset 0 0 0 4px rgba(212,160,23,0.10);
+    padding: 22px 24px 18px;
+  }
+  .card-crown { font-size: 2.6rem; line-height: 1; margin-bottom: 2px; }
+  .card-winner .card-crown { font-size: 3.4rem; }
+  .card-rank-label {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .card-winner .card-rank-label {
+    font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
+    font-size: 1.55rem;
+    letter-spacing: 0.15em;
+  }
+  .card-divider { height: 1px; width: 60%; margin: 8px auto 10px; opacity: 0.50; }
+  .card-no-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.30em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 2px;
+  }
+  .card-no {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    margin-bottom: 4px;
+  }
+  .card-winner .card-no { font-size: 2rem; }
+  .card-name {
+    font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .card-winner .card-name { font-size: 2.1rem; }
+
+  /* ── Footer / Signature ── */
+  .footer {
+    margin-top: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 0.70rem;
+    color: #7a6000;
+    letter-spacing: 0.10em;
+  }
+  .sig-block { text-align: center; }
+  .sig-line { border-top: 1.5px solid #b8860b; padding-top: 4px; min-width: 180px; font-size: 0.68rem; color: #5a4000; }
+  .sig-desc { font-size: 0.58rem; color: #a09060; letter-spacing: 0.20em; text-transform: uppercase; margin-top: 2px; }
+  .date-block { text-align: right; font-size: 0.68rem; color: #7a6000; }
+
+  /* ── Print rules ── */
+  @media print {
+    body { padding: 10mm 12mm 8mm; }
+    .no-print { display: none !important; }
+    @page { size: A4 portrait; margin: 10mm; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="page-header">
+    <span class="ornament">✦ &nbsp; ✦ &nbsp; ✦ &nbsp; ✦ &nbsp; ✦</span>
+    <div class="title-event">Kababajinhang Surogon 2026</div>
+    <span class="title-sub">Coronation Night</span>
+    <span class="title-night">Official Final Results</span>
+    <span class="ornament">✦ &nbsp; ✦ &nbsp; ✦ &nbsp; ✦ &nbsp; ✦</span>
+  </div>
+
+  <!-- MC Herald -->
+  <div class="herald">
+    <div class="herald-rule"><span></span>— and the winners are —<span></span></div>
+  </div>
+
+  <!-- Placement Cards -->
+  <div class="cards">${cards}</div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="sig-block">
+      <div class="sig-line">&nbsp;</div>
+      <div class="sig-desc">Tabulator's Signature</div>
+    </div>
+    <div class="date-block">
+      Prepared: ${today}<br>
+      Kababajinhang Surogon 2026
+    </div>
+    <div class="sig-block">
+      <div class="sig-line">&nbsp;</div>
+      <div class="sig-desc">Chairperson's Signature</div>
+    </div>
+  </div>
+
+</body>
+</html>`;
+
+            var w = window.open('', '_blank', 'width=820,height=1050');
+            w.document.write(html);
+            w.document.close();
+            w.onload = function () { w.print(); };
         }
 
     </script>

@@ -105,7 +105,7 @@
                     <div class="fn-score-wrap">
                         <label class="fn-score-label"><i class="bi bi-pen-fill me-1"></i>Score</label>
                         <input class="fn-score-input" type="number" step="0.1" min="1" max="10"
-                               value="{{ $datum[2] }}" name="{{ $datum[3] }}">
+                                value="{{ $datum[2] }}" name="{{ $datum[3] }}">
                     </div>
                 </div>
             </div>
@@ -122,7 +122,7 @@
                 <span class="fn-submit-shimmer"></span>
                 <i class="bi bi-floppy-fill me-2"></i>Submit Scores
             </button>
-            <button hidden id="generate-rank" class="fn-generate-btn">
+            <button hidden id="generate-rank" type="button" class="fn-generate-btn">
                 <i class="bi bi-file-earmark-arrow-down-fill me-2"></i>Generate Rankings
             </button>
         </div>
@@ -838,6 +838,7 @@ body {
     cursor: pointer; transition: var(--fn-transition);
 }
 .fn-generate-btn:hover { background: linear-gradient(135deg, #3a2a00, #2a1e00); }
+.fn-generate-btn:disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 
 /* ── Ranking Section ── */
 .fn-rank-section { margin-top: 36px; padding-bottom: 40px; }
@@ -1009,7 +1010,8 @@ body {
                             toast.style.boxShadow = '0 8px 32px rgba(160,110,0,0.40)';
                         }
                     });
-                    $('#generate-rank').trigger('click');
+                    $('#generate-rank').removeAttr('hidden');
+                    loadRankings();
                     $btn.prop('disabled', false);
                 },
                 error: function (error) {
@@ -1033,9 +1035,10 @@ body {
             });
         });
 
-        $('#generate-rank').click(function (event) {
-            event.preventDefault();
+        function loadRankings() {
+            var alreadyVisible = !document.getElementById('rank-table-container').hasAttribute('hidden');
             $('#rank-table').empty();
+            $('#generate-rank').prop('disabled', true);
             $.ajax({
                 type: 'GET',
                 url: '{{ route('rank_final') }}',
@@ -1051,13 +1054,35 @@ body {
                         $('#rank-table').append(newRow);
                     });
                     document.getElementById('rank-table-container').removeAttribute('hidden');
-                    var target = $('#rank-table-container').offset().top - 24;
-                    $('html, body').animate({ scrollTop: target }, 1200, 'swing');
+                    $('#generate-rank').prop('disabled', false);
+                    if (!alreadyVisible) {
+                        var target = $('#rank-table-container').offset().top - 24;
+                        $('html, body').animate({ scrollTop: target }, 1200, 'swing');
+                    }
                 },
                 error: function (error) {
+                    $('#generate-rank').prop('disabled', false);
                     console.error(error);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Failed to Load Rankings',
+                        text: 'Could not retrieve rankings. Please try again.',
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.style.border = '1px solid rgba(220,50,80,0.50)';
+                        }
+                    });
                 }
             });
+        }
+
+        $('#generate-rank').click(function (event) {
+            event.preventDefault();
+            loadRankings();
         });
     });
 </script>
