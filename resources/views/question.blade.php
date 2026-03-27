@@ -25,7 +25,7 @@
         </div>
         <div class="qt-reminder">
             <i class="bi bi-info-circle-fill"></i>
-            Scores are <strong>not saved</strong> until you click <span class="qt-rem-submit"><i class="bi bi-floppy-fill me-1"></i>Submit Scores</span>
+            <span><strong>Scoring Instruction:</strong> Assign a score from <strong>1.0</strong> to <strong>10.0</strong> for each Top 8 contestant in the Snap Talk round. All scores are held temporarily and <strong>will not be recorded to the system</strong> until you press the <span class="qt-rem-submit"><i class="bi bi-floppy-fill me-1"></i>Submit Scores</span> button. Please ensure all entries are complete before submitting.</span>
         </div>
     </div>
 
@@ -69,8 +69,8 @@
         </div>
 
         <div class="qt-reminder qt-reminder-bottom">
-            <i class="bi bi-info-circle-fill"></i>
-            Scores are <strong>not saved</strong> until you click <span class="qt-rem-submit"><i class="bi bi-floppy-fill me-1"></i>Submit Scores</span>
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <span><strong>Final Review:</strong> Please carefully verify the score assigned to each contestant before proceeding. Once you press <span class="qt-rem-submit"><i class="bi bi-floppy-fill me-1"></i>Submit Scores</span>, your evaluations will be <strong>permanently recorded</strong> in the system. This action cannot be undone without administrator assistance.</span>
         </div>
 
         <div class="floating-button">
