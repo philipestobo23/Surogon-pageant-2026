@@ -462,7 +462,9 @@ body {
         $("input[type=number]").on('focus', function () { this.select(); });
         function gownStepInput($input, dir) {
             const step = parseFloat($input.attr('step')) || 0.1, max = parseFloat($input.attr('max')) || 10, min = parseFloat($input.attr('min')) || 1;
-            const next = Math.round((parseFloat($input.val()) + dir * step) * 10) / 10;
+            const current = parseFloat($input.val());
+            if (isNaN(current) || current < min) { if (dir > 0) $input.val(min.toFixed(1)); return; }
+            const next = Math.round((current + dir * step) * 10) / 10;
             if (next >= min && next <= max) $input.val(next.toFixed(1));
         }
         $(document).on('touchend click', '.gown-step-up', function (e) { e.preventDefault(); gownStepInput($(this).closest('.gown-stepper').find('input'), +1); });

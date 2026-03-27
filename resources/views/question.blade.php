@@ -538,7 +538,9 @@ body {
         $("input[type=number]").on('focus', function () { this.select(); });
         function qtStepInput($input, dir) {
             const step = parseFloat($input.attr('step')) || 0.1, max = parseFloat($input.attr('max')) || 10, min = parseFloat($input.attr('min')) || 1;
-            const next = Math.round((parseFloat($input.val()) + dir * step) * 10) / 10;
+            const current = parseFloat($input.val());
+            if (isNaN(current) || current < min) { if (dir > 0) $input.val(min.toFixed(1)); return; }
+            const next = Math.round((current + dir * step) * 10) / 10;
             if (next >= min && next <= max) $input.val(next.toFixed(1));
         }
         $(document).on('touchend click', '.qt-step-up', function (e) { e.preventDefault(); qtStepInput($(this).closest('.qt-stepper').find('input'), +1); });
@@ -594,8 +596,8 @@ body {
             });
         });
 
-        $('#generate-rank').click(function (event) {
-            event.preventDefault();
+        function loadRankings(forceScroll) {
+            var alreadyVisible = !document.getElementById('rank-table-container').hasAttribute('hidden');
             $('#rank-table').empty();
             $('#generate-rank').prop('disabled', true);
             $.ajax({
@@ -613,14 +615,22 @@ body {
                         $('#rank-table').append(newRow);
                     });
                     document.getElementById('rank-table-container').removeAttribute('hidden');
-                    var target = $('#rank-table-container').offset().top - 24;
-                    $('html, body').animate({ scrollTop: target }, 1200, 'swing');
+                    $('#generate-rank').prop('disabled', false);
+                    if (!alreadyVisible || forceScroll) {
+                        var target = $('#rank-table-container').offset().top - 24;
+                        $('html, body').animate({ scrollTop: target }, 1200, 'swing');
+                    }
                 },
                 error: function (error) {
                     $('#generate-rank').prop('disabled', false);
                     console.error(error);
                 }
             });
+        }
+
+        $('#generate-rank').click(function (event) {
+            event.preventDefault();
+            loadRankings();
         });
     });
 </script>
