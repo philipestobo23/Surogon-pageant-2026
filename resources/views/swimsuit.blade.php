@@ -30,7 +30,7 @@
     </div>
 
     {{-- â”€â”€ Contestant Grid â”€â”€ --}}
-    <form id="swimsuit-form">
+    <form id="swimsuit-form" hx-boost="false">
         @csrf
         <div class="sw-grid">
             @foreach($data as $key => $datum)
@@ -52,8 +52,14 @@
                     <p class="sw-contestant-name">{{ $datum[1] }}</p>
                     <div class="sw-score-wrap">
                         <label class="sw-score-label"><i class="bi bi-pen-fill me-1"></i>Score</label>
-                        <input class="sw-score-input" type="number" step="0.1" min="1" max="10"
-                               value="{{ $datum[2] }}" name="{{ $datum[3] }}">
+                        <div class="sw-stepper">
+                            <input class="sw-score-input" type="number" step="0.1" min="1" max="10"
+                                   value="{{ $datum[2] }}" name="{{ $datum[3] }}">
+                            <div class="sw-stepper-btns">
+                                <button type="button" class="sw-step-btn sw-step-up" tabindex="-1"><i class="bi bi-chevron-up"></i></button>
+                                <button type="button" class="sw-step-btn sw-step-dn" tabindex="-1"><i class="bi bi-chevron-down"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -297,22 +303,50 @@ body {
     font-weight: 600; letter-spacing: 0.10em;
     text-transform: uppercase; margin-bottom: 4px;
 }
+/* hide native spinners */
+.sw-score-input::-webkit-inner-spin-button,
+.sw-score-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.sw-stepper { display: flex; align-items: stretch; gap: 5px; }
 .sw-score-input {
-    width: 100%;
+    flex: 1; min-width: 0;
     background: rgba(0,100,160,0.22);
     border: 1px solid rgba(0,180,220,0.42);
     border-radius: 9px; color: #fff;
     font-family: 'Orbitron', sans-serif;
     font-size: 1.15rem; font-weight: 700;
-    text-align: center; padding: 7px 8px;
+    text-align: center; padding: 7px 6px;
     transition: border-color 0.2s, box-shadow 0.2s;
     outline: none; -moz-appearance: textfield;
 }
-.sw-score-input::-webkit-inner-spin-button,
-.sw-score-input::-webkit-outer-spin-button { -webkit-appearance: none; }
 .sw-score-input:focus {
     border-color: rgba(0,220,255,0.75);
     box-shadow: 0 0 12px rgba(0,200,240,0.28); color: #aaf0ff;
+}
+.sw-stepper-btns { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.sw-step-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; flex: 1;
+    background: rgba(0,120,180,0.28);
+    border: 1px solid rgba(0,190,230,0.40);
+    border-radius: 7px; color: #55ddff;
+    font-size: 0.70rem; cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.12s, border-color 0.15s, box-shadow 0.15s;
+    user-select: none; padding: 0; line-height: 1;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent; outline: none;
+}
+.sw-stepper .sw-step-btn:hover {
+    background: rgba(0,190,240,0.55) !important; color: #ffffff !important;
+    border-color: rgba(0,240,255,0.80) !important;
+    box-shadow: 0 0 10px rgba(0,210,255,0.50), inset 0 0 6px rgba(0,210,255,0.18) !important;
+}
+.sw-stepper .sw-step-btn:active {
+    background: rgba(0,220,255,0.70) !important; color: #ffffff !important;
+    border-color: rgba(0,255,255,0.90) !important;
+    box-shadow: 0 0 16px rgba(0,220,255,0.70), inset 0 0 8px rgba(0,220,255,0.30) !important;
+    transform: scale(0.88) !important;
+}
+.sw-stepper .sw-step-btn:focus-visible {
+    outline: 2px solid rgba(0,220,255,0.80) !important; outline-offset: 2px;
 }
 
 /* â”€â”€ floating buttons â”€â”€ */
@@ -447,6 +481,13 @@ body {
 <script type="module">
     $(document).ready(function () {
         $("input[type=number]").on('focus', function () { this.select(); });
+        function swStepInput($input, dir) {
+            const step = parseFloat($input.attr('step')) || 0.1, max = parseFloat($input.attr('max')) || 10, min = parseFloat($input.attr('min')) || 1;
+            const next = Math.round((parseFloat($input.val()) + dir * step) * 10) / 10;
+            if (next >= min && next <= max) $input.val(next.toFixed(1));
+        }
+        $(document).on('touchend click', '.sw-step-up', function (e) { e.preventDefault(); swStepInput($(this).closest('.sw-stepper').find('input'), +1); });
+        $(document).on('touchend click', '.sw-step-dn', function (e) { e.preventDefault(); swStepInput($(this).closest('.sw-stepper').find('input'), -1); });
 
         $('#swimsuit-form').submit(function (event) {
             event.preventDefault();
@@ -473,7 +514,8 @@ body {
                             toast.style.boxShadow = '0 8px 32px rgba(0,160,220,0.40)';
                         }
                     });
-                    $('#generate-rank').trigger('click');
+                    $('#generate-rank').removeAttr('hidden');
+                    loadRankings(true);
                     $btn.prop('disabled', false);
                 },
                 error: function (error) {
@@ -497,8 +539,8 @@ body {
             });
         });
 
-        $('#generate-rank').click(function (event) {
-            event.preventDefault();
+        function loadRankings(forceScroll) {
+            var alreadyVisible = !document.getElementById('rank-table-container').hasAttribute('hidden');
             $('#rank-table').empty();
             $.ajax({
                 type: 'GET',
@@ -508,11 +550,19 @@ body {
                         $('#rank-table').append(`<tr><td>${value.ranking}</td><td>${value.contestant_number}</td><td>${value.contestant_name}</td><td>${value.score}</td></tr>`);
                     });
                     document.getElementById('rank-table-container').removeAttribute('hidden');
-                    var target = $('#rank-table-container').offset().top - 24;
-                    $('html, body').animate({ scrollTop: target }, 1200, 'swing');
+                    $('#generate-rank').prop('disabled', false);
+                    if (!alreadyVisible || forceScroll) {
+                        var target = $('#rank-table-container').offset().top - 24;
+                        $('html, body').animate({ scrollTop: target }, 1200, 'swing');
+                    }
                 },
                 error: function (error) { console.error(error); }
             });
+        }
+
+        $('#generate-rank').click(function (event) {
+            event.preventDefault();
+            loadRankings();
         });
     });
 </script>

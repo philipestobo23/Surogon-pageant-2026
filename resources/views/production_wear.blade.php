@@ -30,7 +30,7 @@
     </div>
 
     {{-- ── Contestant Grid ── --}}
-    <form id="production_wear-form">
+    <form id="production_wear-form" hx-boost="false">
         @csrf
         <div class="pw-grid">
             @foreach($data as $key => $datum)
@@ -49,8 +49,14 @@
                     <p class="pw-contestant-name">{{ $datum[1] }}</p>
                     <div class="pw-score-wrap">
                         <label class="pw-score-label"><i class="bi bi-pen-fill me-1"></i>Score</label>
-                        <input class="pw-score-input" type="number" step="0.1" min="1" max="10"
-                               value="{{ $datum[2] }}" name="{{ $datum[3] }}">
+                        <div class="pw-stepper">
+                            <input class="pw-score-input" type="number" step="0.1" min="1" max="10"
+                                   value="{{ $datum[2] }}" name="{{ $datum[3] }}">
+                            <div class="pw-stepper-btns">
+                                <button type="button" class="pw-step-btn pw-step-up" tabindex="-1"><i class="bi bi-chevron-up"></i></button>
+                                <button type="button" class="pw-step-btn pw-step-dn" tabindex="-1"><i class="bi bi-chevron-down"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -256,22 +262,50 @@ body {
     font-weight: 600; letter-spacing: 0.10em;
     text-transform: uppercase; margin-bottom: 4px;
 }
+/* hide native spinners */
+.pw-score-input::-webkit-inner-spin-button,
+.pw-score-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.pw-stepper { display: flex; align-items: stretch; gap: 5px; }
 .pw-score-input {
-    width: 100%;
+    flex: 1; min-width: 0;
     background: rgba(80,0,180,0.22);
     border: 1px solid rgba(140,0,255,0.42);
     border-radius: 9px; color: #fff;
     font-family: 'Orbitron', sans-serif;
     font-size: 1.15rem; font-weight: 700;
-    text-align: center; padding: 7px 8px;
+    text-align: center; padding: 7px 6px;
     transition: border-color 0.2s, box-shadow 0.2s;
     outline: none; -moz-appearance: textfield;
 }
-.pw-score-input::-webkit-inner-spin-button,
-.pw-score-input::-webkit-outer-spin-button { -webkit-appearance: none; }
 .pw-score-input:focus {
     border-color: rgba(180,0,255,0.75);
     box-shadow: 0 0 12px rgba(140,0,220,0.28); color: #ddaaff;
+}
+.pw-stepper-btns { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.pw-step-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; flex: 1;
+    background: rgba(80,0,160,0.32);
+    border: 1px solid rgba(160,0,255,0.45);
+    border-radius: 7px; color: #cc88ff;
+    font-size: 0.70rem; cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.12s, border-color 0.15s, box-shadow 0.15s;
+    user-select: none; padding: 0; line-height: 1;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent; outline: none;
+}
+.pw-stepper .pw-step-btn:hover {
+    background: rgba(160,0,255,0.55) !important; color: #ffffff !important;
+    border-color: rgba(200,80,255,0.85) !important;
+    box-shadow: 0 0 10px rgba(160,0,255,0.50), inset 0 0 6px rgba(160,0,255,0.18) !important;
+}
+.pw-stepper .pw-step-btn:active {
+    background: rgba(180,0,255,0.70) !important; color: #ffffff !important;
+    border-color: rgba(210,100,255,0.95) !important;
+    box-shadow: 0 0 16px rgba(180,0,255,0.70), inset 0 0 8px rgba(180,0,255,0.30) !important;
+    transform: scale(0.88) !important;
+}
+.pw-stepper .pw-step-btn:focus-visible {
+    outline: 2px solid rgba(200,80,255,0.85) !important; outline-offset: 2px;
 }
 
 /* ── floating buttons ── */
@@ -396,25 +430,66 @@ body {
 <script type="module">
     $(document).ready(function () {
         $("input[type=number]").on('focus', function () { this.select(); });
+        function pwStepInput($input, dir) {
+            const step = parseFloat($input.attr('step')) || 0.1, max = parseFloat($input.attr('max')) || 10, min = parseFloat($input.attr('min')) || 1;
+            const next = Math.round((parseFloat($input.val()) + dir * step) * 10) / 10;
+            if (next >= min && next <= max) $input.val(next.toFixed(1));
+        }
+        $(document).on('touchend click', '.pw-step-up', function (e) { e.preventDefault(); pwStepInput($(this).closest('.pw-stepper').find('input'), +1); });
+        $(document).on('touchend click', '.pw-step-dn', function (e) { e.preventDefault(); pwStepInput($(this).closest('.pw-stepper').find('input'), -1); });
 
         $('#production_wear-form').submit(function (event) {
             event.preventDefault();
+            const $btn = $('.pw-submit-btn').prop('disabled', true);
             $.ajax({
                 type: 'POST',
                 url: '{{ route('post_production_wear_form') }}',
                 data: $(this).serialize(),
                 success: function (response) {
-                    Swal.fire({ title: "Scores Saved", text: "Filipiniana Wear grading submitted.", icon: "success", background: '#07003a', color: '#f0ebff', confirmButtonColor: '#5500aa' });
-                    $('#generate-rank').trigger('click');
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Scores Saved!',
+                        text: 'Filipiniana Wear grading submitted successfully.',
+                        background: 'rgba(10, 4, 50, 0.97)',
+                        color: '#e0d0ff',
+                        iconColor: '#aa77ff',
+                        showConfirmButton: false,
+                        timer: 2800,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.style.border = '1px solid rgba(140,0,255,0.45)';
+                            toast.style.boxShadow = '0 8px 32px rgba(100,0,200,0.40)';
+                        }
+                    });
+                    $('#generate-rank').removeAttr('hidden');
+                    loadRankings(true);
+                    $btn.prop('disabled', false);
                 },
                 error: function (error) {
-                    Swal.fire({ title: "Submission Error", text: JSON.stringify(error.responseJSON), icon: "error", background: '#07003a', color: '#f0ebff' });
+                    $btn.prop('disabled', false);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Submission Failed',
+                        text: error.responseJSON?.message ?? 'Please check your scores and try again.',
+                        background: 'rgba(10, 4, 50, 0.97)',
+                        color: '#e0d0ff',
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.style.border = '1px solid rgba(220,50,80,0.50)';
+                        }
+                    });
                 }
             });
         });
 
-        $('#generate-rank').click(function (event) {
-            event.preventDefault();
+        function loadRankings(forceScroll) {
+            var alreadyVisible = !document.getElementById('rank-table-container').hasAttribute('hidden');
             $('#rank-table').empty();
             $.ajax({
                 type: 'GET',
@@ -424,10 +499,18 @@ body {
                         $('#rank-table').append(`<tr><td>${value.ranking}</td><td>${value.contestant_number}</td><td>${value.contestant_name}</td><td>${value.score}</td></tr>`);
                     });
                     $('#rank-table-container').removeAttr('hidden');
-                    document.getElementById('rank-table-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    $('#generate-rank').prop('disabled', false);
+                    if (!alreadyVisible || forceScroll) {
+                        document.getElementById('rank-table-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 },
                 error: function (error) { console.error(error); }
             });
+        }
+
+        $('#generate-rank').click(function (event) {
+            event.preventDefault();
+            loadRankings();
         });
     });
 </script>

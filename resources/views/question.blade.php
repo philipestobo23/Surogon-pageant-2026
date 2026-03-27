@@ -31,7 +31,7 @@
 
     {{-- ── Contestant Grid ── --}}
     @if(count($data) > 0)
-    <form id="question-form">
+    <form id="question-form" hx-boost="false">
         @csrf
         <div class="qt-grid">
             @foreach($data as $key => $datum)
@@ -54,8 +54,14 @@
                     <p class="qt-contestant-name">{{ $datum[1] }}</p>
                     <div class="qt-score-wrap">
                         <label class="qt-score-label"><i class="bi bi-pen-fill me-1"></i>Score</label>
-                        <input class="qt-score-input" type="number" step="0.1" min="1" max="10"
-                               value="{{ $datum[2] }}" name="{{ $datum[3] }}">
+                        <div class="qt-stepper">
+                            <input class="qt-score-input" type="number" step="0.1" min="1" max="10"
+                                   value="{{ $datum[2] }}" name="{{ $datum[3] }}">
+                            <div class="qt-stepper-btns">
+                                <button type="button" class="qt-step-btn qt-step-up" tabindex="-1"><i class="bi bi-chevron-up"></i></button>
+                                <button type="button" class="qt-step-btn qt-step-dn" tabindex="-1"><i class="bi bi-chevron-down"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -316,22 +322,50 @@ body {
     font-weight: 600; letter-spacing: 0.12em;
     text-transform: uppercase; margin-bottom: 4px;
 }
+/* hide native spinners */
+.qt-score-input::-webkit-inner-spin-button,
+.qt-score-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.qt-stepper { display: flex; align-items: stretch; gap: 5px; }
 .qt-score-input {
-    width: 100%;
+    flex: 1; min-width: 0;
     background: rgba(80, 55, 0, 0.25);
     border: 1px solid rgba(180, 135, 0, 0.45);
     border-radius: 9px; color: #fff;
     font-family: 'Orbitron', sans-serif;
     font-size: 1.15rem; font-weight: 700;
-    text-align: center; padding: 7px 8px;
+    text-align: center; padding: 7px 6px;
     transition: border-color 0.2s, box-shadow 0.2s;
     outline: none; -moz-appearance: textfield;
 }
-.qt-score-input::-webkit-inner-spin-button,
-.qt-score-input::-webkit-outer-spin-button { -webkit-appearance: none; }
 .qt-score-input:focus {
     border-color: rgba(220, 170, 0, 0.80);
     box-shadow: 0 0 14px rgba(200, 150, 0, 0.32); color: var(--qt-gold-light);
+}
+.qt-stepper-btns { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.qt-step-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; flex: 1;
+    background: rgba(120,85,0,0.30);
+    border: 1px solid rgba(200,155,0,0.45);
+    border-radius: 7px; color: #f0c040;
+    font-size: 0.70rem; cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.12s, border-color 0.15s, box-shadow 0.15s;
+    user-select: none; padding: 0; line-height: 1;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent; outline: none;
+}
+.qt-stepper .qt-step-btn:hover {
+    background: rgba(200,155,0,0.55) !important; color: #ffffff !important;
+    border-color: rgba(240,195,30,0.85) !important;
+    box-shadow: 0 0 10px rgba(220,175,0,0.50), inset 0 0 6px rgba(220,175,0,0.18) !important;
+}
+.qt-stepper .qt-step-btn:active {
+    background: rgba(230,180,0,0.70) !important; color: #ffffff !important;
+    border-color: rgba(255,215,0,0.95) !important;
+    box-shadow: 0 0 16px rgba(230,180,0,0.70), inset 0 0 8px rgba(230,180,0,0.30) !important;
+    transform: scale(0.88) !important;
+}
+.qt-stepper .qt-step-btn:focus-visible {
+    outline: 2px solid rgba(240,195,30,0.85) !important; outline-offset: 2px;
 }
 
 /* ── Floating Buttons ── */
@@ -501,6 +535,13 @@ body {
 <script type="module">
     $(document).ready(function () {
         $("input[type=number]").on('focus', function () { this.select(); });
+        function qtStepInput($input, dir) {
+            const step = parseFloat($input.attr('step')) || 0.1, max = parseFloat($input.attr('max')) || 10, min = parseFloat($input.attr('min')) || 1;
+            const next = Math.round((parseFloat($input.val()) + dir * step) * 10) / 10;
+            if (next >= min && next <= max) $input.val(next.toFixed(1));
+        }
+        $(document).on('touchend click', '.qt-step-up', function (e) { e.preventDefault(); qtStepInput($(this).closest('.qt-stepper').find('input'), +1); });
+        $(document).on('touchend click', '.qt-step-dn', function (e) { e.preventDefault(); qtStepInput($(this).closest('.qt-stepper').find('input'), -1); });
 
         $('#question-form').submit(function (event) {
             event.preventDefault();
@@ -527,7 +568,8 @@ body {
                             toast.style.boxShadow = '0 8px 32px rgba(160,110,0,0.40)';
                         }
                     });
-                    $('#generate-rank').trigger('click');
+                    $('#generate-rank').removeAttr('hidden');
+                    loadRankings(true);
                     $btn.prop('disabled', false);
                 },
                 error: function (error) {
@@ -551,8 +593,8 @@ body {
             });
         });
 
-        $('#generate-rank').click(function (event) {
-            event.preventDefault();
+        function loadRankings(forceScroll) {
+            var alreadyVisible = !document.getElementById('rank-table-container').hasAttribute('hidden');
             $('#rank-table').empty();
             $.ajax({
                 type: 'GET',
@@ -569,13 +611,21 @@ body {
                         $('#rank-table').append(newRow);
                     });
                     document.getElementById('rank-table-container').removeAttribute('hidden');
-                    var target = $('#rank-table-container').offset().top - 24;
-                    $('html, body').animate({ scrollTop: target }, 1200, 'swing');
+                    $('#generate-rank').prop('disabled', false);
+                    if (!alreadyVisible || forceScroll) {
+                        var target = $('#rank-table-container').offset().top - 24;
+                        $('html, body').animate({ scrollTop: target }, 1200, 'swing');
+                    }
                 },
                 error: function (error) {
                     console.error(error);
                 }
             });
+        }
+
+        $('#generate-rank').click(function (event) {
+            event.preventDefault();
+            loadRankings();
         });
     });
 </script>

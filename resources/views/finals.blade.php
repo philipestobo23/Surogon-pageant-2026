@@ -105,7 +105,7 @@
                     <div class="fn-score-wrap">
                         <label class="fn-score-label"><i class="bi bi-pen-fill me-1"></i>Score</label>
                         <input class="fn-score-input" type="number" step="0.1" min="1" max="10"
-                               value="{{ $datum[2] }}" name="{{ $datum[3] }}">
+                                value="{{ $datum[2] }}" name="{{ $datum[3] }}">
                     </div>
                 </div>
             </div>
@@ -776,22 +776,50 @@ body {
     font-weight: 600; letter-spacing: 0.12em;
     text-transform: uppercase; margin-bottom: 4px;
 }
+/* hide native spinners */
+.fn-score-input::-webkit-inner-spin-button,
+.fn-score-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.fn-stepper { display: flex; align-items: stretch; gap: 5px; }
 .fn-score-input {
-    width: 100%;
+    flex: 1; min-width: 0;
     background: rgba(70, 50, 0, 0.28);
     border: 1px solid rgba(180, 135, 0, 0.50);
     border-radius: 9px; color: #fff;
     font-family: 'Orbitron', sans-serif;
     font-size: 1.15rem; font-weight: 700;
-    text-align: center; padding: 7px 8px;
+    text-align: center; padding: 7px 6px;
     transition: border-color 0.2s, box-shadow 0.2s;
     outline: none; -moz-appearance: textfield;
 }
-.fn-score-input::-webkit-inner-spin-button,
-.fn-score-input::-webkit-outer-spin-button { -webkit-appearance: none; }
 .fn-score-input:focus {
     border-color: rgba(240, 195, 30, 0.88);
     box-shadow: 0 0 16px rgba(200,155,0,0.38); color: var(--fn-gold-light);
+}
+.fn-stepper-btns { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.fn-step-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; flex: 1;
+    background: rgba(100,75,0,0.32);
+    border: 1px solid rgba(200,155,0,0.48);
+    border-radius: 7px; color: #f0c040;
+    font-size: 0.70rem; cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.12s, border-color 0.15s, box-shadow 0.15s;
+    user-select: none; padding: 0; line-height: 1;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent; outline: none;
+}
+.fn-stepper .fn-step-btn:hover {
+    background: rgba(210,165,0,0.55) !important; color: #ffffff !important;
+    border-color: rgba(245,200,30,0.85) !important;
+    box-shadow: 0 0 10px rgba(220,175,0,0.50), inset 0 0 6px rgba(220,175,0,0.18) !important;
+}
+.fn-stepper .fn-step-btn:active {
+    background: rgba(235,185,0,0.72) !important; color: #ffffff !important;
+    border-color: rgba(255,220,0,0.95) !important;
+    box-shadow: 0 0 16px rgba(235,185,0,0.70), inset 0 0 8px rgba(235,185,0,0.30) !important;
+    transform: scale(0.88) !important;
+}
+.fn-stepper .fn-step-btn:focus-visible {
+    outline: 2px solid rgba(245,200,30,0.85) !important; outline-offset: 2px;
 }
 
 /* ── Floating Buttons ── */
@@ -983,6 +1011,13 @@ body {
 <script type="module">
     $(document).ready(function () {
         $("input[type=number]").on('focus', function () { this.select(); });
+        function fnStepInput($input, dir) {
+            const step = parseFloat($input.attr('step')) || 0.1, max = parseFloat($input.attr('max')) || 10, min = parseFloat($input.attr('min')) || 1;
+            const next = Math.round((parseFloat($input.val()) + dir * step) * 10) / 10;
+            if (next >= min && next <= max) $input.val(next.toFixed(1));
+        }
+        $(document).on('touchend click', '.fn-step-up', function (e) { e.preventDefault(); fnStepInput($(this).closest('.fn-stepper').find('input'), +1); });
+        $(document).on('touchend click', '.fn-step-dn', function (e) { e.preventDefault(); fnStepInput($(this).closest('.fn-stepper').find('input'), -1); });
 
         $('#finals-form').submit(function (event) {
             event.preventDefault();
@@ -1009,7 +1044,8 @@ body {
                             toast.style.boxShadow = '0 8px 32px rgba(160,110,0,0.40)';
                         }
                     });
-                    $('#generate-rank').trigger('click');
+                    $('#generate-rank').removeAttr('hidden');
+                    loadRankings(true);
                     $btn.prop('disabled', false);
                 },
                 error: function (error) {
@@ -1033,8 +1069,8 @@ body {
             });
         });
 
-        $('#generate-rank').click(function (event) {
-            event.preventDefault();
+        function loadRankings(forceScroll) {
+            var alreadyVisible = !document.getElementById('rank-table-container').hasAttribute('hidden');
             $('#rank-table').empty();
             $.ajax({
                 type: 'GET',
@@ -1051,13 +1087,21 @@ body {
                         $('#rank-table').append(newRow);
                     });
                     document.getElementById('rank-table-container').removeAttribute('hidden');
-                    var target = $('#rank-table-container').offset().top - 24;
-                    $('html, body').animate({ scrollTop: target }, 1200, 'swing');
+                    $('#generate-rank').prop('disabled', false);
+                    if (!alreadyVisible || forceScroll) {
+                        var target = $('#rank-table-container').offset().top - 24;
+                        $('html, body').animate({ scrollTop: target }, 1200, 'swing');
+                    }
                 },
                 error: function (error) {
                     console.error(error);
                 }
             });
+        }
+
+        $('#generate-rank').click(function (event) {
+            event.preventDefault();
+            loadRankings();
         });
     });
 </script>
