@@ -448,10 +448,18 @@
             </div>
         </div>
 
-        {{-- Event legend --}}
-        <div class="adm-log-legend">
-            <span class="adm-log-legend-item submitted"><i class="bi bi-check-circle-fill"></i> Submitted</span>
-            <span class="adm-log-legend-item pending"><i class="bi bi-hourglass-split"></i> Pending</span>
+        {{-- Legend + Quick Stats --}}
+        <div class="adm-log-topbar">
+            <div class="adm-log-legend">
+                <span class="adm-log-legend-item submitted"><i class="bi bi-check-circle-fill"></i> Submitted</span>
+                <span class="adm-log-legend-item pending"><i class="bi bi-hourglass-split"></i> Pending</span>
+            </div>
+            <div class="adm-log-quickstats" id="log-quickstats" hidden>
+                <span class="adm-log-qs-chip qs-done" id="qs-complete">&mdash;</span>
+                <span class="adm-log-qs-sep">/</span>
+                <span class="adm-log-qs-chip qs-total" id="qs-total">&mdash;</span>
+                <span class="adm-log-qs-label">judges fully submitted</span>
+            </div>
         </div>
 
         {{-- Judge cards grid --}}
@@ -1278,28 +1286,40 @@ body.adm-light .adm-btn--log-refresh { background:rgba(130,60,220,.12); border-c
 
 .adm-log-status-text { font-size:.78rem; color:var(--adm-muted); letter-spacing:.04em; }
 
-/* legend */
+/* legend + topbar */
+.adm-log-topbar {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
 .adm-log-legend {
-    display: flex; gap: 18px; flex-wrap: wrap;
+    display: flex; gap: 16px; flex-wrap: wrap;
     font-size: .76rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-    padding: 0 2px;
 }
 .adm-log-legend-item { display: flex; align-items: center; gap: 6px; }
-.adm-log-legend-item.submitted { color: #44dd88; }
+.adm-log-legend-item.submitted { color: #33ee88; }
 .adm-log-legend-item.pending   { color: #ff9944; }
 body.adm-light .adm-log-legend-item.submitted { color: #007740; }
 body.adm-light .adm-log-legend-item.pending   { color: #cc5500; }
+.adm-log-quickstats { display: flex; align-items: center; gap: 6px; font-size: .76rem; font-weight: 600; }
+.adm-log-qs-chip { font-family: 'Orbitron', monospace; font-size: .84rem; font-weight: 700; }
+.adm-log-qs-chip.qs-done  { color: #33ee88; }
+.adm-log-qs-chip.qs-total { color: var(--adm-muted); }
+body.adm-light .adm-log-qs-chip.qs-done  { color: #007740; }
+body.adm-light .adm-log-qs-chip.qs-total { color: #5533aa; }
+.adm-log-qs-sep   { color: var(--adm-muted); font-weight: 300; padding: 0 1px; }
+.adm-log-qs-label { color: var(--adm-muted); font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; }
 
 /* judge activity card grid */
 .adm-log-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
+@media (max-width: 940px) { .adm-log-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px)  { .adm-log-grid { grid-template-columns: 1fr; } }
 .adm-log-loading {
     grid-column: 1 / -1;
     display: flex; align-items: center; justify-content: center; gap: 12px;
-    padding: 40px 0; color: var(--adm-muted); font-size: .88rem;
+    padding: 60px 0; color: var(--adm-muted); font-size: .88rem;
 }
 .adm-log-spinner {
     width: 22px; height: 22px; border-radius: 50%;
@@ -1309,82 +1329,121 @@ body.adm-light .adm-log-legend-item.pending   { color: #cc5500; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* judge log card */
+/* ── Judge Card ── */
 .adm-log-card {
-    background: rgba(40,0,80,.32);
+    background: linear-gradient(160deg, rgba(28,0,68,.65) 0%, rgba(12,0,32,.82) 100%);
     border: 1px solid rgba(120,60,220,.28);
-    border-radius: var(--adm-radius-sm);
-    padding: 16px 16px 14px;
-    display: flex; flex-direction: column; gap: 12px;
-    transition: var(--adm-transition);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
     animation: admFadeIn .35s ease both;
+    position: relative;
 }
-.adm-log-card:hover { border-color: rgba(180,100,255,.55); box-shadow: 0 4px 22px rgba(120,40,255,.22); transform: translateY(-2px); }
-body.adm-light .adm-log-card { background:rgba(255,255,255,.88); border-color:rgba(160,80,220,.22); }
-body.adm-light .adm-log-card:hover { border-color:rgba(120,40,200,.45); box-shadow:0 4px 18px rgba(100,30,180,.12); }
+.adm-log-card::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(140,60,255,.12) 0%, transparent 65%);
+}
+.adm-log-card:hover {
+    border-color: rgba(180,100,255,.64);
+    box-shadow: 0 10px 38px rgba(100,20,220,.32), 0 0 0 1px rgba(160,80,255,.20);
+    transform: translateY(-4px);
+}
+body.adm-light .adm-log-card { background: linear-gradient(160deg, rgba(250,246,255,.96), rgba(240,234,255,.99)); border-color: rgba(160,80,220,.22); }
+body.adm-light .adm-log-card::before { display: none; }
+body.adm-light .adm-log-card:hover { border-color: rgba(120,40,200,.50); box-shadow: 0 8px 28px rgba(100,30,180,.14); }
 
-.adm-log-card-header { display:flex; align-items:center; gap:10px; }
-.adm-log-judge-info { flex:1; min-width:0; }
+/* animated top progress strip */
+.adm-log-card-strip { height: 3px; flex-shrink: 0; position: relative; background: rgba(255,255,255,.06); }
+.adm-log-card-strip-fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, #5500aa, #9933ff, #bb66ff);
+    transition: width .7s cubic-bezier(.4,0,.2,1);
+    border-radius: 0 3px 3px 0;
+}
+.adm-log-card-strip-fill.is-complete { background: linear-gradient(90deg, #007740, #22cc77, #44ff99); }
+body.adm-light .adm-log-card-strip { background: rgba(0,0,0,.06); }
+
+/* inner padded area */
+.adm-log-card-inner { padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 14px; flex: 1; position: relative; z-index: 1; }
+
+/* card header row */
+.adm-log-card-header { display: flex; align-items: center; gap: 12px; }
+.adm-log-judge-info  { flex: 1; min-width: 0; }
 .adm-log-avatar {
-    width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+    width: 50px; height: 50px; border-radius: 14px; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Orbitron', monospace; font-size: .80rem; font-weight: 700;
-    background: rgba(100,0,200,.38); color: #cc88ff;
-    border: 2px solid rgba(160,80,255,.40);
+    font-family: 'Orbitron', monospace; font-size: .82rem; font-weight: 700;
+    background: linear-gradient(145deg, rgba(110,0,230,.65), rgba(60,0,150,.85));
+    color: #dd99ff;
+    border: 1px solid rgba(180,80,255,.36);
+    box-shadow: 0 4px 18px rgba(120,40,255,.25), inset 0 1px 0 rgba(255,255,255,.10);
 }
-body.adm-light .adm-log-avatar { background:rgba(130,60,220,.12); color:#6600cc; border-color:rgba(130,60,220,.30); }
-
+body.adm-light .adm-log-avatar { background: linear-gradient(145deg, rgba(140,60,220,.16), rgba(90,30,180,.10)); color: #6600cc; border-color: rgba(130,60,220,.30); box-shadow: none; }
 .adm-log-judge-name {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 1.00rem; font-weight: 700;
-    color: var(--adm-text); letter-spacing: .04em;
+    font-size: 1.05rem; font-weight: 700;
+    color: var(--adm-text); letter-spacing: .04em; line-height: 1.15;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .adm-log-judge-sub {
-    font-size: .68rem; font-weight: 600; letter-spacing: .08em;
-    text-transform: uppercase; opacity: .55; color: var(--adm-muted);
+    font-size: .64rem; font-weight: 700; letter-spacing: .10em;
+    text-transform: uppercase; color: var(--adm-muted); opacity: .60; margin-top: 2px;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .adm-log-completion {
-    margin-left: auto; white-space: nowrap;
-    font-size: .68rem; font-weight: 700; letter-spacing: .08em;
-    padding: 2px 8px; border-radius: 50px;
-    background: rgba(160,80,255,.16); border: 1px solid rgba(160,80,255,.30);
-    color: #cc88ff;
+    margin-left: auto; white-space: nowrap; flex-shrink: 0;
+    font-family: 'Orbitron', monospace;
+    font-size: .68rem; font-weight: 700; letter-spacing: .04em;
+    padding: 4px 10px; border-radius: 50px;
+    background: rgba(100,0,200,.22); border: 1px solid rgba(160,80,255,.30); color: #cc88ff;
 }
-.adm-log-completion.complete { background:rgba(40,180,100,.16); border-color:rgba(40,180,100,.35); color:#44dd88; }
-body.adm-light .adm-log-completion { background:rgba(130,60,220,.10); color:#6600cc; }
-body.adm-light .adm-log-completion.complete { background:rgba(0,140,70,.10); color:#007740; }
+.adm-log-completion.complete { background: rgba(0,160,80,.18); border-color: rgba(40,200,100,.36); color: #33ee88; }
+body.adm-light .adm-log-completion { background: rgba(130,60,220,.10); color: #6600cc; border-color: rgba(130,60,220,.28); }
+body.adm-light .adm-log-completion.complete { background: rgba(0,140,70,.10); color: #006633; border-color: rgba(0,160,80,.28); }
+
+/* thin divider */
+.adm-log-card-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(140,60,255,.20), transparent); }
+body.adm-light .adm-log-card-divider { background: linear-gradient(90deg, transparent, rgba(130,60,220,.12), transparent); }
 
 /* event rows */
-.adm-log-events { display:flex; flex-direction:column; gap:6px; }
+.adm-log-events { display: flex; flex-direction: column; gap: 5px; }
 .adm-log-event-row {
-    display: flex; align-items: center; gap: 8px;
-    padding: 6px 10px; border-radius: 8px;
-    background: rgba(255,255,255,.03);
+    display: flex; align-items: center; gap: 9px;
+    padding: 8px 11px; border-radius: 10px;
+    background: rgba(255,255,255,.025);
     border: 1px solid rgba(255,255,255,.05);
-    font-size: .78rem;
-    transition: background .2s;
+    font-size: .78rem; transition: background .18s, border-color .18s;
 }
-.adm-log-event-row.is-submitted { background: rgba(30,160,80,.12); border-color: rgba(40,200,100,.22); }
-.adm-log-event-row.is-pending   { background: rgba(180,80,0,.10); border-color: rgba(220,120,0,.18); }
-body.adm-light .adm-log-event-row { background:rgba(0,0,0,.03); border-color:rgba(0,0,0,.07); }
-body.adm-light .adm-log-event-row.is-submitted { background:rgba(0,150,70,.07); border-color:rgba(0,150,70,.18); }
-body.adm-light .adm-log-event-row.is-pending   { background:rgba(180,80,0,.06); border-color:rgba(180,80,0,.15); }
-
-.adm-log-event-icon { font-size: .90rem; flex-shrink: 0; }
-.adm-log-event-row.is-submitted .adm-log-event-icon { color: #44dd88; }
+.adm-log-event-row.is-submitted { background: rgba(20,140,70,.13); border-color: rgba(40,190,100,.20); }
+.adm-log-event-row.is-pending   { background: rgba(160,70,0,.09);  border-color: rgba(200,110,0,.16); }
+body.adm-light .adm-log-event-row { background: rgba(0,0,0,.025); border-color: rgba(0,0,0,.06); }
+body.adm-light .adm-log-event-row.is-submitted { background: rgba(0,140,60,.07); border-color: rgba(0,150,70,.18); }
+body.adm-light .adm-log-event-row.is-pending   { background: rgba(180,80,0,.05); border-color: rgba(180,80,0,.15); }
+.adm-log-event-icon { font-size: .88rem; flex-shrink: 0; }
+.adm-log-event-row.is-submitted .adm-log-event-icon { color: #33ee88; }
 .adm-log-event-row.is-pending   .adm-log-event-icon { color: #ff9944; }
-body.adm-light .adm-log-event-row.is-submitted .adm-log-event-icon { color:#007740; }
-body.adm-light .adm-log-event-row.is-pending   .adm-log-event-icon { color:#cc5500; }
+body.adm-light .adm-log-event-row.is-submitted .adm-log-event-icon { color: #006633; }
+body.adm-light .adm-log-event-row.is-pending   .adm-log-event-icon { color: #cc5500; }
+.adm-log-event-name { flex: 1; color: var(--adm-text); font-weight: 600; letter-spacing: .03em; font-size: .79rem; }
+.adm-log-event-time { font-size: .62rem; color: var(--adm-muted); white-space: nowrap; font-family: 'Orbitron', monospace; letter-spacing: .02em; }
+.adm-log-event-row.is-submitted .adm-log-event-time { color: rgba(60,210,130,.65); }
+body.adm-light .adm-log-event-row.is-submitted .adm-log-event-time { color: #006633; }
 
-.adm-log-event-name { flex: 1; color: var(--adm-text); font-weight: 600; letter-spacing:.04em; }
-.adm-log-event-time {
-    font-size: .65rem; color: var(--adm-muted); white-space: nowrap;
-    font-family: 'Orbitron', monospace; letter-spacing: .02em;
+/* card footer status */
+.adm-log-card-footer {
+    padding: 9px 18px 13px;
+    display: flex; align-items: center; gap: 6px;
+    font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    border-top: 1px solid rgba(255,255,255,.04);
+    position: relative; z-index: 1;
 }
-.adm-log-event-row.is-submitted .adm-log-event-time { color: rgba(80,220,140,.70); }
-body.adm-light .adm-log-event-row.is-submitted .adm-log-event-time { color:#007740; }
+.adm-log-card-footer.status-complete { color: #33ee88; }
+.adm-log-card-footer.status-partial  { color: rgba(180,120,255,.75); }
+body.adm-light .adm-log-card-footer { border-top-color: rgba(0,0,0,.05); }
+body.adm-light .adm-log-card-footer.status-complete { color: #006633; }
+body.adm-light .adm-log-card-footer.status-partial  { color: #6600cc; }
+.adm-log-card-footer i { font-size: .74rem; }
 
 /* log summary bar */
 .adm-log-summary {
@@ -1393,7 +1452,7 @@ body.adm-light .adm-log-event-row.is-submitted .adm-log-event-time { color:#0077
     border-top: 1px solid rgba(255,255,255,.07);
     font-size: .78rem; color: var(--adm-muted);
 }
-body.adm-light .adm-log-summary { border-top-color:rgba(0,0,0,.08); color:#5533aa; }
+body.adm-light .adm-log-summary { border-top-color: rgba(0,0,0,.08); color: #5533aa; }
 
 /* ── Score drill-down modal ── */
 .adm-score-overlay {
@@ -1460,18 +1519,18 @@ body.adm-light .adm-score-table .td-score { color: #5500bb; }
 /* Clickable event rows */
 .adm-log-event-clickable { cursor: pointer; }
 .adm-log-event-clickable:hover {
-    background: rgba(80,40,160,.28) !important;
-    border-color: rgba(160,80,255,.48) !important;
+    background: rgba(80,40,160,.30) !important;
+    border-color: rgba(160,80,255,.54) !important;
 }
 body.adm-light .adm-log-event-clickable:hover {
     background: rgba(100,30,180,.08) !important;
-    border-color: rgba(120,40,200,.35) !important;
+    border-color: rgba(120,40,200,.38) !important;
 }
 .adm-log-event-view-icon {
-    font-size: .75rem; opacity: .40; flex-shrink: 0;
-    color: var(--adm-muted); transition: opacity .15s, color .15s;
+    font-size: .72rem; opacity: .30; flex-shrink: 0;
+    color: var(--adm-muted); transition: opacity .18s, color .18s;
 }
-.adm-log-event-clickable:hover .adm-log-event-view-icon { opacity: .90; color: #cc88ff; }
+.adm-log-event-clickable:hover .adm-log-event-view-icon { opacity: 1; color: #cc88ff; }
 body.adm-light .adm-log-event-clickable:hover .adm-log-event-view-icon { color: #6600cc; }
 </style>
 
@@ -1541,23 +1600,47 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
                     '</div>';
             }).join('');
 
+            var pct  = total > 0 ? Math.round(submitted / total * 100) : 0;
+            var remaining = total - submitted;
             var card = document.createElement('div');
             card.className = 'adm-log-card';
             card.style.animationDelay = (idx * 0.07) + 's';
             card.innerHTML =
-                '<div class="adm-log-card-header">' +
-                    '<div class="adm-log-avatar">' + initials + '</div>' +
-                    '<div class="adm-log-judge-info">' +
-                        '<div class="adm-log-judge-name">' + displayName + '</div>' +
-                        '<div class="adm-log-judge-sub">' + judge.judge_name + '</div>' +
-                    '</div>' +
-                    '<span class="adm-log-completion' + (isComplete ? ' complete' : '') + '">' +
-                        submitted + '/' + total +
-                    '</span>' +
+                '<div class="adm-log-card-strip">' +
+                    '<div class="adm-log-card-strip-fill' + (isComplete ? ' is-complete' : '') + '" style="width:' + pct + '%"></div>' +
                 '</div>' +
-                '<div class="adm-log-events">' + eventRows + '</div>';
+                '<div class="adm-log-card-inner">' +
+                    '<div class="adm-log-card-header">' +
+                        '<div class="adm-log-avatar">' + initials + '</div>' +
+                        '<div class="adm-log-judge-info">' +
+                            '<div class="adm-log-judge-name">' + displayName + '</div>' +
+                            '<div class="adm-log-judge-sub">' + judge.judge_name + '</div>' +
+                        '</div>' +
+                        '<span class="adm-log-completion' + (isComplete ? ' complete' : '') + '">' +
+                            submitted + '/' + total +
+                        '</span>' +
+                    '</div>' +
+                    '<div class="adm-log-card-divider"></div>' +
+                    '<div class="adm-log-events">' + eventRows + '</div>' +
+                '</div>' +
+                '<div class="adm-log-card-footer ' + (isComplete ? 'status-complete' : 'status-partial') + '">' +
+                    (isComplete
+                        ? '<i class="bi bi-patch-check-fill"></i>&nbsp; All events submitted'
+                        : '<i class="bi bi-hourglass-split"></i>&nbsp; ' + remaining + ' event' + (remaining !== 1 ? 's' : '') + ' remaining') +
+                '</div>';
             grid.appendChild(card);
         });
+
+        var totalJudges    = data.judges.length;
+        var completeJudges = data.judges.filter(function(j) {
+            return j.events.every(function(e) { return e.submitted; });
+        }).length;
+        var qs = document.getElementById('log-quickstats');
+        if (qs) {
+            document.getElementById('qs-complete').textContent = completeJudges;
+            document.getElementById('qs-total').textContent    = totalJudges;
+            qs.removeAttribute('hidden');
+        }
 
         summary.removeAttribute('hidden');
         document.getElementById('log-last-updated').textContent = data.fetched_at;
@@ -1603,19 +1686,19 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
                 }
                 var rows = data.scores.map(function(s) {
                     return '<tr>' +
+                        '<td class="td-rank">' + (s.ranking || '&mdash;') + '</td>' +
                         '<td class="td-num">#' + s.contestant_number + '</td>' +
                         '<td class="td-name">' + s.contestant_name + '</td>' +
                         '<td class="td-score">' + parseFloat(s.score).toFixed(1) + '</td>' +
-                        '<td class="td-rank">' + (s.ranking || '&mdash;') + '</td>' +
                         '</tr>';
                 }).join('');
                 body.innerHTML =
                     '<table class="adm-score-table">' +
                         '<thead><tr>' +
+                            '<th class="th-r">Rank</th>' +
                             '<th>#</th>' +
                             '<th>Contestant</th>' +
                             '<th class="th-r">Score</th>' +
-                            '<th class="th-r">Rank</th>' +
                         '</tr></thead>' +
                         '<tbody>' + rows + '</tbody>' +
                     '</table>';

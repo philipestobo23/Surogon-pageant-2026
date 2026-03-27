@@ -418,7 +418,7 @@ class AdminController extends Controller
 
         $rows = DB::table($meta['table'])
             ->select('contestant_number', 'contestant_name', $scoreCol . ' as score', $rankCol . ' as ranking')
-            ->orderBy('contestant_number')
+            ->orderBy($rankCol)
             ->get();
 
         return response()->json([
