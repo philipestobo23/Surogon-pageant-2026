@@ -69,6 +69,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/proceed-to-final', [App\Http\Controllers\AdminController::class, 'proceedToFinal'])->name('proceed_to_final');
     Route::get('/admin/report/pdf', [App\Http\Controllers\AdminController::class, 'generatePdfReport'])->name('admin.report.pdf');
     Route::get('/admin/online-users', [App\Http\Controllers\AdminController::class, 'onlineUsers'])->name('admin.online_users');
+    Route::get('/admin/activity-log', [App\Http\Controllers\AdminController::class, 'activityLog'])->name('admin.activity_log');
+    Route::get('/admin/judge-scores', [App\Http\Controllers\AdminController::class, 'judgeScores'])->name('admin.judge_scores');
 
 
     // postProductionGrading

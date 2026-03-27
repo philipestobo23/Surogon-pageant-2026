@@ -340,4 +340,92 @@ class AdminController extends Controller
         ]);
     }
 
+    public function activityLog()
+    {
+        if (Auth::user()->name !== 'admin') {
+            abort(403);
+        }
+
+        $judges = DB::table('users')
+            ->where('name', '!=', 'admin')
+            ->orderBy('name')
+            ->get(['id', 'name', 'RealName']);
+
+        $events = [
+            'Swimwear'  => ['table' => 'coronation', 'col_suffix' => '_swimsuit'],
+            'Gown'      => ['table' => 'coronation', 'col_suffix' => '_gown'],
+            'Snap Talk' => ['table' => 'top10s',     'col_suffix' => '_question'],
+            'Final Q&A' => ['table' => 'finals',     'col_suffix' => '_final'],
+        ];
+
+        $result = [];
+        foreach ($judges as $judge) {
+            $eventStatus = [];
+            foreach ($events as $label => $meta) {
+                $col = $judge->name . $meta['col_suffix'];
+                $submitted = DB::table($meta['table'])->where($col, '>', 0)->exists();
+                $submittedAt = $submitted
+                    ? DB::table($meta['table'])->where($col, '>', 0)->max('updated_at')
+                    : null;
+                $eventStatus[] = [
+                    'event'        => $label,
+                    'submitted'    => $submitted,
+                    'submitted_at' => $submittedAt,
+                ];
+            }
+            $result[] = [
+                'judge_id'   => $judge->id,
+                'judge_name' => $judge->name,
+                'real_name'  => $judge->RealName ?? '',
+                'events'     => $eventStatus,
+            ];
+        }
+
+        return response()->json([
+            'judges'     => $result,
+            'fetched_at' => now()->toDateTimeString(),
+        ]);
+    }
+
+    public function judgeScores(Request $request)
+    {
+        if (Auth::user()->name !== 'admin') {
+            abort(403);
+        }
+
+        $judgeName = $request->input('judge');
+        $eventKey  = $request->input('event');
+
+        // Whitelist judge name to prevent column-name injection
+        if (!preg_match('/^Judge[1-9]\d*$/', $judgeName)) {
+            abort(400);
+        }
+
+        $eventMap = [
+            'Swimwear'  => ['table' => 'coronation', 'score_col' => '_swimsuit',  'rank_col' => '_swimsuit_ranking'],
+            'Gown'      => ['table' => 'coronation', 'score_col' => '_gown',      'rank_col' => '_gown_ranking'],
+            'Snap Talk' => ['table' => 'top10s',     'score_col' => '_question',  'rank_col' => '_question_ranking'],
+            'Final Q&A' => ['table' => 'finals',     'score_col' => '_final',     'rank_col' => '_final_ranking'],
+        ];
+
+        if (!isset($eventMap[$eventKey])) {
+            abort(400);
+        }
+
+        $meta     = $eventMap[$eventKey];
+        $scoreCol = $judgeName . $meta['score_col'];
+        $rankCol  = $judgeName . $meta['rank_col'];
+
+        $rows = DB::table($meta['table'])
+            ->select('contestant_number', 'contestant_name', $scoreCol . ' as score', $rankCol . ' as ranking')
+            ->orderBy('contestant_number')
+            ->get();
+
+        return response()->json([
+            'judge'  => $judgeName,
+            'event'  => $eventKey,
+            'scores' => $rows,
+        ]);
+    }
+
 }
