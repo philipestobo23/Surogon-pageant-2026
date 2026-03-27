@@ -259,13 +259,13 @@ class AdminController extends Controller
         }
 
         $request->validate([
-            'contestant_ids'   => 'required|array|size:3',
+            'contestant_ids'   => 'required|array|size:5',
             'contestant_ids.*' => 'required|integer',
         ]);
 
         $selected = Top10::whereIn('id', $request->contestant_ids)->get();
 
-        if ($selected->count() !== 3) {
+        if ($selected->count() !== 5) {
             return response()->json(['message' => 'Could not find all selected contestants. Please try again.'], 422);
         }
 
@@ -279,7 +279,7 @@ class AdminController extends Controller
             ]);
         }
 
-        return response()->json(['message' => 'Top 3 successfully set for the Final Event! Judges can now score the Final round.']);
+        return response()->json(['message' => 'Top 5 successfully set for the Final Event! Judges can now score the Final round.']);
     }
 
     public function generatePdfReport()

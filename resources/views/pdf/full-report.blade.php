@@ -413,6 +413,12 @@
             color: #fff;
             border-color: #6b3010;
         }
+        .final-badge-runner {
+            background: #555577;
+            color: #ddddef;
+            border-color: #3a3a55;
+        }
+        .final-row-runner td { background: #f5f5fa !important; color: #4a4a6a !important; }
 
         /* Medal icon prefix in name */
         .medal-icon { font-size: 9px; margin-right: 3px; }
@@ -1080,7 +1086,7 @@
             <div class="final-banner-supertitle">Kababajinhang Surogon 2026 &mdash; Official Results</div>
             <div class="final-banner-title">Grand Coronation Final Event</div>
             <hr class="final-banner-line">
-            <div class="final-banner-subtitle">Top 3 Finalists</div>
+            <div class="final-banner-subtitle">Top 5 Finalists</div>
             <div class="final-banner-ornament">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
         </div>
 
@@ -1103,9 +1109,9 @@
                     @foreach($finals->sortBy('rank_final') as $f)
                         @php
                             $r = (int) $f->rank_final;
-                            $rowCls  = $r === 1 ? 'final-row-1' : ($r === 2 ? 'final-row-2' : 'final-row-3');
-                            $bdgCls  = $r === 1 ? 'final-badge-1' : ($r === 2 ? 'final-badge-2' : 'final-badge-3');
-                            $lbl     = $r === 1 ? '1st Place' : ($r === 2 ? '2nd Place' : '3rd Place');
+                            $rowCls  = $r === 1 ? 'final-row-1' : ($r === 2 ? 'final-row-2' : ($r === 3 ? 'final-row-3' : 'final-row-runner'));
+                            $bdgCls  = $r === 1 ? 'final-badge-1' : ($r === 2 ? 'final-badge-2' : ($r === 3 ? 'final-badge-3' : 'final-badge-runner'));
+                            $lbl     = $r === 1 ? '1st Place' : ($r === 2 ? '2nd Place' : ($r === 3 ? '3rd Place' : $r . 'th Place'));
                         @endphp
                         <tr class="{{ $rowCls }}">
                             <td><span class="final-badge {{ $bdgCls }}">{{ $lbl }}</span></td>

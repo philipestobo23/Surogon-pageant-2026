@@ -97,7 +97,7 @@
                         onerror="this.src='{{ asset('images/KS.png') }}'">
                     <div class="fn-photo-overlay"></div>
                     <div class="fn-finalist-crown"><i class="bi bi-gem"></i></div>
-                    <div class="fn-top5-badge"><i class="bi bi-trophy-fill"></i> TOP 3</div>
+                    <div class="fn-top5-badge"><i class="bi bi-trophy-fill"></i> TOP 5</div>
                 </div>
                 <div class="fn-card-body">
                     <p class="fn-contestant-label">Contestant</p>
@@ -105,7 +105,6 @@
                     <div class="fn-score-wrap">
                         <label class="fn-score-label"><i class="bi bi-pen-fill me-1"></i>Score</label>
                         <input class="fn-score-input" type="number" step="0.1" min="1" max="10"
-                                value="{{ $datum[2] }}" name="{{ $datum[3] }}">
                                 value="{{ $datum[2] }}" name="{{ $datum[3] }}">
                     </div>
                 </div>
@@ -129,12 +128,12 @@
         </div>
     </form>
     @else
-    {{-- ── Empty State (no Top 3 selected yet) ── --}}
+    {{-- ── Empty State (no Top 5 selected yet) ── --}}
     <div class="fn-empty-state">
         <div class="fn-empty-icon"><i class="bi bi-hourglass-split"></i></div>
         <h3 class="fn-empty-title">No Finalists Available</h3>
         <p class="fn-empty-desc">
-            The Top 3 finalists have not been determined yet.<br>
+            The Top 5 finalists have not been determined yet.<br>
             The Snap Talk round must be completed before Final Q&amp;A scoring can begin.
         </p>
         <a href="{{ route('home') }}" class="fn-empty-back">

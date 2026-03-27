@@ -94,13 +94,13 @@
                     </div>
                     <div>
                         <p class="sc-sub">Round 2</p>
-                        <h3 class="sc-title">Top 3 Selection</h3>
+                        <h3 class="sc-title">Top 5 Selection</h3>
                     </div>
                     <span class="sc-badge">1 Event</span>
                 </div>
 
                 <p class="sc-desc">Score the shortlisted Top 8 contestants for the Snap Talk question round to determine the
-                    Top 3.</p>
+                    Top 5.</p>
 
                 <div class="sc-buttons">
                     <a href="{{ route('question_form') }}" class="judge-btn btn-snaptalk">
@@ -127,7 +127,7 @@
                     <span class="sc-badge sc-badge-final">Grand Final</span>
                 </div>
 
-                <p class="sc-desc">Determine the ultimate winner. Score the Top 3 finalists in the final Q&amp;A to crown
+                <p class="sc-desc">Determine the ultimate winner. Score the Top 5 finalists in the final Q&amp;A to crown
                     Kababajinhang Surogon 2026.</p>
 
                 <div class="sc-buttons">

@@ -289,7 +289,7 @@
             <div class="adm-section-icon teal"><i class="bi bi-chat-right-heart-fill"></i></div>
             <div>
                 <p class="adm-section-sub">Round 2</p>
-                <h2 class="adm-section-title">Snap Talk — Top 3 Selection</h2>
+                <h2 class="adm-section-title">Snap Talk — Top 5 Selection</h2>
             </div>
             <div class="adm-btn-group ms-auto flex-wrap">
                 <button class="adm-btn adm-btn--teal" id="snap-ranking">
@@ -338,12 +338,12 @@
         <div class="adm-final-selector-wrap" id="final-selector-wrap" hidden>
             <div class="adm-final-selector-header">
                 <div class="adm-final-selector-title">
-                    <i class="bi bi-gem me-2"></i>Select Top 3 for Final Event
+                    <i class="bi bi-gem me-2"></i>Select Top 5 for Final Event
                 </div>
                 <div class="adm-r2-actions">
-                    <span class="adm-final-counter" id="final-counter"><span id="final-count">0</span> / 3 selected</span>
+                    <span class="adm-final-counter" id="final-counter"><span id="final-count">0</span> / 5 selected</span>
                     <button class="adm-btn adm-btn--teal" type="button" id="final-auto-select">
-                        <i class="bi bi-magic me-2"></i>Auto-Select Top 3
+                        <i class="bi bi-magic me-2"></i>Auto-Select Top 5
                     </button>
                     <button class="adm-btn adm-btn--rose" type="button" id="final-proceed" disabled>
                         <i class="bi bi-gem me-2"></i>Proceed to Final
@@ -399,12 +399,12 @@
             <div class="adm-golden-crown-banner" aria-hidden="true">
                 <span class="adm-golden-star">✦</span>
                 <span class="adm-golden-crown"><i class="bi bi-trophy-fill"></i></span>
-                <span class="adm-golden-title-banner">Top 3 Finalists</span>
+                <span class="adm-golden-title-banner">Top 5 Finalists</span>
                 <span class="adm-golden-crown"><i class="bi bi-trophy-fill"></i></span>
                 <span class="adm-golden-star">✦</span>
             </div>
             <div class="adm-table-header adm-golden-header">
-                <span class="adm-table-title"><i class="bi bi-gem me-2"></i>Final Event — Top 3</span>
+                <span class="adm-table-title"><i class="bi bi-gem me-2"></i>Final Event — Top 5</span>
                 <button class="adm-print-btn" type="button" onclick="printFinal()">
                     <i class="bi bi-printer-fill me-2"></i>Print
                 </button>
@@ -1262,6 +1262,19 @@ body.adm-light #final-rank-table tr.final-top3 td { background: linear-gradient(
 body.adm-light .adm-rank-gold   { background:rgba(200,152,0,.12); border-color:rgba(180,132,0,.46); color:#7a4f00; text-shadow:none; animation:none; }
 body.adm-light .adm-rank-silver { background:rgba(138,138,158,.12); border-color:rgba(158,158,178,.40); color:#44446a; }
 body.adm-light .adm-rank-bronze { background:rgba(138,78,18,.10); border-color:rgba(158,100,28,.38); color:#6a3800; }
+/* Rank 4 & 5 Runner-Up */
+#final-rank-table tr.final-top-runner td {
+    background: rgba(60,60,80,.18) !important;
+    color: #b8b8cc !important;
+    border-bottom: 1px solid rgba(120,120,148,.20) !important;
+}
+body.adm-light #final-rank-table tr.final-top-runner td { background: rgba(220,220,235,.50) !important; color:#4a4a6a !important; }
+.adm-rank-runner {
+    display:inline-flex; align-items:center; gap:5px; padding:4px 12px; border-radius:50px;
+    font-weight:600; font-size:.82rem;
+    background:rgba(80,80,110,.28); border:1px solid rgba(140,140,175,.40); color:#c0c0d8;
+}
+body.adm-light .adm-rank-runner { background:rgba(190,190,215,.18); border-color:rgba(140,140,175,.38); color:#4a4a6a; }
 
 /* ── Activity Log Tab ── */
 .adm-tab--log::after { background: linear-gradient(90deg, #6600cc, #aa44ff, #cc88ff, #aa44ff, #6600cc); background-size:300% 100%; animation: admBarShimmer 3s linear infinite; }
@@ -2487,14 +2500,14 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
             }); // end Swal.fire .then()
         });
 
-        // ── Final Selector (Top 3 from Snap Talk) ──
+        // ── Final Selector (Top 5 from Snap Talk) ──
         var finalData = [];
 
         function finalUpdateCounter() {
             var count = $('#final-selector-table .final-checkbox:checked').length;
             $('#final-count').text(count);
-            $('#final-counter').toggleClass('is-full', count === 3);
-            $('#final-proceed').prop('disabled', count !== 3);
+            $('#final-counter').toggleClass('is-full', count === 5);
+            $('#final-proceed').prop('disabled', count !== 5);
         }
 
         function finalBuildTable(data) {
@@ -2506,7 +2519,7 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
             $('#final-status').attr('hidden', true).removeClass('success error loading').text('');
             $.each(data, function(i, v) {
                 var rank = parseInt(v.rank_question);
-                var checked = (rank >= 1 && rank <= 3);
+                var checked = (rank >= 1 && rank <= 5);
                 var row = $(`
                     <tr class="${checked ? 'final-selected' : ''}" data-id="${v.id}" data-rank="${rank}">
                         <td style="width:42px"><input type="checkbox" class="final-checkbox" ${checked ? 'checked' : ''} style="accent-color:#ff88cc;width:18px;height:18px;cursor:pointer;"></td>
@@ -2566,7 +2579,7 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
             });
             var checked = 0;
             $.each(rows, function(i, row) {
-                if (checked < 3) {
+                if (checked < 5) {
                     $(row).find('.final-checkbox').prop('checked', true);
                     $(row).addClass('final-selected');
                     checked++;
@@ -2577,7 +2590,7 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
 
         $(document).on('change', '.final-checkbox', function() {
             var count = $('#final-selector-table .final-checkbox:checked').length;
-            if (count > 3) {
+            if (count > 5) {
                 $(this).prop('checked', false);
             } else {
                 $(this).closest('tr').toggleClass('final-selected', $(this).is(':checked'));
@@ -2590,7 +2603,7 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
                 var cb = $(this).find('.final-checkbox');
                 var newState = !cb.prop('checked');
                 var count = $('#final-selector-table .final-checkbox:checked').length;
-                if (newState && count >= 3) return;
+                if (newState && count >= 5) return;
                 cb.prop('checked', newState);
                 $(this).toggleClass('final-selected', newState);
                 finalUpdateCounter();
@@ -2603,10 +2616,10 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
                 selected.push($(this).closest('tr').data('id'));
             });
             var t = r2SwalTheme();
-            if (selected.length !== 3) {
+            if (selected.length !== 5) {
                 Swal.fire({
                     title: 'Selection Incomplete',
-                    text: 'You must select exactly 3 contestants to proceed to the Final Event.',
+                    text: 'You must select exactly 5 contestants to proceed to the Final Event.',
                     icon: 'error',
                     background: t.background,
                     color: t.color,
@@ -2682,14 +2695,16 @@ document.querySelectorAll('.adm-tab').forEach(function(tab) {
                     $('#final-rank-table').empty();
                     $.each(response.ranking, function(key, value) {
                         var rank = parseInt(value.rank_final);
-                        var rowClass = rank === 1 ? 'final-top1' : (rank === 2 ? 'final-top2' : 'final-top3');
+                        var rowClass = rank === 1 ? 'final-top1' : (rank === 2 ? 'final-top2' : (rank === 3 ? 'final-top3' : 'final-top-runner'));
                         var badge;
                         if (rank === 1) {
                             badge = '<span class="adm-rank-gold"><i class="bi bi-trophy-fill"></i> 1st</span>';
                         } else if (rank === 2) {
                             badge = '<span class="adm-rank-silver"><i class="bi bi-award-fill"></i> 2nd</span>';
-                        } else {
+                        } else if (rank === 3) {
                             badge = '<span class="adm-rank-bronze"><i class="bi bi-award"></i> 3rd</span>';
+                        } else {
+                            badge = '<span class="adm-rank-runner"><i class="bi bi-star"></i> ' + rank + (rank === 4 ? 'th' : 'th') + '</span>';
                         }
                         var newRow = $(`
                             <tr class="text-center ${rowClass}">
