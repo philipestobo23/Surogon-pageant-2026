@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Finals', function (Blueprint $table) {
+        Schema::create('finals', function (Blueprint $table) {
             $table->id();
 
             $table->integer('contestant_number');
@@ -46,6 +46,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Finals');
+        Schema::dropIfExists('finals');
     }
 };
