@@ -11,6 +11,6 @@ class Preliminary extends Model
     protected $table = 'preliminary_event';
     protected $fillable = ['contestant_number', 'contestant_name', 'Address',
          'closed_interview', 'photogenic', 'white_collection', 'tourism_video', 'talent',
-         'filipiniana', 'production_wear', 'production_number', 'runway', 'miss_congeniality',
+         'filipiniana', 'production_wear', 'production_number', 'runway', 'miss_congeniality', 'peoples_choice',
          'total_ranking', 'rank'];
 }

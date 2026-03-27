@@ -33,6 +33,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '2',
                 'runway' => '1',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -55,6 +57,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '4',
                 'runway' => '17',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -75,6 +79,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '3',
                 'runway' => '6',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -95,6 +101,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '5',
                 'runway' => '8',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -115,6 +123,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '5',
                 'runway' => '18',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -135,6 +145,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '14',
                 'runway' => '6',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -155,6 +167,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '5',
                 'runway' => '20',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -175,6 +189,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '3',
                 'runway' => '8',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -195,6 +211,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '1',
                 'runway' => '5',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -215,6 +233,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '2',
                 'runway' => '3',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -235,6 +255,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '6',
                 'runway' => '5',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -255,6 +277,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '2',
                 'runway' => '7',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -275,6 +299,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '7',
                 'runway' => '16',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -294,6 +320,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '6',
                 'runway' => '7',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -314,6 +342,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '7',
                 'runway' => '15',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -334,6 +364,8 @@ class PreliminarySeeder extends Seeder
                 'production_number' => '6',
                 'runway' => '9',
                 'miss_congeniality' => 0,
+                'peoples_choice' => 0,
+                
 
                 'created_at' => now(),
                 'updated_at' => now(),

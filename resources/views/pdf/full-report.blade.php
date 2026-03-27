@@ -860,7 +860,7 @@
         @if($preliminary->count())
             <div class="section-meta">{{ $preliminary->count() }} contestant(s) &nbsp;&bull;&nbsp; Categories: Closed
                 Interview &middot; Photogenic &middot; White Collection &middot; Tourism Video &middot; Talent &middot;
-                Filipiniana &middot; Production Wear &middot; Production Number &middot; Runway &middot; Miss Congeniality</div>
+                Filipiniana &middot; Production Wear &middot; Production Number &middot; Runway &middot; Miss Congeniality &middot; People's Choice</div>
             <table class="data-table">
                 <thead>
                     <tr>
@@ -878,6 +878,7 @@
                         <th>Prod. No.</th>
                         <th>Runway</th>
                         <th>Miss Cong.</th>
+                        <th>People's Choice</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -897,6 +898,7 @@
                             <td>{{ $p->production_number }}</td>
                             <td>{{ $p->runway }}</td>
                             <td>{{ $p->miss_congeniality }}</td>
+                            <td>{{ $p->peoples_choice }}</td>
                         </tr>
                     @endforeach
                 </tbody>

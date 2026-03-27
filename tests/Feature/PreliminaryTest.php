@@ -29,6 +29,7 @@ class PreliminaryTest extends TestCase
             'production_number' => 3,
             'runway'            => 4,
             'miss_congeniality' => 0,
+            'peoples_choice'    => 0,
             'total_ranking'     => 0,
             'rank'              => 0,
         ], $overrides));
@@ -68,6 +69,33 @@ class PreliminaryTest extends TestCase
         $this->assertContains('miss_congeniality', $fillable);
     }
 
+    /** @test */
+    public function peoples_choice_column_exists_in_preliminary_event_table(): void
+    {
+        $this->makeContestant(['peoples_choice' => 5]);
+
+        $this->assertDatabaseHas('preliminary_event', [
+            'contestant_number' => 1,
+            'peoples_choice'    => 5,
+        ]);
+    }
+
+    /** @test */
+    public function peoples_choice_defaults_to_zero(): void
+    {
+        $contestant = $this->makeContestant();
+
+        $this->assertSame(0, $contestant->peoples_choice);
+    }
+
+    /** @test */
+    public function peoples_choice_is_in_fillable(): void
+    {
+        $fillable = (new Preliminary)->getFillable();
+
+        $this->assertContains('peoples_choice', $fillable);
+    }
+
     // --- Ranking Calculation ---
 
     /** @test */
@@ -84,9 +112,10 @@ class PreliminaryTest extends TestCase
             'production_number' => 2,
             'runway'            => 1,
             'miss_congeniality' => 4,
+            'peoples_choice'    => 3,
         ];
 
-        $expected = array_sum($scores); // 42
+        $expected = array_sum($scores); // 45
 
         $this->makeContestant($scores);
         $this->actingAs($this->admin())->get(route('preliminary_ranking'));
@@ -111,6 +140,7 @@ class PreliminaryTest extends TestCase
             'production_number' => 3,
             'runway'            => 5,
             'miss_congeniality' => 0,
+            'peoples_choice'    => 0,
         ];
 
         $expected = array_sum($scores); // 40

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('production_wear')->default(0);
             $table->integer('production_number')->default(0);
             $table->integer('miss_congeniality')->default(0);
+            $table->integer('peoples_choice')->default(0);
             $table->integer('runway')->default(0);
 
             $table->integer('total_ranking')->default(0);

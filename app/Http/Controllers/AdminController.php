@@ -65,7 +65,7 @@ class AdminController extends Controller
         //update total_ranking
         $allContestant = Preliminary::all();
         foreach($allContestant as $contestant){
-            $total_ranking = $contestant->closed_interview + $contestant->photogenic + $contestant->white_collection + $contestant->tourism_video + $contestant->talent + $contestant->filipiniana + $contestant->production_wear + $contestant->production_number + $contestant->runway + $contestant->miss_congeniality;
+            $total_ranking = $contestant->closed_interview + $contestant->photogenic + $contestant->white_collection + $contestant->tourism_video + $contestant->talent + $contestant->filipiniana + $contestant->production_wear + $contestant->production_number + $contestant->runway + $contestant->miss_congeniality + $contestant->peoples_choice;
             Preliminary::where('id', $contestant->id)->update([
                 'total_ranking' => $total_ranking,
             ]);
